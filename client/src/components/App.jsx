@@ -37,10 +37,10 @@ function App () {
     <div>{someState.products[0]['name']}
     {/* {someState.reviews[0]['count']} */}
 
-      <Overview product = {someState.products}/>
+      {/* <Overview product = {someState.products}/>
       <Reviews product_id = {someState.product_id} />
       <QandAs product_id = {someState.product_id}/>
-      <RelatedItems product_id = {someState.product_id}/>
+      <RelatedItems product_id = {someState.product_id}/> */}
     </div>
   );
 }
