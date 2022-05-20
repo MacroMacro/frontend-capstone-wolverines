@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import Overview from './Overview/Overview.jsx';
+import Overview from './Overview/Overview.jsx';
 // import Reviews from './Reviews/Reviews.jsx';
 // import QandAs from './QandAs/QandAs.jsx';
 // import RelatedItems from './RelatedItems/RelatedItems.jsx';
@@ -14,33 +14,33 @@ function App () {
   })
 
 
-  const onLoad = () => {
-    axios.get('/products')
-      .then((response) =>{setStatefn({products: response.data}); console.log('products', response.data)})
-      .catch(err => console.log(err));
+  // const onLoad = () => {
+  //   axios.get('/products')
+  //     .then((response) =>{setStatefn({products: response.data}); console.log('products', response.data)})
+  //     .catch(err => console.log(err));
 
-      // var reviews = [];
-      // someState.products.map((product)=> axios.get(`/reviews/?id=${product['id']}`)
-      //   .then((response)=>reviews.push(response.data))
-      //   .catch(err => console.log(err)));
+  //     // var reviews = [];
+  //     // someState.products.map((product)=> axios.get(`/reviews/?id=${product['id']}`)
+  //     //   .then((response)=>reviews.push(response.data))
+  //     //   .catch(err => console.log(err)));
 
-      // setStatefn({reviews: reviews});
-  }
+  //     // setStatefn({reviews: reviews});
+  // }
 
 
 
-  useEffect(onLoad, []);
+  // useEffect(onLoad, []);
 
 
 
   return(
-    <div>{someState.products[0]['name']}
+    <div id = 'test'>Hello world
     {/* {someState.reviews[0]['count']} */}
 
-      <Overview product = {someState.products}/>
-      <Reviews product_id = {someState.product_id} />
+      {/* <Overview product_id = {someState.product_id}/> */}
+      {/* <Reviews product_id = {someState.product_id} />
       <QandAs product_id = {someState.product_id}/>
-      <RelatedItems product_id = {someState.product_id}/>
+      <RelatedItems product_id = {someState.product_id}/> */}
     </div>
   );
 }

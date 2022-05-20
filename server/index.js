@@ -79,8 +79,6 @@ app.put('/report/qa', (req, res) => {
 
 //get cart info
 app.get('/cart', (req, res) => {
-  var id = req.query['id'];
-  console.log('id', id);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart`, { headers: {'Authorization': process.env.token}})
   .then((data)=> {console.log(data); res.status(200).send(data.data)})
   .catch((err) => {console.log('err', err); res.status(500).send(err);});
