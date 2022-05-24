@@ -12,8 +12,9 @@ export default function ReviewListEntry(props) {
   return(
     <div className = "reviewItem">
     <div className = "reviewRating">{props.rating} stars</div>
-    <div className = "reviewTitle">{props.title}</div>
+    <h1 className = "reviewTitle">{props.title}</h1>
     <div className = "reviewBody">{props.body}</div>
+    <button type="button" className = "helpfulButton">Helpful? &nbsp;<u>Yes</u>(*)</button> <span className = "helpfulButton">|</span> <button type="button" className = "reportButton"><u>Report</u></button>
     </div>
   )
 }

@@ -22,7 +22,7 @@ export default function ReviewList({id}) {
   // review body
   // review title
   // reviews.body, reviews.summary, reviews.review_id
-  // get the length of the reviews array
+  // get the length of the reviews array\// helpful report buttons 
 
   return(
     <div>

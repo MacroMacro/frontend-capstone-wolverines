@@ -16,3 +16,17 @@
   font-weight: bold;
   font-size: 12px;
 }
+
+.helpfulButton {
+  border: none;
+  background-color: transparent;
+  color: grey;
+  font-size: 8px;
+}
+
+.reportButton {
+  border: none;
+  background-color: transparent;
+  color: grey;
+  font-size: 8px;
+}
