@@ -8,6 +8,7 @@ export default function ReviewListEntry(props) {
   // console.log('body', props.body);
   // console.log('summary', props.title);
   //console.log('rating', props.rating);
+  //console.log(props);
 
   return(
     <div className = "reviewItem">
@@ -16,7 +17,7 @@ export default function ReviewListEntry(props) {
     <div className = "reviewBody">{props.body}</div>
     <button type="button" className = "helpfulButton">Helpful? &nbsp;
     <u>Yes</u>
-    <span>(*){props.helpfulness}</span>
+    <span> &nbsp; ( {props.helpfulness} )</span>
     </button>
     <span className = "helpfulButton">|</span>
     <button type="button" className = "reportButton"><u>Report</u></button>

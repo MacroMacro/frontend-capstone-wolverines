@@ -45,12 +45,13 @@ export default function ReviewList({id}) {
 
   formView ? (<div className = "reviewList">
   <div>
-    <div className = "reviewTitle">{reviews.length} reviews, sorted by *Fill In*</div>
+    <div className = "reviewTitle">{reviews.length} reviews, sorted by <u>relevance ∨</u></div>
     {reviews.map((info)=> (
       <ReviewListEntry
         body = {info.body}
         title = {info.summary}
         rating = {info.rating}
+        helpfulness = {info.helpfulness}
         key = {info.review_id}
       />
     ))}
@@ -58,24 +59,25 @@ export default function ReviewList({id}) {
 
   <div>
   <div>form goes here</div>
-  <button>MORE REVIEWS</button>
-  <button onClick={handleFormView}>ADD A REVIEW +</button>
+  <button className = "reviewButton">MORE REVIEWS</button>
+  <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
   </div>
   </div>) : (<div className = "reviewList">
   <div>
-    <div className = "reviewTitle">{reviews.length} reviews, sorted by *Fill In*</div>
+    <div className = "reviewTitle">{reviews.length} reviews, sorted by <u>relevance ∨</u></div>
     {reviews.map((info)=> (
       <ReviewListEntry
         body = {info.body}
         title = {info.summary}
         rating = {info.rating}
+        helpfulness = {info.helpfulness}
         key = {info.review_id}
       />
     ))}
   </div>
   <div>
-  <button>MORE REVIEWS</button>
-  <button onClick={handleFormView}>ADD A REVIEW +</button>
+  <button className = "reviewButton">MORE REVIEWS</button>
+  <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
   </div>
   </div>)
 
