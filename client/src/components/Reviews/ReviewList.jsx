@@ -22,14 +22,16 @@ export default function ReviewList({id}) {
   // review body
   // review title
   // reviews.body, reviews.summary, reviews.review_id
+  // get the length of the reviews array
 
-  console.log(reviews);
   return(
     <div>
+      <div className = "reviewTitle">{reviews.length} reviews, sorted by *Fill In*</div>
       {reviews.map((info)=> (
         <ReviewListEntry
           body = {info.body}
           title = {info.summary}
+          rating = {info.rating}
           key = {info.review_id}
         />
       ))}

@@ -5,11 +5,13 @@ import axios from 'axios';
 //
 
 export default function ReviewListEntry(props) {
-  console.log('body', props.body);
-  console.log('summary', props.title);
+  // console.log('body', props.body);
+  // console.log('summary', props.title);
+  console.log('rating', props.rating);
 
   return(
     <div className = "reviewItem">
+    <div className = "reviewRating">{props.rating} stars</div>
     <div className = "reviewTitle">{props.title}</div>
     <div className = "reviewBody">{props.body}</div>
     </div>
