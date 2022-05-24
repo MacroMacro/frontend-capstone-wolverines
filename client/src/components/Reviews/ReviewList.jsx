@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReviewListEntry from './ReviewListEntry.jsx';
+import StarRatings from 'react-star-ratings';
 // list will map and pass to list entry to have the individual data
 // ratings bar will be own seperate component
 
@@ -58,7 +59,15 @@ export default function ReviewList({id}) {
   </div>
 
   <div>
-  <div>form goes here</div>
+  <form>
+    <label className = "addReview">Add a title:</label>
+    <br></br>
+    <input type="text"></input>
+    <br></br>
+    <label className = "addReview">Add a written review:</label>
+    <br></br>
+    <input type="text"></input>
+  </form>
   <button className = "reviewButton">MORE REVIEWS</button>
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
   </div>

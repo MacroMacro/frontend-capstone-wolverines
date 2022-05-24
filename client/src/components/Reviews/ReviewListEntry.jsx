@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import StarRatings from 'react-star-ratings';
 
 // total reviews will be the array length
 //
@@ -12,7 +13,12 @@ export default function ReviewListEntry(props) {
 
   return(
     <div className = "reviewItem">
-    <div className = "reviewRating">{props.rating} stars</div>
+      <StarRatings
+      rating={props.rating}
+      starDimension="10px"
+      starSpacing="1px"
+      starRatedColor="black"
+    />
     <h1 className = "reviewTitle">{props.title}</h1>
     <div className = "reviewBody">{props.body}</div>
     <button type="button" className = "helpfulButton">Helpful? &nbsp;

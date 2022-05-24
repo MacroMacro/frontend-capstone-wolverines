@@ -37,6 +37,7 @@
     "path": "^0.12.7",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-star-ratings": "^2.3.0",
     "underscore": "^1.12.1"
   }
 }
