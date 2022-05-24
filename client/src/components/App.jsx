@@ -28,8 +28,6 @@ function App () {
   // like getting the data and calling it inside of CDM
   useEffect(onLoad, []);
 
-
-
   return(
     <div>{someState.products[0]['name']}
     {/* {someState.reviews[0]['count']} */}

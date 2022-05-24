@@ -1,5 +1,5 @@
 .reviewItem {
-  border: 2px solid black
+  border-bottom: 2px solid black;
 }
 
 .reviewTitle {
@@ -29,4 +29,9 @@
   background-color: transparent;
   color: grey;
   font-size: 8px;
+}
+
+.reviewList{
+  max-width: 50vw;
+  min-width: 25vw;
 }

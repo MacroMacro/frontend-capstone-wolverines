@@ -6,8 +6,7 @@ import ReviewListEntry from './ReviewListEntry.jsx';
 
 export default function ReviewList({id}) {
   const [reviews, setReviews] = useState([]);
-
-  <div>{console.log(id)}</div>
+  const [formView, setFormView] = useState(false);
 
   useEffect(() => {
     function getReviews() {axios.get(`/reviews/${id}`)
@@ -28,6 +27,14 @@ export default function ReviewList({id}) {
     .catch(err => console.log(err));
   }
 
+  const handleFormView = () => {
+    setFormView(!formView);
+  }
+
+  console.log(formView);
+
+
+
   // will be mapping:
   // review body
   // review title
@@ -35,16 +42,42 @@ export default function ReviewList({id}) {
   // get the length of the reviews array\// helpful report buttons
 
   return(
-    <div>
-      <div className = "reviewTitle">{reviews.length} reviews, sorted by *Fill In*</div>
-      {reviews.map((info)=> (
-        <ReviewListEntry
-          body = {info.body}
-          title = {info.summary}
-          rating = {info.rating}
-          key = {info.review_id}
-        />
-      ))}
-    </div>
+
+  formView ? (<div className = "reviewList">
+  <div>
+    <div className = "reviewTitle">{reviews.length} reviews, sorted by *Fill In*</div>
+    {reviews.map((info)=> (
+      <ReviewListEntry
+        body = {info.body}
+        title = {info.summary}
+        rating = {info.rating}
+        key = {info.review_id}
+      />
+    ))}
+  </div>
+
+  <div>
+  <div>form goes here</div>
+  <button>MORE REVIEWS</button>
+  <button onClick={handleFormView}>ADD A REVIEW +</button>
+  </div>
+  </div>) : (<div className = "reviewList">
+  <div>
+    <div className = "reviewTitle">{reviews.length} reviews, sorted by *Fill In*</div>
+    {reviews.map((info)=> (
+      <ReviewListEntry
+        body = {info.body}
+        title = {info.summary}
+        rating = {info.rating}
+        key = {info.review_id}
+      />
+    ))}
+  </div>
+  <div>
+  <button>MORE REVIEWS</button>
+  <button onClick={handleFormView}>ADD A REVIEW +</button>
+  </div>
+  </div>)
+
   )
 }
