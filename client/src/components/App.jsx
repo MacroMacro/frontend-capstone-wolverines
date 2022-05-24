@@ -8,16 +8,17 @@ import axios from 'axios';
 function App () {
   // Remember to change individual github tokens when you pull down the repo to your local!
   const[someState, setStatefn] = useState({
-    products:[{'name': 'LL'}],
+    products:[{'name': 'Camo Onesie'}],
     product_id: '40344'
-
   })
+  const[curProduct, setCurProduct] = useState(0);
+  const[products, setProduct] = useState({});
 
 
-  // const onLoad = () => {
-  //   axios.get('/products')
-  //     .then((response) =>{setStatefn({products: response.data}); console.log('products', response.data)})
-  //     .catch(err => console.log(err));
+  const onLoad = () => {
+    axios.get('/products')
+      .then((response) =>{setProduct(response.data); console.log('products', response.data)})
+      .catch(err => console.log(err));
 
   //     // var reviews = [];
   //     // someState.products.map((product)=> axios.get(`/reviews/?id=${product['id']}`)
@@ -25,24 +26,28 @@ function App () {
   //     //   .catch(err => console.log(err)));
 
   //     // setStatefn({reviews: reviews});
-  // }
+  }
 
 
 
-  // useEffect(onLoad, []);
+  useEffect(onLoad, []);
 
 
+  if (products.length>1) {
+    return(
+      <div>
+      {/* {someState.reviews[0]['count']} */}
 
-  return(
-    <div id = 'test'>Hello world
-    {/* {someState.reviews[0]['count']} */}
+        <Overview product = {products[curProduct]}/>
+        {/* <Reviews product_id = {someState.product_id} />
+        <QandAs product_id = {someState.product_id}/>
+        <RelatedItems product_id = {someState.product_id}/> */}
+      </div>
+    );
+  } else {
+    return <div id = 'test'>Hello world></div> ;
+  }
 
-      {/* <Overview product_id = {someState.product_id}/> */}
-      {/* <Reviews product_id = {someState.product_id} />
-      <QandAs product_id = {someState.product_id}/>
-      <RelatedItems product_id = {someState.product_id}/> */}
-    </div>
-  );
 }
 
 /*

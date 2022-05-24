@@ -1,49 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-function Overview (product_id) {
-  const [Style, setStylefn] = useState({
-    styles: [],
-    current_style: {},
-  });
+import Photos from './Photos.jsx';
+import Skus from './Skus.jsx';
+import Nav from './Nav.jsx';
+//Get all the styles data for a product given product id
+//Pass down style specific data
+function Overview ({product}) {
+  const [style, setStyle] = useState([]);
+  const [curStyle, setCurStyle] = useState(0);
+  const [price, setPrice] = useState(product['default_price']);
 
 
   const onLoad = ()=> {
-    axios.get(`/styles/?id=${product_id['product_id']}`)
-    .then((response)=> {
-      setStylefn({styles : response.data['results']}); //array of styles
-    })
-    .catch((err) => alert(`can't load for product with id ${product_id['product_id']}`));
+    axios.get(`/styles/?id=${product['id']}`)
+    .then((response)=> { setStyle(response.data['results']);})
+    .catch((err) => alert(`can't load for product with id ${product['id']}`));
   };
 
   useEffect(onLoad, []);
 
+  function changeStyle(n) {
+    setCurStyle(n);
+    setPrice(style[n]['original_price']);
+  }
 
-
-  //const [style, stylefn] = useState([])
-  //product ->
-  //product['photos'][i]['url'];
-
-  //product['photos'][i]['thumbnail_url'];
-
-
-  //product['photos'].length;
-  if (Style.styles.length > 0) {
+  if (style.length > 0) {
     return (
       <div>
-        <div className = 'imageGallery'>
-        {Style.styles[0]['photos'].map((photo) =>
-          <img src = {photo['url']} width="150" height="180"></img>)}
+        <Nav/>
+        <Photos photos = {style[curStyle]['photos']}/>
+        <div className = 'overview'>
+          <div className = 'category'> {product['category']}</div>
+          <div className = 'name'> {product['name']}</div>
+          <div >${price}</div>
         </div>
-        <div className = 'mainImage'>
-          <img src = {Style.styles[0]['photos'][0]['url']}></img>
-        </div>
-
+        <div>{style.map((stylei, index) => {//if (stylei['style_id'] === curStyle['style_id'])
+          return  <div className = 'stylename' onClick = {() => changeStyle(index)} >{stylei['name']}</div>;
+        })}</div>
+        <Skus changeStyle = {changeStyle} skus= {style[curStyle]['skus']}/>
+        <div className = 'slogan'>{product['slogan']}</div>
+        <div className = 'description'>{product['description']}</div>
       </div>
-    )
+    );
   } else {
-    return ('loading');
+    return (<h2>Loading...</h2>)
   }
+
 }
 
 export default Overview;
