@@ -1,0 +1,13 @@
+.reviewItem {
+  border: 2px solid black
+}
+
+.reviewTitle {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.reviewBody {
+  font-weight: normal;
+  font-size: 12px;
+}

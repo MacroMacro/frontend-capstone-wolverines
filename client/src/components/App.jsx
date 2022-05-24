@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import Overview from './Overview/Overview.jsx';
-// import Reviews from './Reviews/Reviews.jsx';
+import ReviewList from './Reviews/ReviewList.jsx';
 // import QandAs from './QandAs/QandAs.jsx';
 // import RelatedItems from './RelatedItems/RelatedItems.jsx';
 
@@ -10,25 +10,22 @@ function App () {
   const[someState, setStatefn] = useState({
     products:[{'name': 'LL'}],
     product_id: '40344'
-
   })
-
 
   const onLoad = () => {
     axios.get('/products')
-      .then((response) =>{setStatefn({products: response.data}); console.log('products', response.data)})
+      .then((response) =>{setStatefn({products: response.data}); })
       .catch(err => console.log(err));
 
       // var reviews = [];
       // someState.products.map((product)=> axios.get(`/reviews/?id=${product['id']}`)
       //   .then((response)=>reviews.push(response.data))
       //   .catch(err => console.log(err)));
-
       // setStatefn({reviews: reviews});
   }
 
-
-
+  // equivalent of componentDidMount
+  // like getting the data and calling it inside of CDM
   useEffect(onLoad, []);
 
 
@@ -37,10 +34,13 @@ function App () {
     <div>{someState.products[0]['name']}
     {/* {someState.reviews[0]['count']} */}
 
-      <Overview product = {someState.products}/>
-      <Reviews product_id = {someState.product_id} />
-      <QandAs product_id = {someState.product_id}/>
-      <RelatedItems product_id = {someState.product_id}/>
+      {/* should pass in someState.products[0] */}
+      {/* <Overview product = {someState.products}/> */}
+
+      {/* all else should be passed in someState.products[0].id */}
+      <ReviewList id = {someState.product_id} />
+      {/* <QandAs product_id = {someState.product_id}/>
+      <RelatedItems product_id = {someState.product_id}/> */}
     </div>
   );
 }

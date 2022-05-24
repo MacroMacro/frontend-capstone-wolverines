@@ -4,7 +4,7 @@ var DIST_DIR = path.join(__dirname, '/client/dist');
 
 module.exports = {
   mode: 'development',
-  entry: ['babel-polyfill', `/Users/zhangfan/Dropbox/HackReactor/frontend-capstone-wolverines/client/src/index.js`],
+  entry: `${SRC_DIR}/index.js`,
   output: {
     filename: 'bundle.js',
     path: DIST_DIR

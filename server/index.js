@@ -21,12 +21,12 @@ app.get('/products', (req, res) => {
 /*Reviews */
 //get reviews for specific product id
 //from client end: axios.get('/reviews/?id=40344')
-app.get('/reviews', (req, res) => {
-  var id = req.query['id'];
+app.get('/reviews/:id', (req, res) => {
+  var id = req.params.id;
   console.log('id', id);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=${id}`, { headers: {'Authorization': process.env.token}})
-  .then((data)=> {console.log(data); res.status(200).send(data.data)})
-  .catch((err) => {console.log('err', err); res.status(500).send(err);});
+  .then((data)=> {res.status(200).send(data.data)})
+  .catch((err) => {res.status(500).send(err);});
 });
 
 //review_id:1135681
