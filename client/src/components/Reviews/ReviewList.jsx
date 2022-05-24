@@ -10,19 +10,29 @@ export default function ReviewList({id}) {
   <div>{console.log(id)}</div>
 
   useEffect(() => {
-    axios.get(`/reviews/${id}`)
+    function getReviews() {axios.get(`/reviews/${id}`)
     .then((response) => {
       console.log(response);
       setReviews(response.data.results)
     })
     .catch(err => console.log(err));
-  }, [])
+    }
+    getReviews();
+    }, [])
+
+  const newReview = (review) => {
+    axios.post(`/reviews/${id}`, review)
+    .then(() => {
+      getReviews();
+    })
+    .catch(err => console.log(err));
+  }
 
   // will be mapping:
   // review body
   // review title
   // reviews.body, reviews.summary, reviews.review_id
-  // get the length of the reviews array\// helpful report buttons 
+  // get the length of the reviews array\// helpful report buttons
 
   return(
     <div>
