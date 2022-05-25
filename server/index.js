@@ -119,8 +119,20 @@ app.get('/styles', (req, res) => {
 app.get('/related', (req, res) => {
   var id = req.query['id'];
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${id}/related`, { headers: {'Authorization': process.env.token}})
-  .then((data)=> { res.status(200).send(data.data)})
+  .then((data)=> {
+    res.status(200).send(data.data)})
   .catch((err) => {console.log('err', err); res.status(500).send(err);});
 });
 
+//get product
+app.get('/product', (req, res) => {
+  console.log('working?');
+  var id = req.query['id'];
+  console.log('id', id);
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${id}`, { headers: {'Authorization': process.env.token}})
+  .then((data)=> {
+    console.log(data.data)
+    res.status(200).send(data.data)})
+  .catch((err) => {res.status(500).send(err);});
+});
 
