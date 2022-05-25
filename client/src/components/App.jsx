@@ -7,10 +7,7 @@ import Overview from './Overview/Overview.jsx';
 import axios from 'axios';
 function App () {
   // Remember to change individual github tokens when you pull down the repo to your local!
-  const[someState, setStatefn] = useState({
-    products:[{'name': 'Camo Onesie'}],
-    product_id: '40344'
-  })
+
   const[curProduct, setCurProduct] = useState(0);
   const[products, setProduct] = useState({});
 
@@ -19,13 +16,15 @@ function App () {
     axios.get('/products')
       .then((response) =>{setProduct(response.data); console.log('products', response.data)})
       .catch(err => console.log(err));
+  }
 
-  //     // var reviews = [];
-  //     // someState.products.map((product)=> axios.get(`/reviews/?id=${product['id']}`)
-  //     //   .then((response)=>reviews.push(response.data))
-  //     //   .catch(err => console.log(err)));
-
-  //     // setStatefn({reviews: reviews});
+  function searchProduct (str) {
+    products.map((product, index) => {
+      if(product['name'].toLowerCase().indexOf(str) !== -1) {
+        setCurProduct(index);
+        console.log('index', index);
+      }
+    })
   }
 
 
@@ -38,7 +37,7 @@ function App () {
       <div>
       {/* {someState.reviews[0]['count']} */}
 
-        <Overview product = {products[curProduct]}/>
+        <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
         {/* <Reviews product_id = {someState.product_id} />
         <QandAs product_id = {someState.product_id}/>
         <RelatedItems product_id = {someState.product_id}/> */}

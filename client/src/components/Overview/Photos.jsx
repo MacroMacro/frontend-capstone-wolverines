@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function Photos ({photos}) {
+function Photos ({photos, enlargeCurImage, icon}) {
   const [curImage, setCurImg] = useState(0);
   function changeImage(n) {
     setCurImg(n);
@@ -15,22 +15,25 @@ function Photos ({photos}) {
       else {setCurImg(n+1);}
     }
   }
-
   return (
-    <div>
+    <div className = 'Photos'>
       <div className = 'images'> {photos.map((photo, index, array) => {
             if(index === curImage) {
-              return (<div><img id = 'curImage' src = {photo['thumbnail_url']} width = '5%' ></img></div>);
+              return (<div><img id = 'curImage' key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} width = '100px' ></img></div>);
             } else {
-              return (<div><img id = 'othImage' src = {photo['thumbnail_url']} width = '5%' onClick = {() => changeImage(index)}></img></div>)
+              return (<div><img id = 'othImage' key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} width = '100px' onClick = {() => changeImage(index)}></img></div>)
             }
           })}
       </div>
       <div className = 'curImage'>
         <div className = 'numcurImage'> {curImage + 1} / {photos.length}</div>
         <a className ="prev" onClick={()=>changeCurImage(curImage, 'prev')}>&#9664;</a>
+        <img id = 'centerImg' src = {photos[curImage]['url']}></img>
         <a className ="next" onClick={()=>changeCurImage(curImage, 'next')}>&#9654;</a>
-        <img src = {photos[curImage]['url']} width = "500px"></img>
+        <a className ="enlarge" onClick={()=>enlargeCurImage(curImage)}>
+          {icon} </a>
+
+
       </div>
 
     </div>

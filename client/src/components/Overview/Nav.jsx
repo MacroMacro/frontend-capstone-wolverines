@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
-function Nav () {
+function Nav ({searchProduct}) {
   const [search, setSearch] = useState();
+
   function changeSearch (e) {
     setSearch(e.target.value);
   };
+
+  function clickHandler () {
+    searchProduct(search.toLowerCase());
+  }
+
   return (
     <div className = 'Nav'>
       <h2 className = 'header'>Wolverine</h2>
@@ -12,7 +18,7 @@ function Nav () {
       </div>
       <div className = 'search-bar'>
         <input value = {search} onChange = {changeSearch}></input>
-        <button>🔍</button>
+        <button onClick = {clickHandler} className = 'search-button'>🔍</button>
       </div>
     </div>
   )
