@@ -3,7 +3,10 @@ const express = require('express');
 const app = express();
 const PORT = 3000 || process.env.PORT;
 const axios = require('axios');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+
+app.use(morgan('dev'));
 app.use(express.static('client/dist'));
 app.use(express.json());
 app.use(bodyParser.json());
@@ -53,10 +56,10 @@ app.put('/report/review', (req, res) => {
 //get QandAs for specific product id
 //from client end: axios.get('/qa/questions/?id=40344')
 app.get('/qa/questions/', (req, res) => {
-  var id = req.query['id'];
-  console.log('id', id);
+  var id = req.query['product_id'];
+  console.log('product_id: ', req.query.product_id);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/?product_id=${id}`, { headers: {'Authorization': process.env.token}})
-  .then((data)=> {console.log(data); res.status(200).send(data.data)})
+  .then((data)=> {/*console.log(data);*/ res.status(200).send(data.data)})
   .catch((err) => {console.log('err', err); res.status(500).send(err);});
 });
 //593082
@@ -76,6 +79,13 @@ app.put('/report/qa', (req, res) => {
   .catch((err) => {console.log('err', err); res.status(500).send(err);});
 });
 
+//POSTing question to the server
+app.post('qa/question', (req, res) => {
+  let id = req.query['id'];
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/?product_id=${id}`, { headers: {'Authorization': process.env.token}})
+    .then((data) => { res.status(201).send(data)})
+    .catch(err => {console.log('error, ', err); res.status(500).send(err)});
+})
 
 //get cart info
 app.get('/cart', (req, res) => {

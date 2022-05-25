@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "react-dev": "webpack --config ./webpack.config.js -w",
-    "start": "nodemon server/index.js"
+    "start": "nodemon server/index.js",
+    "test": "jest"
   },
   "jest": {
     "testEnvironment": "jsdom"
@@ -18,7 +19,8 @@
     "babel-plugin-styled-components": "^1.12.0",
     "css-loader": "^5.2.6",
     "html-webpack-plugin": "^5.3.2",
-    "live-server": "^1.1.0",
+    "jest": "^28.1.0",
+    "live-server": "^1.2.1",
     "nodemon": "^2.0.7",
     "react-refresh": "^0.9.0",
     "style-loader": "^3.1.0",
@@ -42,10 +44,10 @@
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.16",
     "path": "^0.12.7",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
     "react-select": "^5.3.2",
     "react-star-ratings": "^2.3.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "underscore": "^1.12.1"
   }
 }
