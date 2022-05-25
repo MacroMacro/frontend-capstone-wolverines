@@ -24,19 +24,30 @@ app.get('/products', (req, res) => {
 /*Reviews */
 //get reviews for specific product id
 //from client end: axios.get('/reviews/?id=40344')
-app.get('/reviews', (req, res) => {
-  var id = req.query['id'];
+app.get('/reviews/:id', (req, res) => {
+  var id = req.params.id;
   console.log('id', id);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=${id}`, { headers: {'Authorization': process.env.token}})
-  .then((data)=> { res.status(200).send(data.data)})
-  .catch((err) => { res.status(500).send(err);});
+  .then((data)=> {res.status(200).send(data.data)})
+  .catch((err) => {res.status(500).send(err);});
 });
+
+app.post('/reviews/:id', (req, res) => {
+  var id = req.params.id;
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=${id}`, req.body)
+  .then(response => {
+    res.send(response).status(200)
+  })
+  .catch(err => {
+    res.send(err).status(500)
+  })
+})
 
 //review_id:1135681
 //from client end: axios.put('/helpful/review/?id=1135681')
-app.put('/helpful/review', (req, res) => {
+app.put('/reviews/:review_id/helpful', (req, res) => {
   console.log('req', req);
-  var id = req.query['id'];
+  var id = req.params.id;
   console.log('id',id);
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`, id ,{ headers: {'Authorization': process.env.token}})
   .then((data)=> { res.status(200).send(data.data)})
