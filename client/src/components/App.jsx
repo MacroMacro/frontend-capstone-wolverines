@@ -32,14 +32,13 @@ function App () {
     })
   }
 
-
   if (products.length>1) {
     return(
       <div>
       {/* {someState.reviews[0]['count']} */}
 
         <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
-        <RelatedItems product={products[curProduct]} productID={products[curProduct].product_id}/>
+        <RelatedItems product={products[curProduct]} productID={products[curProduct].id}/>
         {/* <Reviews product_id = {someState.product_id} />
         <QandAs product_id = {someState.product_id}/>
         */}
