@@ -3,10 +3,10 @@ import axios from 'axios';
 
 function AddQuestion(product_id) {
   const [responses, setResponses] = useState({
-    question_id: '',
+    question_id: 0,
     asker_name: '',
     question_body: '',
-    question_date: '',
+    question_date: {},
     question_helpfulness: 0,
     reported: false,
     answers: '',
@@ -18,13 +18,24 @@ function AddQuestion(product_id) {
     const { name, value } = e.target
     setResponses({...responses, [name]: value});
   }
-  /*
-  TODO on submit, do an axios post to the questions endpoint using the props
-  on submit add a question id, and capture the date
-  */
+
+
+  const submitQuestion = (e) => {
+    /*
+    TODO on submit, do an axios post to the questions endpoint using the props
+    on submit add a question id, and capture the date
+    */
+    e.preventDefault();
+    console.log('question submitted');
+    const currentDate = new Date();
+    const idNum = Math.floor(Math.random() * 9999999);
+    // console.log(typeof currentDate);
+    setResponses({...responses, question_date: currentDate, question_id: idNum })
+    // setResponses(...responses.question_date: new Date());
+  }
   return(
     <div>
-      <form onSubmit={() => {console.log('submitted')}}>
+      <form onSubmit={(e) => {submitQuestion(e)}}>
         <label>
           Name:
           <input

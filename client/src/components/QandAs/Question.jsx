@@ -19,11 +19,11 @@ const Question = ({ key, question }) => {
           <span style={{paddingRight: '10px'}}>
             Helpful?
             {' '}
-            <span type='button' onClick={()=>{console.log('click')}} style={{ textDecoration: "underline" }}>Yes</span>
+            <span type='button' onClick={()=>{console.log('question helpfulness click')}} style={{ textDecoration: "underline" }}>Yes</span>
             {` (${question.question_helpfulness})`}
           </span>
           |
-          <span onClick={()=>{}}style={{paddingLeft: '10px'}}>
+          <span onClick={()=>{console.log('add answer click')}}style={{paddingLeft: '10px'}}>
             Add Answer
           </span>
         </div>
@@ -41,7 +41,7 @@ const Question = ({ key, question }) => {
               {' '}
               <span
                 type='button'
-                onClick={()=>{console.log('click')}}
+                onClick={()=>{console.log('Answer helpfulness click')}}
                 style={{ textDecoration: "underline" }}
               >
                 Yes
@@ -49,7 +49,7 @@ const Question = ({ key, question }) => {
               {` (${oneAnswer.helpfulness}) | `}
               <span
                 type='button'
-                onClick={()=>{console.log('click')}}
+                onClick={()=>{console.log('Answer Report Click')}}
                 style={{ textDecoration: "underline"}}
                 >
                   Report

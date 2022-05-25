@@ -73,9 +73,9 @@ function QandAs ({ product_id }) {
               <Question question={oneQna} />
             </div>
           ))}
-          {showMoreAnswers && qnaRest.map(oneQna => (
-            <div key={oneQna.question_id}>
-              <Question question={oneQna} />
+          {showMoreAnswers && qnaRest.map(restQna => (
+            <div key={restQna.question_id}>
+              <Question question={restQna} />
             </div>
           ))}
           <div>
