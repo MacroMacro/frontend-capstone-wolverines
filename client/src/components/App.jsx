@@ -9,7 +9,7 @@ function App () {
   // Remember to change individual github tokens when you pull down the repo to your local!
 
   const[curProduct, setCurProduct] = useState(0);
-  const[products, setProduct] = useState({});
+  const[products, setProduct] = useState([]);
 
 
   useEffect(() => {
@@ -31,7 +31,6 @@ function App () {
     <>
     {products.length ? (
       <div>
-        <div>{someState.products[0]['name']}
       {/* {someState.reviews[0]['count']} */}
 
         <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
