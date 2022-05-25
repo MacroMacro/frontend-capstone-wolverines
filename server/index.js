@@ -28,8 +28,8 @@ app.get('/reviews', (req, res) => {
   var id = req.query['id'];
   console.log('id', id);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=${id}`, { headers: {'Authorization': process.env.token}})
-  .then((data)=> {console.log(data); res.status(200).send(data.data)})
-  .catch((err) => {console.log('err', err); res.status(500).send(err);});
+  .then((data)=> { res.status(200).send(data.data)})
+  .catch((err) => { res.status(500).send(err);});
 });
 
 //review_id:1135681
@@ -89,9 +89,16 @@ app.post('qa/question', (req, res) => {
 
 //get cart info
 app.get('/cart', (req, res) => {
-  var id = req.query['id'];
-  console.log('id', id);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart`, { headers: {'Authorization': process.env.token}})
+  .then((data)=> {console.log(data); res.status(200).send(data.data)})
+  .catch((err) => {console.log('err', err); res.status(500).send(err);});
+});
+
+//add to cart
+///axios.post('cart?sku_id=1394799')
+app.post('/cart', (req, res) => {
+  var sku_id = req.query['sku_id'];
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart`, {"sku_id": sku_id}, { headers: {'Authorization': process.env.token}})
   .then((data)=> {console.log(data); res.status(200).send(data.data)})
   .catch((err) => {console.log('err', err); res.status(500).send(err);});
 });

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import Overview from './Overview/Overview.jsx';
+import Overview from './Overview/Overview.jsx';
 // import Reviews from './Reviews/Reviews.jsx';
 // import QandAs from './QandAs/QandAs.jsx';
 // import RelatedItems from './RelatedItems/RelatedItems.jsx';
@@ -7,24 +7,24 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 function App () {
   // Remember to change individual github tokens when you pull down the repo to your local!
-  const[someState, setStatefn] = useState({
-    products:[{'name': 'LL'}],
-    product_id: '40344'
 
-  })
+  const[curProduct, setCurProduct] = useState(0);
+  const[products, setProduct] = useState({});
 
 
   const onLoad = () => {
     axios.get('/products')
-      .then((response) =>{setStatefn({products: response.data}); console.log('products', response.data)})
+      .then((response) =>{setProduct(response.data); console.log('products', response.data)})
       .catch(err => console.log(err));
+  }
 
-      // var reviews = [];
-      // someState.products.map((product)=> axios.get(`/reviews/?id=${product['id']}`)
-      //   .then((response)=>reviews.push(response.data))
-      //   .catch(err => console.log(err)));
-
-      // setStatefn({reviews: reviews});
+  function searchProduct (str) {
+    products.map((product, index) => {
+      if(product['name'].toLowerCase().indexOf(str) !== -1) {
+        setCurProduct(index);
+        console.log('index', index);
+      }
+    })
   }
 
 
@@ -32,17 +32,21 @@ function App () {
   useEffect(onLoad, []);
 
 
+  if (products.length>1) {
+    return(
+      <div>
+      {/* {someState.reviews[0]['count']} */}
 
-  return(
-    <div>{someState.products[0]['name']}
-    {/* {someState.reviews[0]['count']} */}
+        <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
+        {/* <Reviews product_id = {someState.product_id} />
+        <QandAs product_id = {someState.product_id}/>
+        <RelatedItems product_id = {someState.product_id}/> */}
+      </div>
+    );
+  } else {
+    return <div id = 'test'>Hello world></div> ;
+  }
 
-      <Overview product = {someState.products}/>
-      <Reviews product_id = {someState.product_id} />
-      <QandAs product_id = {someState.product_id}/>
-      <RelatedItems product_id = {someState.product_id}/>
-    </div>
-  );
 }
 
 /*

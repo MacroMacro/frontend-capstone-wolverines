@@ -6,6 +6,9 @@
     "start": "nodemon server/index.js",
     "test": "jest"
   },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
   "devDependencies": {
     "@babel/core": "^7.13.10",
     "@babel/plugin-transform-runtime": "^7.13.10",
@@ -26,6 +29,7 @@
     "webpack-dev-server": "^4.8.0"
   },
   "dependencies": {
+    "@testing-library/react": "^12.1.5",
     "axios": "^0.21.4",
     "babel-polyfill": "^6.26.0",
     "bluebird": "^3.7.2",
@@ -33,10 +37,15 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
+    "jsdom": "^19.0.0",
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.16",
     "path": "^0.12.7",
+    "react-select": "^5.3.2",
+    "react-star-ratings": "^2.3.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "underscore": "^1.12.1"
