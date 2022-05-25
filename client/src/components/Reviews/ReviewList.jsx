@@ -8,11 +8,12 @@ import StarRatings from 'react-star-ratings';
 export default function ReviewList({id}) {
   const [reviews, setReviews] = useState([]);
   const [formView, setFormView] = useState(false);
+  const [title, setTitle] = useState('');
 
   useEffect(() => {
     function getReviews() {axios.get(`/reviews/${id}`)
     .then((response) => {
-      console.log(response);
+      console.log(response.data.results);
       setReviews(response.data.results)
     })
     .catch(err => console.log(err));
@@ -32,9 +33,7 @@ export default function ReviewList({id}) {
     setFormView(!formView);
   }
 
-  console.log(formView);
-
-
+  //console.log(reviews.helpfulness);
 
   // will be mapping:
   // review body
@@ -44,7 +43,8 @@ export default function ReviewList({id}) {
 
   return(
 
-  formView ? (<div className = "reviewList">
+  formView ? (
+  <div className = "reviewList">
   <div>
     <div className = "reviewTitle">{reviews.length} reviews, sorted by <u>relevance ∨</u></div>
     {reviews.map((info)=> (
@@ -53,20 +53,22 @@ export default function ReviewList({id}) {
         title = {info.summary}
         rating = {info.rating}
         helpfulness = {info.helpfulness}
-        key = {info.review_id}
+        name = {info.reviewer_name}
+        id = {info.review_id}
       />
     ))}
   </div>
-
   <div>
   <form>
-    <label className = "addReview">Add a title:</label>
+    <label className = "addReview" onChange={handleAddTitle}>Add a title:</label>
     <br></br>
     <input type="text"></input>
     <br></br>
     <label className = "addReview">Add a written review:</label>
     <br></br>
     <input type="text"></input>
+    <br></br>
+    <input type="submit" value="Submit" onSubmit={handleSubmit}></input>
   </form>
   <button className = "reviewButton">MORE REVIEWS</button>
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
@@ -80,7 +82,8 @@ export default function ReviewList({id}) {
         title = {info.summary}
         rating = {info.rating}
         helpfulness = {info.helpfulness}
-        key = {info.review_id}
+        name = {info.reviewer_name}
+        id = {info.review_id}
       />
     ))}
   </div>
