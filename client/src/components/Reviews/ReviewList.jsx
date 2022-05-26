@@ -6,15 +6,24 @@ import StarRatings from 'react-star-ratings';
 // ratings bar will be own seperate component
 
 export default function ReviewList({id}) {
+ /* this.state = {
+   reviews: [],
+   formView: false,
+   title: '',
+   body: ''
+ }*/
   const [reviews, setReviews] = useState([]);
   const [formView, setFormView] = useState(false);
   const [title, setTitle] = useState('');
+  const [body, setBody] = useState("");
 
   useEffect(() => {
     function getReviews() {axios.get(`/reviews/${id}`)
     .then((response) => {
       console.log(response.data.results);
-      setReviews(response.data.results)
+      let reviews = response.data.results;
+      reviews.sort((a, b) => (a['helpfulness'] < b['helpfulness']) ? 1 : -1)
+      setReviews(reviews);
     })
     .catch(err => console.log(err));
     }
@@ -50,6 +59,21 @@ export default function ReviewList({id}) {
     }
   }
 
+  const submitFn = (event) => {
+    // takes in values from input fields
+    // prevent default
+    // create object
+    // {
+      // rating:
+      // summary:
+    //}
+    // send object to post
+    // dont need to worry about state or hooks
+    // pass into post
+    // invoke a .get
+    console.log(title, body);
+  }
+
   //console.log(reviews.helpfulness);
 
   // will be mapping:
@@ -82,19 +106,20 @@ export default function ReviewList({id}) {
         helpfulness = {info.helpfulness}
         name = {info.reviewer_name}
         id = {info.review_id}
+        key = {info.review_id}
       />
     ))}
 
   </div>
   <div>
-  <form>
+  <form onSubmit = {submitFn}>
     <label className = "addReview">Add a title:</label>
     <br></br>
-    <input type="text"></input>
+    <input type="text" value={title} onChange={e => {setTitle(e.target.value)}}></input>
     <br></br>
     <label className = "addReview">Add a written review:</label>
     <br></br>
-    <input type="text"></input>
+    <input type="text" value={body} onChange={e => {setBody(e.target.value)}}></input>
     <br></br>
     <input type="submit" value="Submit"></input>
   </form>
@@ -122,6 +147,7 @@ export default function ReviewList({id}) {
         helpfulness = {info.helpfulness}
         name = {info.reviewer_name}
         id = {info.review_id}
+        key = {info.review_id}
       />
     ))}
   </div>
