@@ -1,0 +1,174 @@
+/*Nav*/
+.Nav {
+  margin: 10px;
+  width: 100%;
+  display: inline-block;
+  background: indigo;
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+}
+.header {
+  margin-left: 20px;
+ float: left;
+}
+.cart {
+  margin-top: 20px;
+  float: right;
+  margin-left: 70px;
+  margin-right: 50px;
+}
+.search-bar {
+  margin-top: 20px;
+  float: right;
+}
+
+.main-overview {
+  display: flex;
+  margin: 30px 20px;
+}
+/*Photos*/
+.Photos{
+  width: 65%;
+  display: flex;
+}
+
+.images{
+  text-align: center;
+}
+
+.images #curImage {
+  margin: 5px auto;
+  border: darkgrey solid 3px;
+  width: 40%;
+}
+.images #othImage {
+  margin: 5px auto;
+  width: 40%;
+}
+
+.curImage {
+  width: 100%;
+  text-align: center;
+  display: flex;
+}
+
+.curImage #centerImg {
+  width: 80%;
+  vertical-align: middle;
+  z-index: -1;
+}
+
+.prev {
+  margin-right: -24px;
+  z-index: 100;
+  width: 10px;
+}
+.next {
+  margin-left: -24px;
+  z-index: 2;
+  width: 10px;
+}
+.enlarge {
+  margin-top: 0px;
+}
+
+/*Product overview*/
+.overview {
+  width: 40%;
+  margin-left: 25px;
+}
+
+.reviewnum {
+  margin-left: 2px;
+}
+
+.reviewlink {
+  margin-left: 10px;
+}
+
+.category {
+  font-size: 25px;
+  color: grey;
+  margin-top: 20px;
+}
+
+.name {
+  font-size: 40px;
+  color: black;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.price {
+  margin-top: 20px;
+}
+
+.Style {
+  margin-top: 20px;
+}
+
+.style-bar {
+  font-weight: bold;
+}
+
+.stylename {
+  border-radius: 50%;
+  width: 20%;
+  display: flex;
+  margin: 0px;
+}
+
+/*skus*/
+.Skus {
+  margin-top: 20px;
+}
+
+.Select {
+  display: flex;
+}
+
+.select-size {
+  width: 40%;
+  margin: 0px;
+
+}
+
+.select-quant {
+  margin-left: 20px;
+  width: 30%;
+}
+
+.Cart {
+  margin-top: 20px;
+  display: flex;
+}
+
+.add-cart {
+  width: 50%;
+}
+
+.add-star {
+  border: 1px solid grey;
+  width: 28px;
+  height: 28px;
+  margin-left: 50px;
+}
+
+
+/*description*/
+.slogan {
+  margin-top: 30px;
+  margin-left: 50px;
+  font-size: 20px;
+  color: grey;
+}
+
+.description {
+  font-size: 15px;
+  color: black;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+
+
