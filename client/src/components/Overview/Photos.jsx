@@ -26,12 +26,12 @@ function Photos ({photos, enlargeCurImage, icon}) {
           })}
       </div>
       <div className = 'curImage'>
-        <div className = 'numcurImage'> {curImage + 1} / {photos.length}</div>
-        <a className ="prev" onClick={()=>changeCurImage(curImage, 'prev')}>&#9664;</a>
+        {/* <div className = 'numcurImage'> {curImage + 1} / {photos.length}</div> */}
+        <div className ="prev" onClick={()=>changeCurImage(curImage, 'prev')} ><div className = 'item' >&#10094;</div></div>
         <img id = 'centerImg' src = {photos[curImage]['url']}></img>
-        <a className ="next" onClick={()=>changeCurImage(curImage, 'next')}>&#9654;</a>
-        <a className ="enlarge" onClick={()=>enlargeCurImage(curImage)}>
-          {icon} </a>
+        <div className ="next" onClick={()=>changeCurImage(curImage, 'next')}><div className = 'item' >&#10095;</div></div>
+        <div className ="enlarge" onClick={()=>enlargeCurImage(curImage)}>
+          {icon} </div>
 
 
       </div>

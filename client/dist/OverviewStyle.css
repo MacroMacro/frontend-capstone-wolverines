@@ -30,10 +30,14 @@
 .Photos{
   width: 65%;
   display: flex;
+  height: 500px;
 }
 
 .images{
   text-align: center;
+  justify-content: flex-start;
+  overflow: scroll;
+  position: relative;
 }
 
 .images #curImage {
@@ -59,15 +63,37 @@
 }
 
 .prev {
-  margin-right: -24px;
   z-index: 100;
-  width: 10px;
+  cursor: pointer;
+  margin-right: -20px;
+  color: white;
+  font-weight: bold;
 }
 .next {
-  margin-left: -24px;
   z-index: 2;
-  width: 10px;
+  cursor: pointer;
+  margin-left: -20px;
+  color: white;
+  font-weight: bold;
 }
+
+.item {
+  margin-top: 200px;
+}
+
+/* .prev, .next {
+  cursor: pointer;
+  position: absolute;
+
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+} */
+
 .enlarge {
   margin-top: 0px;
 }
@@ -111,11 +137,16 @@
   font-weight: bold;
 }
 
-.stylename {
-  border-radius: 50%;
-  width: 20%;
+.styles {
   display: flex;
-  margin: 0px;
+}
+
+.styledisplay {
+  border-radius: 100%;
+  margin: 10px;
+  border: 2px solid;
+  float: left;
+  width: 25%;
 }
 
 /*skus*/

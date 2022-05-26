@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
+import axios from 'axios';
 
 function Skus ({skus}) {
   const [display, setDisplay] = useState();
@@ -7,11 +8,13 @@ function Skus ({skus}) {
   const [quantC, setQuantC] = useState(0);
   const [sizeA, setSizeA] = useState(0);
   const [sizeC, setSizeC] = useState(0);
+  const [curSku, setCurSku] = useState();
 
 
   function changeSize (e) {
     setQuantA(skus[e.value]['quantity']);
     setSizeC(skus[e.value]['size']);
+    setCurSku(e.value);
   }
 
   const sizeOptions = [];
@@ -41,6 +44,7 @@ function Skus ({skus}) {
     } else {
       setQuantA(quantA - quantC);
     }
+    axios.post(`/cart/?sku_id=${curSku}`);
   }
 
   return (

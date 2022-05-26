@@ -9,7 +9,7 @@ import StarRating from 'react-star-ratings';
 //Pass down style specific data
 function Overview ({product, searchProduct}) {
   const [style, setStyle] = useState([]);
-  const [curStyle, setCurStyle] = useState(0);
+  const [curStyle, setCurStyle] = useState(null);
   const [rating, setRating] = useState(0);
   const [price, setPrice] = useState(product['default_price']);
   const [largeImg, setlargeImg] = useState(0);
@@ -19,13 +19,23 @@ function Overview ({product, searchProduct}) {
 
   const onLoad = ()=> {
     axios.get(`/styles/?id=${product['id']}`)
-    .then((response)=> { setStyle(response.data['results']);})
-    .catch((err) => alert(`can't load for product with id ${product['id']}`));
+    .then((response)=> {
+      let results = response.data['results'];
+      setStyle(results);
+      for (var i = 0; i < results.length; i ++ ) {
+        if (results[i]['default?'] === true) {
+          console.log('true', i);
+          setCurStyle(i);
+          break;
+        }
+      }
+    })
+    .catch((err) => console.log(`can't load for product with id ${product['id']}`));
 
-    axios.get(`/reviews/?id=${product['id']}`)
+    axios.get(`/reviews/${product['id']}`)
     .then((response)=> { return response.data['results'].reduce((prev, cur) => prev = prev + cur['rating'], 0)/response.data['results'].length})
     .then((averating) => setRating(averating))
-    .catch((err) => alert(`can't load for product with id ${product['id']}`));
+    .catch((err) => console.log(`can't load for product with id ${product['id']}`));
   };
 
   useEffect(onLoad, []);
@@ -41,12 +51,15 @@ function Overview ({product, searchProduct}) {
   }
 
 
-  if (style.length > 0) {
+
+
     return (
+      <>
+      <Nav searchProduct = {searchProduct}/>
+       {style.length ? (
       <div>
-        <Nav searchProduct = {searchProduct}/>
         <div className = 'main-overview'>
-          <Photos photos = {style[curStyle]['photos']} enlargeCurImage = {enlarge} icon ={icon}/>
+          {curStyle !== null ? (<Photos photos = {style[curStyle]['photos']} enlargeCurImage = {enlarge} icon ={icon}/>) : (<a>Loading Styles</a>) }
           <div className = 'overview'>
             <div className = 'rating'>
               <StarRating rating = {rating} starRatedColor="black" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
@@ -57,16 +70,13 @@ function Overview ({product, searchProduct}) {
             <div className = 'name'> {product['name']}</div>
             <div className = 'price'>${price}</div>
             <Style style = {style} curStyle = {curStyle} changeStyle = {changeStyle} />
-            <Skus changeStyle = {changeStyle} skus= {style[curStyle]['skus']}/>
+            { curStyle !== null ? (<Skus changeStyle = {changeStyle} skus= {style[curStyle]['skus']}/>) : (<a>Loading Skus</a>)}
           </div>
         </div>
         <div className = 'slogan'>{product['slogan']}</div>
         <div className = 'description'>{product['description']}</div>
-      </div>
-    );
-  } else {
-    return (<h2>Loading...</h2>)
-  }
+      </div> ) : (<div>Welcome to Wolverine ... </div>) }
+      </>)
 
 }
 
