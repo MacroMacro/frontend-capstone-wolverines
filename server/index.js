@@ -46,9 +46,9 @@ app.post('/reviews/:id', (req, res) => {
 //review_id:1135681
 //from client end: axios.put('/helpful/review/?id=1135681')
 app.put('/reviews/:review_id/helpful', (req, res) => {
-  console.log('req', req);
-  var id = req.params.id;
-  console.log('id',id);
+  console.log('req', req.query);
+  var id = req.params.review_id;
+  console.log('id',id); // undefined
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`, id ,{ headers: {'Authorization': process.env.token}})
   .then((data)=> { res.status(200).send(data.data)})
   .catch((err) => { res.status(500).send(err);});

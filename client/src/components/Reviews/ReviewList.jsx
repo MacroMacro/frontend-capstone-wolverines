@@ -19,7 +19,7 @@ export default function ReviewList({id}) {
     .catch(err => console.log(err));
     }
     getReviews();
-    }, [])
+  }, [])
 
   const newReview = (review) => {
     axios.post(`/reviews/${id}`, review)
@@ -31,6 +31,23 @@ export default function ReviewList({id}) {
 
   const handleFormView = () => {
     setFormView(!formView);
+  }
+
+  const myFunction = () => {
+    document.getElementById("theDropdown").classList.toggle("display");
+  }
+
+  // Close the dropdown menu if the user clicks outside of it
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbutton')) {
+      var drop = document.getElementsByClassName("contentDropdown");
+      for (var i = 0; i < drop.length; i++) {
+        //var openDropdown = drop[i];
+        if (drop[i].classList.contains('display')) {
+          drop[i].classList.remove('display');
+        }
+      }
+    }
   }
 
   //console.log(reviews.helpfulness);
@@ -46,7 +63,17 @@ export default function ReviewList({id}) {
   formView ? (
   <div className = "reviewList">
   <div>
-    <div className = "reviewTitle">{reviews.length} reviews, sorted by <u>relevance ∨</u></div>
+  <div className = "dropdown">
+    <div className = "reviewTitle">
+      {reviews.length} reviews, sorted by
+      <button onClick={myFunction} className = "dropbutton">relevance ∨</button>
+      <div id = "theDropdown" className="contentDropdown">
+      <a href="#">Relevant</a>
+      <a href="#">Helpful</a>
+      <a href="#">Newest</a>
+      </div>
+      </div>
+    </div>
     {reviews.map((info)=> (
       <ReviewListEntry
         body = {info.body}
@@ -57,10 +84,11 @@ export default function ReviewList({id}) {
         id = {info.review_id}
       />
     ))}
+
   </div>
   <div>
   <form>
-    <label className = "addReview" onChange={handleAddTitle}>Add a title:</label>
+    <label className = "addReview">Add a title:</label>
     <br></br>
     <input type="text"></input>
     <br></br>
@@ -68,14 +96,24 @@ export default function ReviewList({id}) {
     <br></br>
     <input type="text"></input>
     <br></br>
-    <input type="submit" value="Submit" onSubmit={handleSubmit}></input>
+    <input type="submit" value="Submit"></input>
   </form>
   <button className = "reviewButton">MORE REVIEWS</button>
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
   </div>
   </div>) : (<div className = "reviewList">
   <div>
-    <div className = "reviewTitle">{reviews.length} reviews, sorted by <u>relevance ∨</u></div>
+  <div className = "dropdown">
+    <div className = "reviewTitle">
+      {reviews.length} reviews, sorted by
+      <button onClick={myFunction} className = "dropbutton">relevance ∨</button>
+      <div id = "theDropdown" className="contentDropdown">
+      <a href="#">Relevant</a>
+      <a href="#">Helpful</a>
+      <a href="#">Newest</a>
+      </div>
+      </div>
+    </div>
     {reviews.map((info)=> (
       <ReviewListEntry
         body = {info.body}

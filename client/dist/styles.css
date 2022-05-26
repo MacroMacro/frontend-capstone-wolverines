@@ -53,3 +53,39 @@
   font-weight: bold;
   font-size: 10px;
 }
+
+.dropbutton {
+  background-color: transparent;
+  color: black;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropbutton:hover, .dropbutton:focus {
+  background-color: transparent;
+}
+
+.contentDropdown {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.contentDropdown a {
+  color: black;
+  padding: 3px 5px;
+  text-decoration: none;
+  display: block;
+}
+
+.contentDropdown a:hover {background-color: rgb(180, 180, 180)}
+
+.display {display:block;}

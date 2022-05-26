@@ -33,10 +33,10 @@ function App () {
       <div>
       {/* {someState.reviews[0]['count']} */}
 
-        <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
-        <RelatedItems product={products[curProduct]} productID={products[curProduct].id}/>
-        <Reviews id={products[curProduct].id}/>
-        <QandAs product_id = {products[curProduct].id}/>
+        {/* <Overview product = {products[curProduct]} searchProduct = {searchProduct}/> */}
+        {/* <RelatedItems product={products[curProduct]} productID={products[curProduct].id}/> */}
+        <ReviewList id={products[curProduct].id}/>
+        {/* <QandAs product_id = {products[curProduct].id}/> */}
       </div>
     ) : (
       <div id = 'test'>Hello world></div>

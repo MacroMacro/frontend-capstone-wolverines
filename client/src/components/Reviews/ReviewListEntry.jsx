@@ -12,19 +12,22 @@ export default function ReviewListEntry(props) {
   //console.log('rating', props.rating);
   //console.log(props);
   //console.log(props.helpfulness);
-  const [helpful, setHelpful] = useState(0);
+  const [helpful, setHelpful] = useState(props.helpfulness);
+  const [reviews, setReviews] = useState([]);
+  //console.log(props.helpfulness)
+
+  let counter = helpful
 
   const helpfulCount = (id) => {
     // when clicked,
     // increment the count by 1
-    setHelpful(props.helpfulness)
-    helpful += 1
-    axios.put(`/reviews/${id}/helpful`)
+    counter++
+    axios.put(`/reviews/${id}/helpful`, {helpfulness: counter})
     .then((response) => {
       console.log(response)
+      setHelpful(counter)
     })
     .catch((err) => console.log(err))
-
   }
 
   return(
@@ -39,7 +42,7 @@ export default function ReviewListEntry(props) {
     <div className = "reviewBody">{props.body}</div>
     <button type="button" className = "helpfulButton" onClick={() => {helpfulCount(props.id)}}>Helpful? &nbsp;
     <u>Yes</u>
-    <span> &nbsp; ( {props.helpfulness} )</span>
+    <span> &nbsp; ( {helpful} )</span>
     </button>
     <span className = "helpfulButton">|</span>
     <button type="button" className = "reportButton"><u>Report</u></button>
