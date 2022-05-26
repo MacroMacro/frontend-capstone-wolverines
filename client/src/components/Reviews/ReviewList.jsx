@@ -4,6 +4,7 @@ import ReviewListEntry from './ReviewListEntry.jsx';
 import StarRatings from 'react-star-ratings';
 // list will map and pass to list entry to have the individual data
 // ratings bar will be own seperate component
+// make reviews scrollable 
 
 export default function ReviewList({id}) {
  /* this.state = {
@@ -12,31 +13,45 @@ export default function ReviewList({id}) {
    title: '',
    body: ''
  }*/
+
   const [reviews, setReviews] = useState([]);
   const [formView, setFormView] = useState(false);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState("");
+  const [recommend, setRecommend] = useState(true);
+  const [rating, setRating] = useState(0);
+  const [name, setName] = useState("");
+
+  const getReviews = () =>
+  {axios.get(`/reviews/${id}`)
+  .then((response) => {
+    let reviews = response.data.results;
+    reviews.sort((a, b) => (a['helpfulness'] < b['helpfulness']) ? 1 : -1)
+    setReviews(reviews);
+  })
+  .catch(err => console.log(err));
+  }
+
+  const getReviewMeta = () => {
+    axios.get(`/reviews/meta/${id}`)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch(err => console.log(err))
+  }
 
   useEffect(() => {
-    function getReviews() {axios.get(`/reviews/${id}`)
-    .then((response) => {
-      console.log(response.data.results);
-      let reviews = response.data.results;
-      reviews.sort((a, b) => (a['helpfulness'] < b['helpfulness']) ? 1 : -1)
-      setReviews(reviews);
-    })
-    .catch(err => console.log(err));
-    }
     getReviews();
+    getReviewMeta();
   }, [])
 
-  const newReview = (review) => {
-    axios.post(`/reviews/${id}`, review)
-    .then(() => {
-      getReviews();
-    })
-    .catch(err => console.log(err));
-  }
+  // const newReview = (review) => {
+  //   axios.post(`/reviews/${id}`, review)
+  //   .then(() => {
+  //     getReviews();
+  //   })
+  //   .catch(err => console.log(err));
+  // }
 
   const handleFormView = () => {
     setFormView(!formView);
@@ -64,23 +79,41 @@ export default function ReviewList({id}) {
     // prevent default
     // create object
     // {
+      // body:
+      // recommend:
       // rating:
+      // reviewer name:
       // summary:
     //}
     // send object to post
     // dont need to worry about state or hooks
     // pass into post
     // invoke a .get
+    event.preventDefault()
+    axios.post(`/reviews/${id}`,
+    {
+      //obtain metadata for characteristics
+      // grab the characteristic id if you fetch for the metadata
+      // refernce getreviewmeta func
+      // take local file, send to 3rd party api, and grab the url to import here
+      product_id: id,
+      rating: Number(rating),
+      summary: title,
+      body: body,
+      recommend: recommend,
+      name: name,
+      email: 'test@gmail.com',
+      photos: ['text'],
+      characteristics: {'135219': 5, '135220': 5}
+    })
+    .then((response) => {
+      getReviews()
+    })
+    .catch((err) => console.log(err))
+
     console.log(title, body);
   }
 
-  //console.log(reviews.helpfulness);
-
-  // will be mapping:
-  // review body
-  // review title
-  // reviews.body, reviews.summary, reviews.review_id
-  // get the length of the reviews array\// helpful report buttons
 
   return(
 
@@ -112,6 +145,7 @@ export default function ReviewList({id}) {
 
   </div>
   <div>
+
   <form onSubmit = {submitFn}>
     <label className = "addReview">Add a title:</label>
     <br></br>
@@ -121,8 +155,22 @@ export default function ReviewList({id}) {
     <br></br>
     <input type="text" value={body} onChange={e => {setBody(e.target.value)}}></input>
     <br></br>
+    <label className = "addReview">Add a rating:</label>
+    <br></br>
+    <input type="text" value={rating} onChange={e => {setRating(e.target.value)}}></input>
+    <br></br>
+    <label className = "addReview">Name:</label>
+    <br></br>
+    <input type="text" value={name} onChange={e => {setName(e.target.value)}}></input>
+    <br></br>
+    <label className = "addReview">Recommend?</label>
+    <br></br>
+    <input type="checkbox" name = "rec" value={recommend} onClick={e => {setRecommend(true)}}></input>Yes
+    <input type="checkbox" name = "rec" value={recommend} onClick={e => {setRecommend(false)}}></input>No
+    <br></br>
     <input type="submit" value="Submit"></input>
   </form>
+
   <button className = "reviewButton">MORE REVIEWS</button>
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
   </div>

@@ -24,7 +24,7 @@ export default function ReviewListEntry(props) {
     counter++
     axios.put(`/reviews/${id}/helpful`, {helpfulness: counter})
     .then((response) => {
-      console.log(response)
+      //console.log(response)
       setHelpful(counter)
     })
     .catch((err) => console.log(err))
