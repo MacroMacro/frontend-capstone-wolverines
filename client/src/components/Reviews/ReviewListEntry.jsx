@@ -40,12 +40,12 @@ export default function ReviewListEntry(props) {
     />
     <h1 className = "reviewTitle">{props.title}</h1>
     <div className = "reviewBody">{props.body}</div>
-    <button type="button" className = "helpfulButton" onClick={() => {helpfulCount(props.id)}}>Helpful? &nbsp;
+    <button id = "helpful" type="button" className = "helpfulButton" onClick={() => {helpfulCount(props.id)}}>Helpful? &nbsp;
     <u>Yes</u>
     <span> &nbsp; ( {helpful} )</span>
     </button>
     <span className = "helpfulButton">|</span>
-    <button type="button" className = "reportButton"><u>Report</u></button>
+    <button id = "report" type="button" className = "reportButton"><u>Report</u></button>
     </div>
   )
 }

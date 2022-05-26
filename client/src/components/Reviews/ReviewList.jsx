@@ -4,7 +4,7 @@ import ReviewListEntry from './ReviewListEntry.jsx';
 import StarRatings from 'react-star-ratings';
 // list will map and pass to list entry to have the individual data
 // ratings bar will be own seperate component
-// make reviews scrollable 
+// make reviews scrollable
 
 export default function ReviewList({id}) {
  /* this.state = {
@@ -118,7 +118,7 @@ export default function ReviewList({id}) {
   return(
 
   formView ? (
-  <div className = "reviewList">
+  <div id = "list" className = "reviewList">
   <div>
   <div className = "dropdown">
     <div className = "reviewTitle">
@@ -174,7 +174,7 @@ export default function ReviewList({id}) {
   <button className = "reviewButton">MORE REVIEWS</button>
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
   </div>
-  </div>) : (<div className = "reviewList">
+  </div>) : (<div id = "list"  className = "reviewList">
   <div>
   <div className = "dropdown">
     <div className = "reviewTitle">
