@@ -24,6 +24,7 @@ export default function Ratings(props) {
 
  return (
   <div>
+    <div>RATINGS & REVIEWS</div>
     <div className = "avgRating">{props.rating}</div>
     <div className = "starRating">
     <StarRatings
@@ -42,6 +43,7 @@ export default function Ratings(props) {
     isLabelVisible = {false}
     bgColor = {`green`}
     width = {`50%`}
+    maxCompleted = {50}
     />
     </div>
   <br></br>
@@ -52,17 +54,43 @@ export default function Ratings(props) {
     isLabelVisible = {false}
     bgColor = {`green`}
     width = {`50%`}
+    maxCompleted = {50}
     />
     </div>
     <br></br>
 
-    <div className = "rateNum">4 stars</div>
+    <div className = "rateNum">3 stars</div>
     <div className = "progBar">
     <ProgressBar
-    completed={props.countFour}
+    completed={props.countThree}
     isLabelVisible = {false}
     bgColor = {`green`}
     width = {`50%`}
+    maxCompleted = {50}
+    />
+    </div>
+    <br></br>
+
+    <div className = "rateNum">2 stars</div>
+    <div className = "progBar">
+    <ProgressBar
+    completed={props.countTwo}
+    isLabelVisible = {false}
+    bgColor = {`green`}
+    width = {`50%`}
+    maxCompleted = {50}
+    />
+    </div>
+    <br></br>
+
+    <div className = "rateNum">1 stars</div>
+    <div className = "progBar">
+    <ProgressBar
+    completed={props.countOne}
+    isLabelVisible = {false}
+    bgColor = {`green`}
+    width = {`50%`}
+    maxCompleted = {50}
     />
     </div>
     <br></br>

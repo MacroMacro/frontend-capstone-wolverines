@@ -137,9 +137,7 @@ export default function ReviewList({id}) {
         count++
       }
     })
-    //console.log(count)
     let div = count/ response.data.results.length * (100)
-    //console.log(div)
     return div;
   })
   .then((perc) => {
@@ -156,13 +154,62 @@ export default function ReviewList({id}) {
         count++
       }
     })
-    //console.log(count)
     let div = count/ response.data.results.length * (100)
-    //console.log(div)
     return div;
   })
   .then((perc) => {
     setCountFour(perc)
+  })
+  .catch(err => console.log(err));
+
+  // COUNT FOR RATINGS OF 3
+  axios.get(`/reviews/${id}`)
+  .then((response) => {
+    let count = 0;
+    response.data.results.forEach((item) => {
+      if (item.rating === 3) {
+        count++
+      }
+    })
+    let div = count/ response.data.results.length * (100)
+    return div;
+  })
+  .then((perc) => {
+    setCountThree(perc)
+  })
+  .catch(err => console.log(err));
+
+  // COUNT FOR RATINGS OF 2
+  axios.get(`/reviews/${id}`)
+  .then((response) => {
+    let count = 0;
+    response.data.results.forEach((item) => {
+      if (item.rating === 2) {
+        count++
+      }
+    })
+    let div = count/ response.data.results.length * (100)
+    return div;
+  })
+  .then((perc) => {
+    setCountTwo(perc)
+  })
+  .catch(err => console.log(err));
+
+  // COUNT FOR RATINGS OF 1
+  axios.get(`/reviews/${id}`)
+  .then((response) => {
+    let count = 0;
+    response.data.results.forEach((item) => {
+      if (item.rating === 1) {
+        count++
+      }
+    })
+    let div = count/ response.data.results.length * (100)
+    return div;
+  })
+  .then((perc) => {
+    setCountOne(perc)
   })
   .catch(err => console.log(err));
 
@@ -187,6 +234,9 @@ export default function ReviewList({id}) {
       reviews = {reviews}
       countFive = {countFive}
       countFour = {countFour}
+      countThree = {countThree}
+      countTwo = {countTwo}
+      countOne = {countOne}
     />}
     {reviews.map((info)=> (
       <ReviewListEntry
@@ -252,6 +302,9 @@ export default function ReviewList({id}) {
       reviews = {reviews}
       countFive = {countFive}
       countFour = {countFour}
+      countThree = {countThree}
+      countTwo = {countTwo}
+      countOne = {countOne}
     />}
     {reviews.map((info)=> (
       <ReviewListEntry
