@@ -106,7 +106,7 @@ app.get('/cart', (req, res) => {
 });
 
 //add to cart
-///axios.post('cart?sku_id=1394799')
+///axios.post('cart/?sku_id=1394799')
 app.post('/cart', (req, res) => {
   var sku_id = req.query['sku_id'];
   axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart`, {"sku_id": sku_id}, { headers: {'Authorization': process.env.token}})

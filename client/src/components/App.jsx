@@ -37,7 +37,7 @@ function App () {
         <QandAs product_id = {products[curProduct].id}/>
       </div>
     ) : (
-      <div id = 'test'><h1>Welcome to Wolverine ...</h1></div>
+      <div id = 'test'><h1>Hello world</h1></div>
     )}
     </>
   )

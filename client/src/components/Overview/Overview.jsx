@@ -24,14 +24,13 @@ function Overview ({product, searchProduct}) {
       setStyle(results);
       for (var i = 0; i < results.length; i ++ ) {
         if (results[i]['default?'] === true) {
-          console.log('true', i);
           setCurStyle(i);
           break;
         }
       }
     })
     .catch((err) => console.log(`can't load for product with id ${product['id']}`));
-
+//rating bar
     axios.get(`/reviews/${product['id']}`)
     .then((response)=> { return response.data['results'].reduce((prev, cur) => prev = prev + cur['rating'], 0)/response.data['results'].length})
     .then((averating) => setRating(averating))
@@ -42,41 +41,48 @@ function Overview ({product, searchProduct}) {
 
   function changeStyle(n) {
     setCurStyle(n);
-    setPrice(style[n]['original_price']);
   }
 
   function enlarge() {
     setIcon(icons[1-largeImg]);
     setlargeImg(1-largeImg);
   }
-
-
-
-
-    return (
-      <>
-      <Nav searchProduct = {searchProduct}/>
-       {style.length ? (
+  console.log('style', style);
+  console.log('curStyle', curStyle);
+  return (
+    <>
+    <Nav searchProduct = {searchProduct}/>
+    {style.length ? (
       <div>
-        <div className = 'main-overview'>
-          {curStyle !== null ? (<Photos photos = {style[curStyle]['photos']} enlargeCurImage = {enlarge} icon ={icon}/>) : (<a>Loading Styles</a>) }
-          <div className = 'overview'>
-            <div className = 'rating'>
-              <StarRating rating = {rating} starRatedColor="black" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
-              <a className = 'reviewnum'>{rating}</a>
-              <a className = 'reviewlink'>Read all reviews</a>
-            </div>
-            <div className = 'category'> {product['category']}</div>
-            <div className = 'name'> {product['name']}</div>
-            <div className = 'price'>${price}</div>
-            <Style style = {style} curStyle = {curStyle} changeStyle = {changeStyle} />
-            { curStyle !== null ? (<Skus changeStyle = {changeStyle} skus= {style[curStyle]['skus']}/>) : (<a>Loading Skus</a>)}
+      <div className = 'main-overview'>
+        {curStyle !== null ? (<Photos photos = {style[curStyle]['photos']} enlargeCurImage = {enlarge} icon ={icon}/>) : (<a>Loading Styles</a>) }
+
+        <div className = 'overview'>
+          <div className = 'rating'>
+            <StarRating rating = {rating} starRatedColor="black" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
+            <a className = 'reviewnum'>{rating}</a>
+            <a className = 'reviewlink'>Read all reviews</a>
           </div>
+          <div className = 'category'> {product['category']}</div>
+          <div className = 'name'><h2>{product['name']}</h2></div>
+
+          {curStyle !== null ?
+          (<div className = 'price'>{
+            style[curStyle]['sale_price'] === null ? (<>${style[curStyle]['original_price']}</>) : (<><span id='salePrice'> ${style[curStyle]['sale_price']}</span><span id ='orgPrice'>${style[curStyle]['original_price']}</span></>)
+          }</div>) : (<div>Loading prices</div>)}
+
+          <Style style = {style} curStyle = {curStyle} changeStyle = {changeStyle} />
+          {curStyle !== null ? (<Skus changeStyle = {changeStyle} skus= {style[curStyle]['skus']}/>) : (<a>Loading Skus</a>)}
+
+          <div className = 'share'></div>
         </div>
-        <div className = 'slogan'>{product['slogan']}</div>
-        <div className = 'description'>{product['description']}</div>
-      </div> ) : (<div>Welcome to Wolverine ... </div>) }
-      </>)
+      </div>
+
+      <div className = 'slogan'>{product['slogan']}</div>
+      <div className = 'description'>{product['description']}</div>
+    </div> )
+    : (<div>Welcome to Wolverine ... </div>) }
+  </>)
 
 }
 
