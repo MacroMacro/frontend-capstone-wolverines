@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReviewListEntry from './ReviewListEntry.jsx';
+import Ratings from './Ratings.jsx';
 import StarRatings from 'react-star-ratings';
 // list will map and pass to list entry to have the individual data
 // ratings bar will be own seperate component
@@ -26,7 +27,7 @@ export default function ReviewList({id}) {
   {axios.get(`/reviews/${id}`)
   .then((response) => {
     let reviews = response.data.results;
-    console.log(reviews);
+    //console.log(reviews);
     reviews.sort((a, b) => (a['helpfulness'] < b['helpfulness']) ? 1 : -1)
     setReviews(reviews);
   })
@@ -115,9 +116,53 @@ export default function ReviewList({id}) {
     console.log(title, body);
   }
 
+  const percentRec = (array) => {
+    // total number of rec
+    // divide by array length
+    // times 100
+    // if item.rec === true
+
+    let sum = 0;
+    let arr = [];
+
+    array.forEach((item) => {
+      if (item.recommend === true) {
+        sum++
+      }
+    })
+
+    let divide = sum / array.length;
+    let percent = divide * 100;
+    arr.push(percent);
+    console.log(arr);
+    return percent;
+  }
+  let percentHelpful = percentRec(reviews)
+
+
+  axios.get(`/reviews/${id}`)
+  .then((response) => {
+    //console.log(response.data.results)
+    return response.data.results.reduce((prev, cur) => prev = prev + cur.rating, 0)/ response.data.results.length
+  })
+  .then((avgrating) => {
+    setRating(avgrating)
+  console.log(rating)})
+  .catch(err => console.log(err));
+
+  // const rateAverage = (array) => {
+  //   // iterate over the array
+  //   let sum = 0;
+  //   array.forEach((item) => {
+  //     sum += item.rating
+  //   })
+  //   let average = sum/ array.length;
+  //   return average;
+  // }
+
+  // let averageReview = rateAverage(reviews);
 
   return(
-
   formView ? (
   <div id = "list" className = "reviewList">
   <div>
@@ -132,6 +177,17 @@ export default function ReviewList({id}) {
       </div>
       </div>
     </div>
+    {<Ratings
+      // avgReview = {averageReview}
+      rating = {rating}
+      percentHelpful = {percentHelpful}
+    />}
+    {/* {reviews.map((rate)=> (
+      <Ratings
+        rating = {rate.rating}
+        key = {rate.review_id}
+      />
+    ))} */}
     {reviews.map((info)=> (
       <ReviewListEntry
         body = {info.body}
@@ -144,6 +200,9 @@ export default function ReviewList({id}) {
         recommend = {info.recommend}
         key = {info.review_id}
       />
+      // <Ratings
+      // rating = {info.rating}
+      // />
     ))}
 
   </div>
@@ -190,6 +249,17 @@ export default function ReviewList({id}) {
       </div>
       </div>
     </div>
+    {<Ratings
+      // avgReview = {averageReview}
+      rating = {rating}
+      percentHelpful = {percentHelpful}
+    />}
+    {/* {reviews.map((rate)=> (
+      <Ratings
+        rating = {rate.rating}
+        key = {rate.review_id}
+      />
+    ))} */}
     {reviews.map((info)=> (
       <ReviewListEntry
         body = {info.body}
@@ -202,6 +272,9 @@ export default function ReviewList({id}) {
         recommend = {info.recommend}
         key = {info.review_id}
       />
+      // <Ratings
+      // rating = {info.rating}
+      // />
     ))}
   </div>
   <div>
@@ -209,6 +282,5 @@ export default function ReviewList({id}) {
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
   </div>
   </div>)
-
   )
 }

@@ -16,7 +16,7 @@ export default function ReviewListEntry(props) {
   const [reviews, setReviews] = useState([]);
   const [recommend, setRecommend] = useState(props.recommend);
   //console.log(props.helpfulness)
-  console.log(recommend)
+  //console.log(recommend)
 
   let counter = helpful
 
@@ -46,7 +46,7 @@ export default function ReviewListEntry(props) {
       starSpacing="1px"
       starRatedColor="black"
     />
-
+    
     <div className = "reviewDate">{props.date}</div>
     <h1 className = "reviewTitle">{props.title}</h1>
     <div className = "reviewBody">{props.body}</div>
