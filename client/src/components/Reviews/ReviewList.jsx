@@ -26,6 +26,7 @@ export default function ReviewList({id}) {
   {axios.get(`/reviews/${id}`)
   .then((response) => {
     let reviews = response.data.results;
+    console.log(reviews);
     reviews.sort((a, b) => (a['helpfulness'] < b['helpfulness']) ? 1 : -1)
     setReviews(reviews);
   })
@@ -139,6 +140,8 @@ export default function ReviewList({id}) {
         helpfulness = {info.helpfulness}
         name = {info.reviewer_name}
         id = {info.review_id}
+        date = {info.date}
+        recommend = {info.recommend}
         key = {info.review_id}
       />
     ))}
@@ -195,6 +198,8 @@ export default function ReviewList({id}) {
         helpfulness = {info.helpfulness}
         name = {info.reviewer_name}
         id = {info.review_id}
+        date = {info.date}
+        recommend = {info.recommend}
         key = {info.review_id}
       />
     ))}
