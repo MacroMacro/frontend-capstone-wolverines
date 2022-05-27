@@ -89,3 +89,16 @@
 .contentDropdown a:hover {background-color: rgb(180, 180, 180)}
 
 .display {display:block;}
+
+.avgRating {
+  float: left;
+  font-size: 30px;
+}
+
+.rateNum {
+  float: left;
+}
+
+.progBar {
+  padding-left: 50px;
+}

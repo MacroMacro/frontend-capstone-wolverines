@@ -23,6 +23,12 @@ export default function ReviewList({id}) {
   const [rating, setRating] = useState(0);
   const [name, setName] = useState("");
 
+  const [countFive, setCountFive] = useState(0);
+  const [countFour, setCountFour] = useState(0);
+  const [countThree, setCountThree] = useState(0);
+  const [countTwo, setCountTwo] = useState(0);
+  const [countOne, setCountOne] = useState(0);
+
   const getReviews = () =>
   {axios.get(`/reviews/${id}`)
   .then((response) => {
@@ -47,13 +53,6 @@ export default function ReviewList({id}) {
     getReviewMeta();
   }, [])
 
-  // const newReview = (review) => {
-  //   axios.post(`/reviews/${id}`, review)
-  //   .then(() => {
-  //     getReviews();
-  //   })
-  //   .catch(err => console.log(err));
-  // }
 
   const handleFormView = () => {
     setFormView(!formView);
@@ -77,20 +76,6 @@ export default function ReviewList({id}) {
   }
 
   const submitFn = (event) => {
-    // takes in values from input fields
-    // prevent default
-    // create object
-    // {
-      // body:
-      // recommend:
-      // rating:
-      // reviewer name:
-      // summary:
-    //}
-    // send object to post
-    // dont need to worry about state or hooks
-    // pass into post
-    // invoke a .get
     event.preventDefault()
     axios.post(`/reviews/${id}`,
     {
@@ -113,15 +98,10 @@ export default function ReviewList({id}) {
     })
     .catch((err) => console.log(err))
 
-    console.log(title, body);
+    //console.log(title, body);
   }
 
   const percentRec = (array) => {
-    // total number of rec
-    // divide by array length
-    // times 100
-    // if item.rec === true
-
     let sum = 0;
     let arr = [];
 
@@ -134,33 +114,57 @@ export default function ReviewList({id}) {
     let divide = sum / array.length;
     let percent = divide * 100;
     arr.push(percent);
-    console.log(arr);
+    //console.log(arr);
     return percent;
   }
   let percentHelpful = percentRec(reviews)
 
-
   axios.get(`/reviews/${id}`)
   .then((response) => {
     //console.log(response.data.results)
-    return response.data.results.reduce((prev, cur) => prev = prev + cur.rating, 0)/ response.data.results.length
+    return response.data.results.reduce((prev, curr) => prev = prev + curr.rating, 0)/ response.data.results.length
   })
-  .then((avgrating) => {
-    setRating(avgrating)
-  console.log(rating)})
+  .then((avgRating) => {
+    setRating(avgRating)})
   .catch(err => console.log(err));
 
-  // const rateAverage = (array) => {
-  //   // iterate over the array
-  //   let sum = 0;
-  //   array.forEach((item) => {
-  //     sum += item.rating
-  //   })
-  //   let average = sum/ array.length;
-  //   return average;
-  // }
+  // COUNT FOR RATINGS OF 5
+  axios.get(`/reviews/${id}`)
+  .then((response) => {
+    let count = 0;
+    response.data.results.forEach((item) => {
+      if (item.rating === 5) {
+        count++
+      }
+    })
+    //console.log(count)
+    let div = count/ response.data.results.length * (100)
+    //console.log(div)
+    return div;
+  })
+  .then((perc) => {
+    setCountFive(perc)
+  })
+  .catch(err => console.log(err));
 
-  // let averageReview = rateAverage(reviews);
+  // COUNT FOR RATINGS OF 4
+  axios.get(`/reviews/${id}`)
+  .then((response) => {
+    let count = 0;
+    response.data.results.forEach((item) => {
+      if (item.rating === 4) {
+        count++
+      }
+    })
+    //console.log(count)
+    let div = count/ response.data.results.length * (100)
+    //console.log(div)
+    return div;
+  })
+  .then((perc) => {
+    setCountFour(perc)
+  })
+  .catch(err => console.log(err));
 
   return(
   formView ? (
@@ -178,16 +182,12 @@ export default function ReviewList({id}) {
       </div>
     </div>
     {<Ratings
-      // avgReview = {averageReview}
       rating = {rating}
       percentHelpful = {percentHelpful}
+      reviews = {reviews}
+      countFive = {countFive}
+      countFour = {countFour}
     />}
-    {/* {reviews.map((rate)=> (
-      <Ratings
-        rating = {rate.rating}
-        key = {rate.review_id}
-      />
-    ))} */}
     {reviews.map((info)=> (
       <ReviewListEntry
         body = {info.body}
@@ -200,9 +200,6 @@ export default function ReviewList({id}) {
         recommend = {info.recommend}
         key = {info.review_id}
       />
-      // <Ratings
-      // rating = {info.rating}
-      // />
     ))}
 
   </div>
@@ -219,7 +216,7 @@ export default function ReviewList({id}) {
     <br></br>
     <label className = "addReview">Add a rating:</label>
     <br></br>
-    <input type="text" value={rating} onChange={e => {setRating(e.target.value)}}></input>
+    <input type="text" onChange={e => {setRating(e.target.value)}}></input>
     <br></br>
     <label className = "addReview">Name:</label>
     <br></br>
@@ -250,16 +247,12 @@ export default function ReviewList({id}) {
       </div>
     </div>
     {<Ratings
-      // avgReview = {averageReview}
       rating = {rating}
       percentHelpful = {percentHelpful}
+      reviews = {reviews}
+      countFive = {countFive}
+      countFour = {countFour}
     />}
-    {/* {reviews.map((rate)=> (
-      <Ratings
-        rating = {rate.rating}
-        key = {rate.review_id}
-      />
-    ))} */}
     {reviews.map((info)=> (
       <ReviewListEntry
         body = {info.body}
@@ -272,9 +265,6 @@ export default function ReviewList({id}) {
         recommend = {info.recommend}
         key = {info.review_id}
       />
-      // <Ratings
-      // rating = {info.rating}
-      // />
     ))}
   </div>
   <div>

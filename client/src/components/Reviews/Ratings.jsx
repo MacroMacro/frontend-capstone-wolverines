@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
+import ProgressBar from "@ramonak/react-progress-bar";
 
 export default function Ratings(props) {
   // needs ratings
@@ -12,29 +13,63 @@ export default function Ratings(props) {
   // //const [rating, setRating] = useState(props.rating);
   // let number = Number(props.avgReview)
   // console.log(typeof number)
+  //console.log(props)
+  // console.log(props.ratingTotal)
 
-  // axios.get(`/reviews/${id}`)
-  // .then((response) => {
-  //   //console.log(response.data.results)
-  //   return response.data.results.reduce((prev, cur) => prev = prev + cur.rating, 0)/ response.data.results.length
-  // })
-  // .then((avgrating) => {
-  //   setRating(avgrating)
-  // console.log(rating)})
-  // .catch(err => console.log(err));
+  // const calc = () => {
+  //   let div = props.ratingTotal/ props.reviews;
+  //   console.log(div);
+  // }
+
 
  return (
   <div>
-    <div>{props.rating}</div>
-    <div>
+    <div className = "avgRating">{props.rating}</div>
+    <div className = "starRating">
     <StarRatings
       rating={props.rating}
-      // starDimension="10px"
-      // starSpacing="1px"
-      // starRatedColor="black"
+      starDimension="11px"
+      starSpacing="1px"
+      starRatedColor="black"
     />
     </div>
-    <div>{props.percentHelpful}% of reviews recommend this product</div>
+
+    <br></br>
+    <div className = "rateNum">5 stars</div>
+    <div className = "progBar">
+    <ProgressBar
+    completed={props.countFive}
+    isLabelVisible = {false}
+    bgColor = {`green`}
+    width = {`50%`}
+    />
+    </div>
+  <br></br>
+  <div className = "rateNum">4 stars</div>
+  <div className = "progBar">
+    <ProgressBar
+    completed={props.countFour}
+    isLabelVisible = {false}
+    bgColor = {`green`}
+    width = {`50%`}
+    />
+    </div>
+    <br></br>
+
+    <div className = "rateNum">4 stars</div>
+    <div className = "progBar">
+    <ProgressBar
+    completed={props.countFour}
+    isLabelVisible = {false}
+    bgColor = {`green`}
+    width = {`50%`}
+    />
+    </div>
+    <br></br>
+
+
+    <div className = "percentRating">{props.percentHelpful}% of reviews recommend this product</div>
+    <br></br>
   </div>
  )
 }
