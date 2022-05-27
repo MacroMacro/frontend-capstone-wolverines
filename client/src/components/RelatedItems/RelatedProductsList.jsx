@@ -2,11 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import RelatedProductCard from './RelatedProductCard.jsx';
 import styled from 'styled-components';
-// import ListContainer from '../sharedStyledComponents/listContainer';
-// import RightButtonWrapper from '../sharedStyledComponents/rightButtonWrapper';
-// import LeftButtonWrapper from '../sharedStyledComponents/leftButtonWrapper';
-// import LeftButton from '../sharedStyledComponents/leftButton';
-// import RightButton from '../sharedStyledComponents/rightButton';
 
 class RelatedProductList extends React.Component {
   constructor(props) {

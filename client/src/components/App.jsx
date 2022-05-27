@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Overview from './Overview/Overview.jsx';
+// import Overview from './Overview/Overview.jsx';
 // import Reviews from './Reviews/Reviews.jsx';
 // import QandAs from './QandAs/QandAs.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
@@ -13,7 +13,7 @@ function App () {
     product_id: ''
   })
 
-  const[curProduct, setCurProduct] = useState(0);
+  const[curProduct, setCurProduct] = useState(4);
   const[products, setProduct] = useState({});
 
 
@@ -37,7 +37,7 @@ function App () {
       <div>
       {/* {someState.reviews[0]['count']} */}
 
-        <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
+        {/* <Overview product = {products[curProduct]} searchProduct = {searchProduct}/> */}
         <RelatedItems product={products[curProduct]} productID={products[curProduct].id}/>
         {/* <Reviews product_id = {someState.product_id} />
         <QandAs product_id = {someState.product_id}/>
