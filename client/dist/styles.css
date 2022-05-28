@@ -102,3 +102,48 @@
 .progBar {
   padding-left: 50px;
 }
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 12px;
+  background: grey;
+}
+
+.fit {
+  color: grey;
+  font-size: 10.5px;
+}
+
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+}
+
+.popup-content {
+  background: blue;
+  width: 30%;
+  padding-left: 30px;
+}
+
+.box {
+border-color: gold;
+border-width: 1px;
+border-style: solid;
+position: fixed;
+background: red;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+padding: 50px;
+z-Index: 1000;
+}
+
+.overlay {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(0,0,0, .7);
+z-Index: 1000;
+}
