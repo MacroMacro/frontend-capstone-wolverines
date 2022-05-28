@@ -64,7 +64,7 @@ function Overview ({product, searchProduct}) {
     if (starred === 0) {
       localStorage.setItem(product['id'], product['id']);
     } else {
-      localStorage.delete(product['id']);
+      delete localStorage[product['id']];
     }
   }
 
