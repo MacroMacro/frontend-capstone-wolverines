@@ -8,13 +8,13 @@ function Photos ({photos, enlargeCurImage, icon}) {
 
   function changeCurImage(n, key) {
     if (key === 'prev') {
-      if(n === 0) { setCurImg(photos.length -1);}
-      else { setCurImg(n-1);}
+      setCurImg(n-1);
     } else {
-      if (n === photos.length -1) {setCurImg(0);}
-      else {setCurImg(n+1);}
+      setCurImg(n+1);
     }
   }
+
+  const n = photos.length -1;
   return (
     <div className = 'Photos'>
       <div className = 'images'> {photos.map((photo, index, array) => {
@@ -25,13 +25,15 @@ function Photos ({photos, enlargeCurImage, icon}) {
             }
           })}
       </div>
+
       <div className = 'curImage'>
-        {/* <div className = 'numcurImage'> {curImage + 1} / {photos.length}</div> */}
-        <div className ="prev" onClick={()=>changeCurImage(curImage, 'prev')} ><div className = 'item' >&#10094;</div></div>
+      {curImage === 0 ? <div className ="prev" onClick={()=>changeCurImage(curImage, 'prev')} ></div>: <div className ="prev" onClick={()=>changeCurImage(curImage, 'prev')} ><div className = 'item' >&#10094;</div></div> }
+
         <img id = 'centerImg' src = {photos[curImage]['url']}></img>
-        <div className ="next" onClick={()=>changeCurImage(curImage, 'next')}><div className = 'item' >&#10095;</div></div>
-        <div className ="enlarge" onClick={()=>enlargeCurImage(curImage)}>
-          {icon} </div>
+      {curImage === n ?  <div className ="next" onClick={()=>changeCurImage(curImage, 'next')}> </div>:  <div className ="next" onClick={()=>changeCurImage(curImage, 'next')}><div className = 'item' >&#10095;</div></div>}
+
+        {/* <div className ="enlarge" onClick={()=>enlargeCurImage(curImage)}>
+           {icon} </div> */}
 
 
       </div>

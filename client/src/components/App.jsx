@@ -10,6 +10,7 @@ function App () {
 
   const[curProduct, setCurProduct] = useState(0);
   const[products, setProduct] = useState([]);
+  const[yourOutfit, setYourOutfit] = useState([]);
 
 
   useEffect(() => {
@@ -26,13 +27,18 @@ function App () {
       }
     })
   }
+  function addYourOutfit (productId) {
+    var copy = yourOutfit.slice();
+    copy.push(productId);
+    setYourOutfit(copy);
+  }
 
   return (
     <>
     {products.length ? (
       <div>
-        <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
-        <RelatedItems product={products[curProduct]} productID={products[curProduct].id}/>
+        <Overview product = {products[curProduct]} searchProduct = {searchProduct} addYourOutfit = {addYourOutfit}/>
+        <RelatedItems product={products[curProduct]} productID={products[curProduct].id} yourOutfit = {yourOutfit}/>
         <ReviewList id={products[curProduct].id}/>
         <QandAs product_id = {products[curProduct].id}/>
       </div>

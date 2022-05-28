@@ -5,15 +5,17 @@ import Skus from './Skus.jsx';
 import Nav from './Nav.jsx';
 import Style from './Style.jsx';
 import StarRating from 'react-star-ratings';
+import {FacebookIcon, PinterestIcon,TwitterIcon } from 'react-share';
+import Share from './Share.jsx';
 //Get all the styles data for a product given product id
 //Pass down style specific data
-function Overview ({product, searchProduct}) {
+function Overview ({product, searchProduct, addYourOutfit}) {
   const [style, setStyle] = useState([]);
   const [curStyle, setCurStyle] = useState(null);
   const [rating, setRating] = useState(0);
   const [price, setPrice] = useState(product['default_price']);
   const [largeImg, setlargeImg] = useState(0);
-  const icons = [<span className="material-symbols-outlined">fit_screen</span>, <span className="material-symbols-outlined">fullscreen_exit</span>]
+  const [numRating, setNumRating] = useState();
   const [icon, setIcon] = useState(<span className="material-symbols-outlined">fit_screen</span>);
 
 
@@ -30,14 +32,18 @@ function Overview ({product, searchProduct}) {
       }
     })
     .catch((err) => console.log(`can't load for product with id ${product['id']}`));
+
 //rating bar
     axios.get(`/reviews/${product['id']}`)
-    .then((response)=> { return response.data['results'].reduce((prev, cur) => prev = prev + cur['rating'], 0)/response.data['results'].length})
-    .then((averating) => setRating(averating))
+    .then((response)=> { return ([response.data['results'].reduce((prev, cur) => prev = prev + cur['rating'], 0), response.data['results'].length])})
+    .then(([total, nums]) => {setRating(total/nums); setNumRating(nums);
+    })
     .catch((err) => console.log(`can't load for product with id ${product['id']}`));
   };
 
   useEffect(onLoad, []);
+
+  const icons = [<span className="material-symbols-outlined">fit_screen</span>, <span className="material-symbols-outlined">fullscreen_exit</span>];
 
   function changeStyle(n) {
     setCurStyle(n);
@@ -47,8 +53,12 @@ function Overview ({product, searchProduct}) {
     setIcon(icons[1-largeImg]);
     setlargeImg(1-largeImg);
   }
-  console.log('style', style);
-  console.log('curStyle', curStyle);
+
+  function scrollReview () {
+    console.log('document', document);
+    console.log('scroll', document.getElementById('reviewList'));
+    document.getElementById('reviewList').scrollIntoView();
+  }
   return (
     <>
     <Nav searchProduct = {searchProduct}/>
@@ -61,7 +71,9 @@ function Overview ({product, searchProduct}) {
           <div className = 'rating'>
             <StarRating rating = {rating} starRatedColor="black" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
             <a className = 'reviewnum'>{rating}</a>
-            <a className = 'reviewlink'>Read all reviews</a>
+
+            {numRating ? (<a className = 'reviewlink' href="#reviewList" >Read all {numRating} reviews</a>) : (<a className = 'reviewlink' href="#reviewList" >Read all reviews</a>)}
+
           </div>
           <div className = 'category'> {product['category']}</div>
           <div className = 'name'><h2>{product['name']}</h2></div>
@@ -71,10 +83,12 @@ function Overview ({product, searchProduct}) {
             style[curStyle]['sale_price'] === null ? (<>${style[curStyle]['original_price']}</>) : (<><span id='salePrice'> ${style[curStyle]['sale_price']}</span><span id ='orgPrice'>${style[curStyle]['original_price']}</span></>)
           }</div>) : (<div>Loading prices</div>)}
 
+          {curStyle !== null ? (<>
           <Style style = {style} curStyle = {curStyle} changeStyle = {changeStyle} />
-          {curStyle !== null ? (<Skus changeStyle = {changeStyle} skus= {style[curStyle]['skus']}/>) : (<a>Loading Skus</a>)}
+          <Skus changeStyle = {changeStyle} addYourFit = {addYourOutfit} skus= {style[curStyle]['skus']}/> </>) : (<a>Loading Skus</a>)}
 
-          <div className = 'share'></div>
+          {curStyle !== null ?
+          (<Share url = {style[curStyle]['photos'][0]['url']} quote = {`Check out ${product['name']} with style ${style[curStyle]['name']}`}/>) : (<><FacebookIcon size={40} round /><TwitterIcon size={40} round /><PinterestIcon size={40} round /></>)}
         </div>
       </div>
 
