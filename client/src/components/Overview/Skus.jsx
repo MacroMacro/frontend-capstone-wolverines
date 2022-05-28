@@ -48,8 +48,12 @@ function Skus ({skus, addYourOutfit}) {
   }
 
   function starClick () {
+    if (starred === 0) {
+      addYourOutfit(0);
+    } else {
+      addYourOutfit(1);
+    }
     setStarred(1 - starred);
-    console.log('star', starDisplay[starred]);
   }
 
   return (

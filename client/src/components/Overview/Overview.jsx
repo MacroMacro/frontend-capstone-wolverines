@@ -9,7 +9,7 @@ import {FacebookIcon, PinterestIcon,TwitterIcon } from 'react-share';
 import Share from './Share.jsx';
 //Get all the styles data for a product given product id
 //Pass down style specific data
-function Overview ({product, searchProduct, addYourOutfit}) {
+function Overview ({product, searchProduct}) {
   const [style, setStyle] = useState([]);
   const [curStyle, setCurStyle] = useState(null);
   const [rating, setRating] = useState(0);
@@ -59,6 +59,15 @@ function Overview ({product, searchProduct, addYourOutfit}) {
     console.log('scroll', document.getElementById('reviewList'));
     document.getElementById('reviewList').scrollIntoView();
   }
+
+  function addYourOutfit (starred) {
+    if (starred === 0) {
+      localStorage.setItem(product['id'], product['id']);
+    } else {
+      localStorage.delete(product['id']);
+    }
+  }
+
   return (
     <>
     <Nav searchProduct = {searchProduct}/>
@@ -85,7 +94,7 @@ function Overview ({product, searchProduct, addYourOutfit}) {
 
           {curStyle !== null ? (<>
           <Style style = {style} curStyle = {curStyle} changeStyle = {changeStyle} />
-          <Skus changeStyle = {changeStyle} addYourFit = {addYourOutfit} skus= {style[curStyle]['skus']}/> </>) : (<a>Loading Skus</a>)}
+          <Skus changeStyle = {changeStyle} addYourOutfit = {addYourOutfit} skus= {style[curStyle]['skus']}/> </>) : (<a>Loading Skus</a>)}
 
           {curStyle !== null ?
           (<Share url = {style[curStyle]['photos'][0]['url']} quote = {`Check out ${product['name']} with style ${style[curStyle]['name']}`}/>) : (<><FacebookIcon size={40} round /><TwitterIcon size={40} round /><PinterestIcon size={40} round /></>)}
