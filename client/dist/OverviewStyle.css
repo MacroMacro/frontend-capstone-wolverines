@@ -138,39 +138,38 @@
 }
 
 
-.Style {
+.style-bar {
+  font-weight: bold;
   margin-top: 20px;
   font-size: 20px;
 }
 
-.style-bar {
-  font-weight: bold;
-}
-
 .styles {
-  display: flex;
+  float: left;
+  height: 250px;
 }
 
 .styledisplay {
-  margin: 10px;
   float: left;
-  display: flex;
+  width: 25%;
 }
 
 .styleimg {
   margin-top: 10px;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 90px;
+  height: 90px;
 }
 
+
+
 .check {
- margin-left: -10px;
+  position: absolute;
 }
 
 /*skus*/
 .Skus {
-  margin-top: 20px;
+  margin-top: 100px;
 }
 
 .Select {
@@ -178,12 +177,14 @@
 }
 
 .select-size {
+  display: flex;
   width: 40%;
   margin: 0px;
 
 }
 
 .select-quant {
+  display: flex;
   margin-left: 20px;
   width: 30%;
 }
