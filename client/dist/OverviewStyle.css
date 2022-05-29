@@ -28,7 +28,6 @@
 }
 /*Photos*/
 .Photos{
-  width: 65%;
   display: flex;
   height: 700px;
 }
@@ -64,9 +63,6 @@
   z-index: -1;
 }
 
-#centerImg:hover {
-  cursor: zoom-in;
-}
 
 .prev {
   z-index: 100;
@@ -110,13 +106,14 @@
 .category {
   font-size: 30px;
   color: grey;
-  margin-top: 20px;
+  margin-top: 10px;
+  text-transform: uppercase;
 }
 
 .name {
-  font-size: 30px;
+  font-size: 35px;
   color: black;
-  margin-top: 10px;
+  margin-top: 20px;
   font-weight: bold;
 }
 
@@ -137,10 +134,13 @@
   font-size: 20px;
 }
 
+.Style {
+  margin-top: 20px;
+  height: 280px;
+}
 
 .style-bar {
   font-weight: bold;
-  margin-top: 20px;
   font-size: 20px;
 }
 
@@ -150,26 +150,29 @@
 }
 
 .styledisplay {
-  float: left;
+  margin-top: 20px;
   width: 25%;
+  display: inline-flex;
 }
 
 .styleimg {
-  margin-top: 10px;
   border-radius: 50%;
-  width: 90px;
-  height: 90px;
+  width: 70px;
+  height: 70px;
+  padding: 0px 5px;
 }
-
-
 
 .check {
   position: absolute;
+  margin-left: 70px;
+  margin-top: 10px;
+  font-size: 25px;
+  color: rgb(44, 24, 24);
 }
 
-/*skus*/
+
 .Skus {
-  margin-top: 100px;
+  width: 500px;
 }
 
 .Select {
@@ -177,14 +180,11 @@
 }
 
 .select-size {
-  display: flex;
   width: 40%;
   margin: 0px;
-
 }
 
 .select-quant {
-  display: flex;
   margin-left: 20px;
   width: 30%;
 }

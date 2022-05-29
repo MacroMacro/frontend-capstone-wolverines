@@ -41,7 +41,7 @@ function Overview ({product, searchProduct}) {
     .catch((err) => console.log(`can't load for product with id ${product['id']}`));
   };
 
-  useEffect(onLoad, []);
+  useEffect(onLoad, [product['id']]);
 
   const icons = [<span className="material-symbols-outlined">fit_screen</span>, <span className="material-symbols-outlined">fullscreen_exit</span>];
 
@@ -69,14 +69,14 @@ function Overview ({product, searchProduct}) {
   }
 
   return (
-    <>
+    <div className = 'ProductOverview'>
     <Nav searchProduct = {searchProduct}/>
     {style.length ? (
       <div>
       <div className = 'main-overview'>
         {curStyle !== null ? (<Photos photos = {style[curStyle]['photos']} enlargeCurImage = {enlarge} icon ={icon}/>) : (<a>Loading Styles</a>) }
 
-        <div className = 'overview'>
+        <div className = 'overview' id = 'overview'>
           <div className = 'rating'>
             <StarRating rating = {rating} starRatedColor="black" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
             <a className = 'reviewnum'>{rating}</a>
@@ -85,7 +85,7 @@ function Overview ({product, searchProduct}) {
 
           </div>
           <div className = 'category'> {product['category']}</div>
-          <div className = 'name'><h2>{product['name']}</h2></div>
+          <div className = 'name'>{product['name']}</div>
 
           {curStyle !== null ?
           (<div className = 'price'>{
@@ -105,7 +105,7 @@ function Overview ({product, searchProduct}) {
       <div className = 'description'>{product['description']}</div>
     </div> )
     : (<div>Welcome to Wolverine ... </div>) }
-  </>)
+  </div>)
 
 }
 

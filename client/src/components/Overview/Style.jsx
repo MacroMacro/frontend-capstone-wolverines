@@ -8,7 +8,7 @@ function Style ({style, curStyle, changeStyle}) {
 
   return (
     <div className = 'Style'>
-      <a className = 'style-bar'>STYLE > </a> <a>{style[curStyle]['name']}</a>
+      <div className = 'style-bar'><a>STYLE ></a> <a>{style[curStyle]['name']}</a> </div>
       <div className = 'styles'>
       {thumbnails.map((link, index) => {
         if (index === curStyle) {

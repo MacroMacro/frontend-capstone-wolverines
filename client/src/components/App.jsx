@@ -10,12 +10,12 @@ function App () {
 
   const[curProduct, setCurProduct] = useState(0);
   const[products, setProduct] = useState([]);
-  // const[yourOutfit, setYourOutfit] = useState([]);
+  const[productID, setProductID] = useState('');
 
 
   useEffect(() => {
     axios.get('/products')
-      .then((response) =>{setProduct(response.data); console.log('products', response.data)})
+      .then((response) =>{setProduct(response.data);})
       .catch(err => console.log(err));
   }, [])
 
@@ -23,7 +23,15 @@ function App () {
     products.map((product, index) => {
       if(product['name'].toLowerCase().indexOf(str) !== -1) {
         setCurProduct(index);
-        console.log('index', index);
+      }
+    })
+  }
+
+  function updateProduct (productID) {
+    setProductID(productID);
+    products.map((product, index) => {
+      if(product['id'] === productID){
+        setcurProduct(index);
       }
     })
   }

@@ -37,7 +37,7 @@ function Skus ({skus, addYourOutfit}) {
   }
 
   function addCart () {
-    if (quantC === 0) {
+    if (sizeC === undefined) {
       setDisplay(1);
     }
     if (quantA === quantC){
@@ -63,7 +63,6 @@ function Skus ({skus, addYourOutfit}) {
       {sizeOptions.length > 0 ?
       <>{sizeDisplay[display]}</>
       : <Select className = 'select-size' placeholder = 'OUT OF STOCK' isDisabled = {true} />}
-
 
       {sizeC ? <Select className = 'select-quant' placeholder = {'1'} onChange = {changeQuant} options = {quantOptions}/> : <Select className = 'select-quant' placeholder = '-'/>}
       </div>
