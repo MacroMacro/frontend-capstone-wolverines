@@ -189,3 +189,15 @@ background-color: rgba(0,0,0, .7);
   bottom: 0;
   z-Index: 1000
 }
+
+::placeholder {
+  font-size: .6em;
+}
+
+.auth {
+  font-size: 12px;
+}
+
+.productTitle {
+  font-size: 12px;
+}

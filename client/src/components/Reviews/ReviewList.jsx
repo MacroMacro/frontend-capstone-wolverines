@@ -27,6 +27,7 @@ export default function ReviewList({id}) {
   const [size, setSize] = useState(0);
   const [averageRate, setAverageRate] = useState(0);
   const [changeRating, setChangeRating] = useState(()=>{});
+  const [email, setEmail] = useState('');
 
 
   const getReviews = () =>
@@ -88,14 +89,30 @@ export default function ReviewList({id}) {
       body: body,
       recommend: recommend,
       name: name,
-      email: 'test@gmail.com',
+      email: "hi@gmail.com",
       photos: ['text'],
       characteristics: {'135219': 5, '135220': 5}
     })
     .then((response) => {
-      if (body.length === 0 || ) {
-        alert('nah')
+      if (body.length === 0) {
+        alert('You must enter the following: Review')
+      } else if (title.length === 0) {
+        alert('You must enter the following: Title')
+      } else if (name.length === 0) {
+        alert('You must enter the following: Name')
+      } else if (body.length < 50) {
+        alert('Body cannot be less than 50 characters')
+      } else if (email.length > 60) {
+        alert('Email length is too long')
+      } else if (name.length > 60) {
+        alert('Name input is too long')
+      } else if (body.length > 1000) {
+        alert('Review input is too long')
+      } else if (title.length > 60) {
+        alert('Title input is too long')
       }
+
+      console.log(body.length)
       getReviews()
     })
     .catch((err) => console.log(err))
@@ -182,16 +199,19 @@ export default function ReviewList({id}) {
     }}>
     <div className = "box" >
       <form onSubmit = {submitFn}>
-    <label className = "addReview">Add a title:</label>
+      <div>Write Your Review</div>
+      <div className = "productTitle">About the Product</div>
+      <br></br>
+    <label className = "addReview">Review Summary: *</label>
     <br></br>
-    <input type="text" value={title} onChange={e => {setTitle(e.target.value)}} maxLength = {5}></input>
+    <input type="text" value={title} placeholder="Example: Best purchase ever!" onChange={e => {setTitle(e.target.value)}} maxLength = {5}></input>
     <br></br>
-    <label className = "addReview">Add a written review:</label>
+    <label className = "addReview">Review Body: *</label>
     <br></br>
-    <textarea cols="40" rows="4" value={body} onChange={e => {setBody(e.target.value)}}></textarea>
+    <textarea cols="40" rows="4" value={body} placeholder="Why did you like the product or not?" onChange={e => {setBody(e.target.value)}}></textarea>
     <br></br>
 
-    <label className = "addReview">Add a rating:</label>
+    <label className = "addReview">Overall Rating: *</label>
     <br></br>
     {/* <input type="text" value= {rating} onChange={e => {setRating(e.target.value)}}></input> */}
     <StarRatings
@@ -210,20 +230,23 @@ export default function ReviewList({id}) {
     }
 
     <br></br>
-    <label className = "addReview">Name:</label>
+    <label className = "addReview">What Is Your Nickname: *</label>
     <br></br>
-    <input type="text" value={name} onChange={e => {setName(e.target.value)}}></input>
+    <input type="text" value={name} placeholder="Example: jackson11!" onChange={e => {setName(e.target.value)}}></input>
+    <div className = "auth">For privacy reasons, do not use your full name or email address</div>
     <br></br>
-    <label className = "addReview">Email:</label>
+    <label className = "addReview">Your Email: *</label>
     <br></br>
-    <input type="email"></input>
+    <input type="email" placeholder="Example: jackson11@email.com"></input>
+    <div className = "auth">For authentication reasons, you will not be emailed</div>
     <br></br>
-    <label className = "addReview">Recommend?</label>
+
+    <label className = "addReview">Do You Recommend This Product? *</label>
     <br></br>
     <input type="checkbox" name = "rec" value={recommend} onClick={e => {setRecommend(true)}}></input>Yes
     <input type="checkbox" name = "rec" value={recommend} onClick={e => {setRecommend(false)}}></input>No
     <br></br>
-    <input type="submit" value="Submit"></input>
+    <input type="submit" value="Submit Review"></input>
   </form>
   </div>
   </div>
