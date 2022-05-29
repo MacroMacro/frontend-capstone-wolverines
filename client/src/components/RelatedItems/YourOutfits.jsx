@@ -3,7 +3,7 @@ import axios from 'axios';
 import RelatedProductCard from './RelatedProductCard.jsx';
 import styled from 'styled-components';
 
-class RelatedProductList extends React.Component {
+class YourOutfits extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -176,4 +176,4 @@ const RightButton = styled.button`
 `;
 
 
-export default RelatedProductList;
+export default YourOutfits;

@@ -16,11 +16,11 @@ const ComparisonModal = (props) => {
       onClick={closeModal}
     >
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <CloseButton className="close" onClick={closeModal}>&times; </CloseButton>
+        {/* <CloseButton className="close" onClick={closeModal}>&times; </CloseButton> */}
       </div>
       <ModalContent>
         <ComparisonTitle>
-          <CompareTitle>COMPARING: </CompareTitle>
+          <CompareTitle>COMPARING</CompareTitle>
           <div>{null}</div>
           <div>{null}</div>
           <ProductTitle><b>{parentProduct}</b></ProductTitle>
@@ -44,13 +44,13 @@ const ComparisonModal = (props) => {
   );
 };
 
-const CloseButton = styled.span`
-  color: #aaaaaa;
-  position: relative;
-  float: right; /* Positioned to the right of the parent container whichever size it is */
-  font-size: 25px;
-  font-weight: bold;
-`;
+// const CloseButton = styled.span`
+//   color: #aaaaaa;
+//   position: relative;
+//   float: right; /* Positioned to the right of the parent container whichever size it is */
+//   font-size: 25px;
+//   font-weight: bold;
+// `;
 
 const TestDiv = styled.div`
   text-align: center;
