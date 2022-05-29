@@ -41,10 +41,14 @@ export default function Ratings(props) {
 
   }, [props.reviews])
 
+  //console.log(7.345676.toFixed(2))
+
  return (
+   <div className = "ratingBox">
   <div>
-    <div>RATINGS & REVIEWS</div>
-    <div className = "avgRating">{props.averageRate}</div>
+    <div className = "ratingTitle">RATINGS & REVIEWS</div>
+    <br></br>
+    <div className = "avgRating">{props.averageRate.toFixed(1)} &nbsp;</div>
     <div className = "starRating">
     <StarRatings
       rating={props.averageRate}
@@ -54,8 +58,8 @@ export default function Ratings(props) {
     />
     </div>
     <br></br>
-
-    <div className = "percentRating">{props.percentHelpful}% of reviews recommend this product</div>
+  <br></br>
+    <div className = "bodyText">{props.percentHelpful}% of reviews recommend this product</div>
 
     <br></br>
     <div className = "rateNum">5 stars</div>
@@ -141,6 +145,7 @@ export default function Ratings(props) {
     <div className = "fit">Poor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perfect</div>
     <br></br>
 
+  </div>
   </div>
  )
 }

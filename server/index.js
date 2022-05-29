@@ -13,13 +13,13 @@ app.use(bodyParser.json());
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 })
+
 //get products
 app.get('/products', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products', { headers: {'Authorization': process.env.token}})
   .then((data)=> {res.status(200).send(data.data)})
   .catch((err) => {console.log('err', err); res.status(500).send(err);});
 });
-
 
 /*Reviews */
 //get reviews for specific product id

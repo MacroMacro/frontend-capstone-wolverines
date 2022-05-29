@@ -26,6 +26,8 @@ export default function ReviewList({id}) {
   const [comfort, setComfort] = useState(0);
   const [size, setSize] = useState(0);
   const [averageRate, setAverageRate] = useState(0);
+  const [changeRating, setChangeRating] = useState(()=>{});
+
 
   const getReviews = () =>
   {axios.get(`/reviews/${id}`)
@@ -91,6 +93,9 @@ export default function ReviewList({id}) {
       characteristics: {'135219': 5, '135220': 5}
     })
     .then((response) => {
+      if (body.length === 0 || ) {
+        alert('nah')
+      }
       getReviews()
     })
     .catch((err) => console.log(err))
@@ -121,8 +126,15 @@ export default function ReviewList({id}) {
     setAverageRate(avgRating)})
   .catch(err => console.log(err));
 
+//console.log(reviews)
+
+  function showDiv() {
+  document.getElementById('welcomeDiv').style.display = "block";
+  }
+
   return(
   formView ? (
+    <div className = "reviewBox">
   <div id = "list" className = "reviewList">
   <div>
   <div className = "dropdown">
@@ -161,30 +173,50 @@ export default function ReviewList({id}) {
   <button className = "reviewButton">MORE REVIEWS</button>
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
 
-
-
   <Popup trigger={
-    <div className = "overlay"
-    onClick = {() => {
-      console.log('clicked');
-      setFormView(!formView)}}>
-    <div className = "box">
+    <div className = "overlay">
+      <div className = "testing" onClick = {() => {
+      // event.stopPropagation();
+      // console.log('clicked');
+      // setFormView(!formView);
+    }}>
+    <div className = "box" >
       <form onSubmit = {submitFn}>
     <label className = "addReview">Add a title:</label>
     <br></br>
-    <input type="text" value={title} onChange={e => {setTitle(e.target.value)}}></input>
+    <input type="text" value={title} onChange={e => {setTitle(e.target.value)}} maxLength = {5}></input>
     <br></br>
     <label className = "addReview">Add a written review:</label>
     <br></br>
     <textarea cols="40" rows="4" value={body} onChange={e => {setBody(e.target.value)}}></textarea>
     <br></br>
+
     <label className = "addReview">Add a rating:</label>
     <br></br>
-    <input type="text" value= {rating} onChange={e => {setRating(e.target.value)}}></input>
+    {/* <input type="text" value= {rating} onChange={e => {setRating(e.target.value)}}></input> */}
+    <StarRatings
+      rating={rating}
+      starRatedColor="black"
+      changeRating={e => {setRating(e)}}
+      numberOfStars={5}
+      starDimension = {`15px`}
+      starSpacing = {`2px`}
+      starEmptyColor = {`white`}
+      starHoverColor = {`black`}
+      />
+
+    {rating > 0 ?
+    (<div>hi</div>) : null
+    }
+
     <br></br>
     <label className = "addReview">Name:</label>
     <br></br>
     <input type="text" value={name} onChange={e => {setName(e.target.value)}}></input>
+    <br></br>
+    <label className = "addReview">Email:</label>
+    <br></br>
+    <input type="email"></input>
     <br></br>
     <label className = "addReview">Recommend?</label>
     <br></br>
@@ -195,11 +227,15 @@ export default function ReviewList({id}) {
   </form>
   </div>
   </div>
+  </div>
   } position="top center">
   </Popup>
 
 
-  </div>) : (<div id = "list"  className = "reviewList">
+  </div>
+  </div>) : (
+<div className = "reviewBox">
+  <div id = "list"  className = "reviewList">
   <div>
   <div className = "dropdown">
     <div className = "reviewTitle">
@@ -236,6 +272,7 @@ export default function ReviewList({id}) {
   <div>
   <button className = "reviewButton">MORE REVIEWS</button>
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
+  </div>
   </div>
   </div>)
   )

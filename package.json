@@ -41,6 +41,7 @@
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "jsdom": "^19.0.0",
+    "moment": "^2.29.3",
     "morgan": "^1.10.0",
     "mysql2": "^2.2.5",
     "nodemon": "^2.0.16",

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
+import moment from 'moment';
 
 // total reviews will be the array length
 
@@ -38,6 +39,9 @@ export default function ReviewListEntry(props) {
     }
   }
 
+  //  need response
+  // need verified icon
+
   return(
     <div className = "reviewItem">
       <StarRatings
@@ -46,8 +50,8 @@ export default function ReviewListEntry(props) {
       starSpacing="1px"
       starRatedColor="black"
     />
-    
-    <div className = "reviewDate">{props.date}</div>
+
+    <div className = "reviewDate">{props.name}, {moment(props.date).format("MMM Do, YYYY")}</div>
     <h1 className = "reviewTitle">{props.title}</h1>
     <div className = "reviewBody">{props.body}</div>
     <div className = "reviewRec">{recommended(recommend)}</div>
