@@ -15,10 +15,6 @@ function Photos ({photos, enlargeCurImage, icon}) {
 
   const n = photos.length -1;
 
-  function changeFullscreen() {
-    setFullscreen(!fullscreen);
-    console.log('fullscreen', fullscreen);
-  }
 
   var imageFullscreen = {
     width: fullscreen? 1000: 480,
@@ -48,7 +44,7 @@ function Photos ({photos, enlargeCurImage, icon}) {
       <div className = 'curImage' >
       {curImage === 0 ? <div className ="prev" onClick={()=>changeCurImage(curImage, 'prev')} ></div>: <div className ="prev" onClick={()=>changeCurImage(curImage, 'prev')} ><div className = 'item' >&#10094;</div></div> }
 
-       <div onClick = {changeFullscreen}> <img className = 'centerImg' id = 'centerImg' src = {photos[curImage]['url']} style = {imageFullscreen} ></img> </div>
+       <div onClick = {() => setFullscreen(!fullscreen)}> <img className = 'centerImg' id = 'centerImg' src = {photos[curImage]['url']} style = {imageFullscreen} ></img> </div>
 
       {curImage === n ?  <div className ="next" onClick={()=>changeCurImage(curImage, 'next')}> </div>:  <div className ="next" onClick={()=>changeCurImage(curImage, 'next')}><div className = 'item' >&#10095;</div></div>}
 
