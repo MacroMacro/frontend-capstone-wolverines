@@ -3,15 +3,13 @@ import React, { useState, useEffect } from 'react';
 function Photos ({photos, enlargeCurImage, icon}) {
   const [curImage, setCurImg] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
-  function changeImage(n) {
-    setCurImg(n);
-  }
 
-  function changeCurImage(n, key) {
-    if (key === 'prev') {
-      setCurImg(n-1);
-    } else {
-      setCurImg(n+1);
+  function changeCurImage(i, key) {
+    if (key === 'prev' && i > 0) {
+      setCurImg(i-1);
+    }
+    if (key === 'next' && i < n){
+      setCurImg(i+1);
     }
   }
 
@@ -47,15 +45,15 @@ function Photos ({photos, enlargeCurImage, icon}) {
   return (
     <div className = 'Photos'>
       <div className = 'imagegallery'>
-      <span class="material-symbols-outlined">arrow_upward</span>
+      <i class="material-symbols-outlined" onClick={()=>changeCurImage(curImage, 'prev')}>arrow_upward</i>
         {photos.map((photo, index, array) => {
             if(index === curImage) {
               return (<div><img id = 'curImage' key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} width = '100px' ></img></div>);
             } else {
-              return (<div><img id = 'othImage' key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} width = '100px' onClick = {() => changeImage(index)}></img></div>)
+              return (<div><img id = 'othImage' key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} width = '100px' onClick = {() => setCurImg(index)}></img></div>)
             }
           })}
-      <span class="material-symbols-outlined">arrow_downward</span>
+      <i class="material-symbols-outlined" onClick={()=>changeCurImage(curImage, 'next')}>arrow_downward</i>
       </div>
 
       <div className = 'curImage' >

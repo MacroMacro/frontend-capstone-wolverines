@@ -34,7 +34,7 @@
 
 .imagegallery {
   text-align: center;
-  overflow-y: auto;
+  overflow-y: hidden;
   position: relative;
 }
 
