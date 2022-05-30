@@ -46,13 +46,16 @@ function Photos ({photos, enlargeCurImage, icon}) {
 
   return (
     <div className = 'Photos'>
-      <div className = 'images'> {photos.map((photo, index, array) => {
+      <div className = 'imagegallery'>
+      <span class="material-symbols-outlined">arrow_upward</span>
+        {photos.map((photo, index, array) => {
             if(index === curImage) {
               return (<div><img id = 'curImage' key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} width = '100px' ></img></div>);
             } else {
               return (<div><img id = 'othImage' key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} width = '100px' onClick = {() => changeImage(index)}></img></div>)
             }
           })}
+      <span class="material-symbols-outlined">arrow_downward</span>
       </div>
 
       <div className = 'curImage' >

@@ -32,19 +32,18 @@
   height: 700px;
 }
 
-.images{
+.imagegallery {
   text-align: center;
-  justify-content: flex-start;
-  overflow-y: scroll;
+  overflow-y: auto;
   position: relative;
 }
 
-.images #curImage {
+.imagegallery #curImage {
   margin: 5px auto;
   border: darkgrey solid 3px;
   width: 45%;
 }
-.images #othImage {
+.imagegallery #othImage {
   margin: 5px auto;
   width: 45%;
 }
