@@ -27,7 +27,8 @@ function Photos ({photos, enlargeCurImage, icon}) {
       objectFit: 'cover',
       textAlign: 'center',
       padding: '10px',
-      cursor: 'zoom-out'
+      cursor: 'zoom-out',
+      backgroundImage: `url(${photos[curImage]['url']})`
     };
     document.getElementById('overview').style.display = 'none';
   } else {
@@ -37,7 +38,8 @@ function Photos ({photos, enlargeCurImage, icon}) {
       objectFit: 'cover',
       textAlign: 'center',
       padding: '10px',
-      cursor: 'zoom-in'
+      cursor: 'zoom-in',
+      backgroundImage: `url(${photos[curImage]['url']})`
     };
     document.getElementById('overview').style.display = 'block';
   }
@@ -59,7 +61,7 @@ function Photos ({photos, enlargeCurImage, icon}) {
       <div className = 'curImage' >
       {curImage === 0 ? <div className ="prev" onClick={()=>changeCurImage(curImage, 'prev')} ></div>: <div className ="prev" onClick={()=>changeCurImage(curImage, 'prev')} ><div className = 'item' >&#10094;</div></div> }
 
-       <div onClick = {changeFullscreen}> <img className = 'centerImg' id = 'centerImg' src = {photos[curImage]['url']} style = {imageFullscreen} ></img> </div>
+       <div onClick = {changeFullscreen} className = 'centerImg' id = 'centerImg'  style = {imageFullscreen}> </div>
 
       {curImage === n ?  <div className ="next" onClick={()=>changeCurImage(curImage, 'next')}> </div>:  <div className ="next" onClick={()=>changeCurImage(curImage, 'next')}><div className = 'item' >&#10095;</div></div>}
 
@@ -81,5 +83,5 @@ var imageFullscreen = { // initial #image css but then changes depending if clic
     objectFit: 'cover',
     textAlign: 'center',
     padding: '10px',
-    cursor: 'zoom-in'
+    cursor: 'zoom-in',
   };
