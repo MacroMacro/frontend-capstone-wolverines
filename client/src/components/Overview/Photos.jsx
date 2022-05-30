@@ -20,34 +20,21 @@ function Photos ({photos, enlargeCurImage, icon}) {
     console.log('fullscreen', fullscreen);
   }
 
-  if (fullscreen) {
-    imageFullscreen = {
-      width: 1000,
-      height: 670,
-      objectFit: 'cover',
-      textAlign: 'center',
-      padding: '10px',
-      cursor: 'zoom-out',
-      backgroundImage: `url(${photos[curImage]['url']})`
-    };
-    document.getElementById('overview').style.display = 'none';
-  } else {
-    imageFullscreen = {
-      width: 480,
-      height: 670,
-      objectFit: 'cover',
-      textAlign: 'center',
-      padding: '10px',
-      cursor: 'zoom-in',
-      backgroundImage: `url(${photos[curImage]['url']})`
-    };
-    document.getElementById('overview').style.display = 'block';
-  }
+  var imageFullscreen = {
+    width: fullscreen? 1000: 480,
+    height: 670,
+    objectFit: 'cover',
+    textAlign: 'center',
+    padding: '10px',
+    cursor: fullscreen? 'zoom-out' : 'zoom-in'
+  };
+
+  document.getElementById('overview').style.display = fullscreen ? 'none':'block';
 
   return (
     <div className = 'Photos'>
       <div className = 'imagegallery'>
-      <i class="material-symbols-outlined" onClick={()=>changeCurImage(curImage, 'prev')}>arrow_upward</i>
+      <i className = "material-symbols-outlined" onClick={()=>changeCurImage(curImage, 'prev')}>arrow_upward</i>
         {photos.map((photo, index, array) => {
             if(index === curImage) {
               return (<div><img id = 'curImage' key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} width = '100px' ></img></div>);
@@ -55,13 +42,13 @@ function Photos ({photos, enlargeCurImage, icon}) {
               return (<div><img id = 'othImage' key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} width = '100px' onClick = {() => setCurImg(index)}></img></div>)
             }
           })}
-      <i class="material-symbols-outlined" onClick={()=>changeCurImage(curImage, 'next')}>arrow_downward</i>
+      <i className = "material-symbols-outlined" onClick={()=>changeCurImage(curImage, 'next')}>arrow_downward</i>
       </div>
 
       <div className = 'curImage' >
       {curImage === 0 ? <div className ="prev" onClick={()=>changeCurImage(curImage, 'prev')} ></div>: <div className ="prev" onClick={()=>changeCurImage(curImage, 'prev')} ><div className = 'item' >&#10094;</div></div> }
 
-       <div onClick = {changeFullscreen} className = 'centerImg' id = 'centerImg'  style = {imageFullscreen}> </div>
+       <div onClick = {changeFullscreen}> <img className = 'centerImg' id = 'centerImg' src = {photos[curImage]['url']} style = {imageFullscreen} ></img> </div>
 
       {curImage === n ?  <div className ="next" onClick={()=>changeCurImage(curImage, 'next')}> </div>:  <div className ="next" onClick={()=>changeCurImage(curImage, 'next')}><div className = 'item' >&#10095;</div></div>}
 
@@ -76,12 +63,3 @@ function Photos ({photos, enlargeCurImage, icon}) {
 }
 
 export default Photos;
-
-var imageFullscreen = { // initial #image css but then changes depending if clickedFullScreen ever got invoked
-    width: 480,
-    height: 670,
-    objectFit: 'cover',
-    textAlign: 'center',
-    padding: '10px',
-    cursor: 'zoom-in',
-  };
