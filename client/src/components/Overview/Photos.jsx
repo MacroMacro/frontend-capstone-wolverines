@@ -15,14 +15,13 @@ function Photos ({photos, enlargeCurImage, icon}) {
 
   const n = photos.length -1;
 
-
   var imageFullscreen = {
-    width: fullscreen? 1000: 480,
-    height: 670,
+    width: fullscreen? 1200: 600,
+    height: 700,
     objectFit: 'cover',
     textAlign: 'center',
     padding: '10px',
-    cursor: fullscreen? 'zoom-out' : 'zoom-in'
+    cursor: fullscreen? 'zoom-out' : 'zoom-in',
   };
 
   document.getElementById('overview').style.display = fullscreen ? 'none':'block';
