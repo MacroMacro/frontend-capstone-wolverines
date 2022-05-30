@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import RelatedProductCard from './RelatedProductCard.jsx';
+import OutfitCard from './OutfitCard.jsx';
 import styled from 'styled-components';
 
 class YourOutfits extends React.Component {
@@ -16,9 +16,9 @@ class YourOutfits extends React.Component {
     this.scrollRight = this.scrollRight.bind(this);
     this.scrollLeft = this.scrollLeft.bind(this);
     this.isOverflowing = this.isOverflowing.bind(this);
+    this.handleCompareClick = this.handleCompareClick.bind(this);
   }
 
-  //don't think I need a did mount for this or why do I
   componentDidMount() {
     // store original product info
     const { productID } = this.props;
@@ -40,7 +40,7 @@ class YourOutfits extends React.Component {
       imagesToTheRight: true,
     });
     // find cards given ID productCarousel
-    const carousel = document.getElementById('productCarousel');
+    const carousel = document.getElementById('productCarousels');
 
     // when clicked, scrolls to left by -500
     carousel.scrollLeft -= 500;
@@ -59,7 +59,7 @@ class YourOutfits extends React.Component {
       imagesToTheLeft: true,
     });
     // find carousel div
-    const carousel = document.getElementById('productCarousel');
+    const carousel = document.getElementById('productCarousels');
     // see how much room there is left to scroll over
     const amountLeftToScroll = carousel.scrollWidth - carousel.clientWidth;
 
@@ -76,13 +76,19 @@ class YourOutfits extends React.Component {
 
   isOverflowing() {
     // find carousel div
-    const carousel = document.getElementById('productCarousel');
+    const carousel = document.getElementById('productCarousels');
 
     //if scrollWidth > clientWidth, then there is a scroll bar and images to the right, and vice versa
     const bool = carousel.scrollWidth > carousel.clientWidth;
     this.setState({
       imagesToTheRight: bool,
     });
+  }
+
+  handleCompareClick() {
+    const { productID } = this.props;
+    localStorage.setItem(productID, productID)
+    window.location.reload(false);
   }
 
   render() {
@@ -100,10 +106,19 @@ class YourOutfits extends React.Component {
           : null}
 
         {/* carousel is given an id to move the element, and set if there is right images to load the right button */}
-        <ListContainer id="productCarousel" onLoad={this.isOverflowing}>
+        <ListContainer id="productCarousels" onLoad={this.isOverflowing}>
+        <CardContainer>
+            {/* <br></br> */}
+            {/* Compare Modal button*/}
+
+            <ImageWrapper>
+              <Image src='https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg' onClick={this.handleCompareClick}/>
+            </ImageWrapper>
+            </CardContainer>
+
           { /* map over the related product IDs and pass info to cards */ }
-          {relatedProducts.map((product) => (
-            <RelatedProductCard
+          {Object.keys(localStorage).map((product) => (
+            <OutfitCard
               parentProductID={productID}
               // updateProduct={this.props.updateProduct}
               productID={product}
@@ -155,8 +170,21 @@ const LeftButton = styled.button`
   }
 `;
 
-// left: 1090px;
-// top: -12%;
+const CardContainer = styled.div`
+height: 400px;
+width: 275px;
+position: relative;
+flex-shrink: 0;
+margin: 10px 10px;
+outline-style: inset;
+// background: rgba(255,255,255,0.1);
+// background: linear-gradient(180deg, hsl(190,70%,99%), hsl(240,60%,100%));
+// &:hover {
+//   box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+//   bottom-border: 0px;
+//   cursor: pointer;
+// }
+`;
 
 const RightButton = styled.button`
   position: absolute;
@@ -173,6 +201,20 @@ const RightButton = styled.button`
     background-color: black;
     color: white;
   }
+`;
+
+const Image = styled.img`
+height: 100%;
+width: 100%;
+object-fit: contain;
+object-position: 50% 0;
+z-index: 0;
+`;
+
+const ImageWrapper = styled.div`
+height: 100%;
+width: 100%;
+margin-bottom: ;
 `;
 
 
