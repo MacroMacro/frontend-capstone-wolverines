@@ -42,6 +42,18 @@ export default function Ratings(props) {
 
   }, [props.reviews])
 
+  const rateAdder = (e) => {
+    // setStarReview {}
+    let objCopy = {...props.starReview}
+    if (objCopy[e.target.value]) {
+      delete objCopy[e.target.value]
+    } else {
+      objCopy[e.target.value] = Number(e.target.value)
+    }
+
+    props.setStarReview(objCopy)
+  }
+
 
   return (
    <div className = "ratingBox">
@@ -62,7 +74,7 @@ export default function Ratings(props) {
     <div className = "bodyText">{props.percentHelpful}% of reviews recommend this product</div>
     {/* reviewdate */}
     <br></br>
-    <button className = "rateNum" type="button" value = {5} onClick= {props.starRate}>5 stars</button>
+    <button className = "rateNum" type="button" value = {5} onClick= {rateAdder}>5 stars</button>
     <div className = "progBar">
     <ProgressBar
     completed={ratePercent.Five}
@@ -73,7 +85,7 @@ export default function Ratings(props) {
     />
     </div>
   <br></br>
-  <div className = "rateNum">4 stars</div>
+  <button className = "rateNum" type="button" value = {4} onClick= {rateAdder}>4 stars</button>
   <div className = "progBar">
     <ProgressBar
     completed={ratePercent.Four}
@@ -85,7 +97,7 @@ export default function Ratings(props) {
     </div>
     <br></br>
 
-    <div className = "rateNum">3 stars</div>
+    <button className = "rateNum" type="button" value = {3} onClick= {rateAdder}>3 stars</button>
     <div className = "progBar">
     <ProgressBar
     completed={ratePercent.Three}
@@ -97,7 +109,7 @@ export default function Ratings(props) {
     </div>
     <br></br>
 
-    <div className = "rateNum">2 stars</div>
+    <button className = "rateNum" type="button" value = {2} onClick= {rateAdder}>2 stars</button>
     <div className = "progBar">
     <ProgressBar
     completed={ratePercent.Two}
@@ -109,7 +121,7 @@ export default function Ratings(props) {
     </div>
     <br></br>
 
-    <div className = "rateNum">1 stars</div>
+    <button className = "rateNum" type="button" value = {1} onClick= {rateAdder}>1 stars</button>
     <div className = "progBar">
     <ProgressBar
     completed={ratePercent.One}

@@ -30,20 +30,22 @@ export default function ReviewList({id}) {
   const [changeRating, setChangeRating] = useState(()=>{});
   const [email, setEmail] = useState('');
   const [option, setOption] = useState('Relevance');
-  const [starReview, setStarReview] = useState(0);
+  const [starReview, setStarReview] = useState({});
+  const [reviewState, setReviewState] = useState([]);
 
   // create a state here to pass down to reviewListEntry
   // write a function here for maintaining rating state
   // pass the state down to ratings
 
-  console.log(reviews)
+  //console.log(reviews)
   const getReviews = () =>
   {axios.get(`/reviews/${id}`)
   .then((response) => {
     let reviews = response.data.results;
     // need to figure out how to sort by both values
     reviews.sort((a, b) => (a['helpfulness'] < b['helpfulness']) ? 1 : -1)
-    setReviews(reviews);
+    setReviews(reviews)
+    setReviewState(reviews)
   })
   .catch(err => console.log(err));
   }
@@ -119,7 +121,7 @@ export default function ReviewList({id}) {
         alert('Title input is too long')
       }
 
-      console.log(body.length)
+      //console.log(body.length)
       getReviews()
     })
     .catch((err) => console.log(err))
@@ -170,7 +172,7 @@ export default function ReviewList({id}) {
   }
 
   const changeOption = (event) => {
-    console.log(event.target.value)
+    //console.log(event.target.value)
     if (event.target.value === 'Helpful') {
       helpfulSort()
     } else if (event.target.value === 'Newest') {
@@ -186,22 +188,31 @@ export default function ReviewList({id}) {
   // pass the state down to ratings
 
   // create a func for a button for each star rating to filter
-  const starRate = (event) => {
-    //.rating
-    setStarReview(event.target.value)
-    // useeffect if the user clicks on a different rating, then i filter
-    // if (event.target.value === "5") {
-    //   let rate = reviews.filter((item) => {
-    //     item.rating === 5
-    //   })
-    //   setStarReview(rate)
-    // }
-  }
+  // const starRate = (event) => {
+  //   //.rating
+  //   setStarReview(event.target.value)
+  //   // useeffect if the user clicks on a different rating, then i filter
+  //   // if (event.target.value === "5") {
+  //   //   let rate = reviews.filter((item) => {
+  //   //     item.rating === 5
+  //   //   })
+  //   //   setStarReview(rate)
+  //   // }
+  // }
 
   useEffect(() => {
-    let rate = reviews.filter((item) => {
-        item.rating === starReview
-    })
+    let objLength = Object.keys(starReview).length
+
+    if (objLength > 0) {
+    let rate = reviews.filter((item) =>
+        item.rating === starReview[String(item.rating)]
+    )
+    console.log(rate)
+    setReviewState(rate)
+    } else {
+      console.log('reached')
+      setReviewState(reviews)
+    }
   }, [starReview])
 
   return(
@@ -228,10 +239,11 @@ export default function ReviewList({id}) {
       comfort = {comfort}
       size = {size}
       rating = {rating}
+      setStarReview = {setStarReview}
       starReview = {starReview}
-      starRate = {starRate}
+
     />}
-    {reviews.map((info)=> (
+    {reviewState.map((info)=> (
       <ReviewListEntry
         body = {info.body}
         title = {info.summary}
@@ -339,8 +351,11 @@ export default function ReviewList({id}) {
       reviews = {reviews}
       comfort = {comfort}
       size = {size}
+      rating = {rating}
+      setStarReview = {setStarReview}
+      starReview = {starReview}
     />}
-    {reviews.map((info)=> (
+    {reviewState.map((info)=> (
       <ReviewListEntry
         body = {info.body}
         title = {info.summary}
