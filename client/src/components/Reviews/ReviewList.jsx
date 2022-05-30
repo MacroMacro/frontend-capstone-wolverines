@@ -4,6 +4,7 @@ import ReviewListEntry from './ReviewListEntry.jsx';
 import Ratings from './Ratings.jsx';
 import StarRatings from 'react-star-ratings';
 import Popup from 'reactjs-popup';
+import moment from 'moment';
 // list will map and pass to list entry to have the individual data
 // ratings bar will be own seperate component
 // make reviews scrollable
@@ -28,12 +29,19 @@ export default function ReviewList({id}) {
   const [averageRate, setAverageRate] = useState(0);
   const [changeRating, setChangeRating] = useState(()=>{});
   const [email, setEmail] = useState('');
+  const [option, setOption] = useState('Relevance');
+  const [starReview, setStarReview] = useState(0);
 
+  // create a state here to pass down to reviewListEntry
+  // write a function here for maintaining rating state
+  // pass the state down to ratings
 
+  console.log(reviews)
   const getReviews = () =>
   {axios.get(`/reviews/${id}`)
   .then((response) => {
     let reviews = response.data.results;
+    // need to figure out how to sort by both values
     reviews.sort((a, b) => (a['helpfulness'] < b['helpfulness']) ? 1 : -1)
     setReviews(reviews);
   })
@@ -53,7 +61,6 @@ export default function ReviewList({id}) {
     getReviews();
     getReviewMeta();
   }, [])
-
 
   const handleFormView = () => {
     setFormView(!formView);
@@ -143,34 +150,86 @@ export default function ReviewList({id}) {
     setAverageRate(avgRating)})
   .catch(err => console.log(err));
 
-//console.log(reviews)
-
   function showDiv() {
   document.getElementById('welcomeDiv').style.display = "block";
   }
+
+  const helpfulSort = () => {
+    let helpfulReview = reviews.slice()
+    helpfulReview.sort((a, b) => (a['helpfulness'] < b['helpfulness']) ? 1 : -1)
+    setReviews(helpfulReview)
+  }
+
+  const newestSort = () => {
+    let newReview = reviews.slice()
+    newReview.sort((a, b) => {
+      // compare with &&
+      return (a.date < b.date) ? 1 : -1
+    })
+    setReviews(newReview)
+  }
+
+  const changeOption = (event) => {
+    console.log(event.target.value)
+    if (event.target.value === 'Helpful') {
+      helpfulSort()
+    } else if (event.target.value === 'Newest') {
+      newestSort()
+    }
+    setOption(event.target.value)
+  }
+
+  // const [starReview, setStarReview] = useState(0);
+
+  // create a state here to pass down to reviewListEntry
+  // write a function here for maintaining rating state
+  // pass the state down to ratings
+
+  // create a func for a button for each star rating to filter
+  const starRate = (event) => {
+    //.rating
+    setStarReview(event.target.value)
+    // useeffect if the user clicks on a different rating, then i filter
+    // if (event.target.value === "5") {
+    //   let rate = reviews.filter((item) => {
+    //     item.rating === 5
+    //   })
+    //   setStarReview(rate)
+    // }
+  }
+
+  useEffect(() => {
+    let rate = reviews.filter((item) => {
+        item.rating === starReview
+    })
+  }, [starReview])
 
   return(
   formView ? (
     <div className = "reviewBox">
   <div id = "list" className = "reviewList">
   <div>
+
   <div className = "dropdown">
     <div className = "reviewTitle">
       {reviews.length} reviews, sorted by
-      <button onClick={myFunction} className = "dropbutton">relevance ∨</button>
-      <div id = "theDropdown" className="contentDropdown">
-      <a href="#">Relevant</a>
-      <a href="#">Helpful</a>
-      <a href="#">Newest</a>
-      </div>
+      <select value={option} onChange={changeOption} className = "dropbutton">
+      <option value='Relevance' >Relevance</option>
+      <option value= 'Helpful' >Helpful</option>
+      <option value='Newest' >Newest</option>
+      </select>
       </div>
     </div>
+
     {<Ratings
       averageRate = {averageRate}
       percentHelpful = {percentHelpful}
       reviews = {reviews}
       comfort = {comfort}
       size = {size}
+      rating = {rating}
+      starReview = {starReview}
+      starRate = {starRate}
     />}
     {reviews.map((info)=> (
       <ReviewListEntry
@@ -223,6 +282,7 @@ export default function ReviewList({id}) {
       starSpacing = {`2px`}
       starEmptyColor = {`white`}
       starHoverColor = {`black`}
+      starRate = {starRate}
       />
 
     {rating > 0 ?
@@ -257,20 +317,22 @@ export default function ReviewList({id}) {
 
   </div>
   </div>) : (
+
 <div className = "reviewBox">
   <div id = "list"  className = "reviewList">
   <div>
+
   <div className = "dropdown">
     <div className = "reviewTitle">
       {reviews.length} reviews, sorted by
-      <button onClick={myFunction} className = "dropbutton">relevance ∨</button>
-      <div id = "theDropdown" className="contentDropdown">
-      <a href="#">Relevant</a>
-      <a href="#">Helpful</a>
-      <a href="#">Newest</a>
-      </div>
+      <select value={option} onChange={changeOption} className = "dropbutton">
+      <option value='Relevance' >Relevance</option>
+      <option value= 'Helpful' >Helpful</option>
+      <option value='Newest' >Newest</option>
+      </select>
       </div>
     </div>
+
     {<Ratings
       averageRate = {averageRate}
       percentHelpful = {percentHelpful}

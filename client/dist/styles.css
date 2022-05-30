@@ -97,6 +97,8 @@
 }
 
 .rateNum {
+  border: none;
+  background-color: transparent;
   float: left;
   font-size: 12px;
   text-decoration: underline;

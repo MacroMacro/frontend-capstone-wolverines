@@ -6,14 +6,8 @@ import moment from 'moment';
 // total reviews will be the array length
 
 export default function ReviewListEntry(props) {
- //console.log('body', props.body);
-  //console.log(id);
-  //console.log(props.id);
-  // console.log('summary', props.title);
-  //console.log('rating', props.rating);
-  //console.log(props);
-  //console.log(props.helpfulness);
   const [helpful, setHelpful] = useState(props.helpfulness);
+  const [notHelpful, setNotHelpful] = useState(props.helpfulness);
   const [reviews, setReviews] = useState([]);
   const [recommend, setRecommend] = useState(props.recommend);
   //console.log(props.helpfulness)
@@ -25,6 +19,16 @@ export default function ReviewListEntry(props) {
     // when clicked,
     // increment the count by 1
     counter++
+    axios.put(`/reviews/${id}/helpful`, {helpfulness: counter})
+    .then((response) => {
+      //console.log(response)
+      setHelpful(counter)
+    })
+    .catch((err) => console.log(err))
+  }
+
+  const helpfulDecrementer = (id) => {
+    counter--
     axios.put(`/reviews/${id}/helpful`, {helpfulness: counter})
     .then((response) => {
       //console.log(response)
@@ -59,8 +63,12 @@ export default function ReviewListEntry(props) {
     <u>Yes</u>
     <span> &nbsp; ( {helpful} )</span>
     </button>
+
     <span className = "helpfulButton">|</span>
-    <button id = "report" type="button" className = "reportButton"><u>Report</u></button>
+    <button id = "report" type="button" className = "reportButton"
+    onClick={() => {helpfulDecrementer(props.id)}}>
+    <u>No</u>
+    </button>
     </div>
   )
 }

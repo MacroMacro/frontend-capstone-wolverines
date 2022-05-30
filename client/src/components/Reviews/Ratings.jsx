@@ -9,6 +9,7 @@ export default function Ratings(props) {
 
   const [ratePercent, setRatePercent] = useState({1: 0, 2: 0, 3: 0, 4: 0, 5: 0});
   const [changeComfort, setChangeComfort] = useState(0);
+  const [starRating, setStarRating] = useState(0);
 
   useEffect(() => {
     let countOne = 0;
@@ -30,7 +31,7 @@ export default function Ratings(props) {
         countOne++
       }
     })
-    // let div = count/ props.reviews.length * (100)
+
     let divOne = countOne/ props.reviews.length  * (100)
     let divTwo = countTwo / props.reviews.length  * (100)
     let divThree = countThree / props.reviews.length  * (100)
@@ -41,9 +42,8 @@ export default function Ratings(props) {
 
   }, [props.reviews])
 
-  //console.log(7.345676.toFixed(2))
 
- return (
+  return (
    <div className = "ratingBox">
   <div>
     <div className = "ratingTitle">RATINGS & REVIEWS</div>
@@ -60,9 +60,9 @@ export default function Ratings(props) {
     <br></br>
   <br></br>
     <div className = "bodyText">{props.percentHelpful}% of reviews recommend this product</div>
-
+    {/* reviewdate */}
     <br></br>
-    <div className = "rateNum">5 stars</div>
+    <button className = "rateNum" type="button" value = {5} onClick= {props.starRate}>5 stars</button>
     <div className = "progBar">
     <ProgressBar
     completed={ratePercent.Five}
