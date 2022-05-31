@@ -1,3 +1,5 @@
+/* Ratings & Reviews */
+
 .reviewItem {
   border-bottom: 2px solid black;
   border-width: thin;
@@ -236,7 +238,7 @@ label {
   font-weight: bold;
 }
 
-nav {
+.nav {
   height:300px;
   overflow:auto;
 }

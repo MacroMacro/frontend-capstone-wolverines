@@ -265,6 +265,7 @@ export default function ReviewList({id}) {
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
 
   <Popup trigger={
+    // add 2 srop propogation
     <div className = "overlay">
       <div className = "testing" onClick = {() => {
       // event.stopPropagation();
@@ -478,8 +479,8 @@ export default function ReviewList({id}) {
       setStarReview = {setStarReview}
       starReview = {starReview}
     />}
-    
-    <nav>
+
+    <nav className = "nav">
     {reviews.slice(0, dataCount).map((info)=> (
       <ReviewListEntry
         body = {info.body}
