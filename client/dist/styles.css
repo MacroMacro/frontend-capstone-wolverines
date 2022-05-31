@@ -203,3 +203,21 @@ background-color: rgba(0,0,0, .7);
 .productTitle {
   font-size: 12px;
 }
+
+input[type=radio] {
+  margin: 0 auto;
+  display: block;
+}
+
+label {
+  display: inline-block;
+}
+
+.radioButton {
+  font-size: 11px;
+}
+
+.radioTitle {
+  font-size: 12px;
+  font-weight: bold;
+}

@@ -63,7 +63,7 @@ export default function ReviewListEntry(props) {
     <u>Yes</u>
     <span> &nbsp; ( {helpful} )</span>
     </button>
-
+    
     <span className = "helpfulButton">|</span>
     <button id = "report" type="button" className = "reportButton"
     onClick={() => {helpfulDecrementer(props.id)}}>

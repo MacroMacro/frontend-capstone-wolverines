@@ -32,12 +32,21 @@ export default function ReviewList({id}) {
   const [option, setOption] = useState('Relevance');
   const [starReview, setStarReview] = useState({});
   const [reviewState, setReviewState] = useState([]);
+  const [dataCount, setDataCount] = useState(2);
+
+  const [radioSize, setRadioSize] = useState('');
+  const [radioWidth, setRadioWidth] = useState('');
+  const [radioComfort, setRadioComfort] = useState('');
+  const [radioQuality, setRadioQuality] = useState('');
+  const [radioLength, setRadioLength] = useState('');
+  const [radioFit, setRadioFit] = useState('');
 
   // create a state here to pass down to reviewListEntry
   // write a function here for maintaining rating state
   // pass the state down to ratings
 
-  //console.log(reviews)
+  console.log(reviews)
+  // can i slice the data array here to load 2 and then 2 again?
   const getReviews = () =>
   {axios.get(`/reviews/${id}`)
   .then((response) => {
@@ -181,25 +190,6 @@ export default function ReviewList({id}) {
     setOption(event.target.value)
   }
 
-  // const [starReview, setStarReview] = useState(0);
-
-  // create a state here to pass down to reviewListEntry
-  // write a function here for maintaining rating state
-  // pass the state down to ratings
-
-  // create a func for a button for each star rating to filter
-  // const starRate = (event) => {
-  //   //.rating
-  //   setStarReview(event.target.value)
-  //   // useeffect if the user clicks on a different rating, then i filter
-  //   // if (event.target.value === "5") {
-  //   //   let rate = reviews.filter((item) => {
-  //   //     item.rating === 5
-  //   //   })
-  //   //   setStarReview(rate)
-  //   // }
-  // }
-
   useEffect(() => {
     let objLength = Object.keys(starReview).length
 
@@ -243,7 +233,7 @@ export default function ReviewList({id}) {
       starReview = {starReview}
 
     />}
-    {reviewState.map((info)=> (
+    {reviews.slice(0, dataCount).map((info)=> (
       <ReviewListEntry
         body = {info.body}
         title = {info.summary}
@@ -258,7 +248,8 @@ export default function ReviewList({id}) {
     ))}
 
   </div>
-  <button className = "reviewButton">MORE REVIEWS</button>
+  {dataCount < reviews.length && reviews.length > 2 && reviews.length !== 101 ?
+  <button className = "reviewButton" onClick = {() => {setDataCount(dataCount + 2)}}>MORE REVIEWS</button> : null }
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
 
   <Popup trigger={
@@ -294,7 +285,7 @@ export default function ReviewList({id}) {
       starSpacing = {`2px`}
       starEmptyColor = {`white`}
       starHoverColor = {`black`}
-      starRate = {starRate}
+
       />
 
     {rating > 0 ?
@@ -313,6 +304,125 @@ export default function ReviewList({id}) {
     <div className = "auth">For authentication reasons, you will not be emailed</div>
     <br></br>
 
+    <label className = "addReview">Characteristics*</label>
+    <br></br>
+    <br></br>
+
+    <div>
+     {radioSize.length > 0 ?
+      <div className = "radioTitle">Size &nbsp; {radioSize}</div> : <div className = "radioTitle">Size &nbsp; none selected</div>}
+    <label className = "radioButton" onClick = {() => {setRadioSize('A size too small')}}><input type="radio" />A size too small &nbsp;</label>
+    <label className = "radioButton"><input type="radio" onClick = {() => {
+      setRadioSize('½ a size too small')
+    }}/>½ a size too small &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioSize('Perfect')
+    }}><input type="radio" />Perfect &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioSize('½ a size too big')
+    }}><input type="radio" />½ a size too big &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioSize('A size too wide')
+    }}><input type="radio" />A size too wide &nbsp;</label>
+    </div>
+    <br></br>
+
+    <div>
+    {radioWidth.length > 0 ?
+      <div className = "radioTitle">Width &nbsp; {radioWidth}</div> : <div className = "radioTitle">Width &nbsp; none selected</div>}
+    <label className = "radioButton" onClick = {() => {setRadioWidth('Too narrow')}}><input type="radio" />Too narrow &nbsp;</label>
+    <label className = "radioButton"><input type="radio" onClick = {() => {
+      setRadioWidth('Slightly narrow')
+    }}/>Slightly narrow &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioWidth('Perfect')
+    }}><input type="radio" />Perfect &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioWidth('Slightly wide')
+    }}><input type="radio" />Slightly wide &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioWidth('Too wide')
+    }}><input type="radio" />Too wide &nbsp;</label>
+    </div>
+    <br></br>
+
+    <div>
+    {radioComfort.length > 0 ?
+      <div className = "radioTitle">Comfort &nbsp; {radioComfort}</div> : <div className = "radioTitle">Comfort &nbsp; none selected</div>}
+    <label className = "radioButton" onClick = {() => {setRadioComfort('Uncomfortable')}}><input type="radio" />Uncomfortable &nbsp;</label>
+    <label className = "radioButton"><input type="radio" onClick = {() => {
+      setRadioComfort('Slightly uncomfortable')
+    }}/>Slightly uncomfortable &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioComfort('Ok')
+    }}><input type="radio" />Ok &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioComfort('Comfortable')
+    }}><input type="radio" />Comfortable &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioComfort('Perfect')
+    }}><input type="radio" />Perfect &nbsp;</label>
+    </div>
+    <br></br>
+
+    <div>
+    {radioQuality.length > 0 ?
+      <div className = "radioTitle">Quality &nbsp; {radioQuality}</div> : <div className = "radioTitle">Quality &nbsp; none selected</div>}
+    <label className = "radioButton" onClick = {() => {setRadioQuality('Poor')}}><input type="radio" />Poor &nbsp;</label>
+    <label className = "radioButton"><input type="radio" onClick = {() => {
+      setRadioQuality('Below average')
+    }}/>Below average &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioQuality('What I expected')
+    }}><input type="radio" />What I expected &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioQuality('Pretty great')
+    }}><input type="radio" />Pretty great &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioQuality('Perfect')
+    }}><input type="radio" />Perfect &nbsp;</label>
+    </div>
+    <br></br>
+
+    <div>
+    {radioLength.length > 0 ?
+      <div className = "radioTitle">Length &nbsp; {radioLength}</div> : <div className = "radioTitle">Length &nbsp; none selected</div>}
+    <label className = "radioButton" onClick = {() => {setRadioLength('Runs Short')}}><input type="radio" />Runs Short &nbsp;</label>
+    <label className = "radioButton"><input type="radio" onClick = {() => {
+      setRadioLength('Runs slightly short')
+    }}/>Runs slightly short &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioLength('Perfect')
+    }}><input type="radio" />Perfect &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioLength('Runs slightly long')
+    }}><input type="radio" />Runs slightly long &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioLength('Runs long')
+    }}><input type="radio" />Runs long &nbsp;</label>
+    </div>
+    <br></br>
+
+{/* here */}
+    <div>
+    {radioFit.length > 0 ?
+      <div className = "radioTitle">Fit &nbsp; {radioFit}</div> : <div className = "radioTitle">Fit &nbsp; none selected</div>}
+    <label className = "radioButton" onClick = {() => {setRadioFit('Runs Short')}}><input type="radio" />Runs Short &nbsp;</label>
+    <label className = "radioButton"><input type="radio" onClick = {() => {
+      setRadioFit('Runs slightly short')
+    }}/>Runs slightly short &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioFit('Perfect')
+    }}><input type="radio" />Perfect &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioFit('Runs slightly long')
+    }}><input type="radio" />Runs slightly long &nbsp;</label>
+    <label className = "radioButton" onClick = {() => {
+      setRadioFit('Runs long')
+    }}><input type="radio" />Runs long &nbsp;</label>
+    </div>
+    <br></br>
+
     <label className = "addReview">Do You Recommend This Product? *</label>
     <br></br>
     <input type="checkbox" name = "rec" value={recommend} onClick={e => {setRecommend(true)}}></input>Yes
@@ -325,7 +435,6 @@ export default function ReviewList({id}) {
   </div>
   } position="top center">
   </Popup>
-
 
   </div>
   </div>) : (
@@ -355,7 +464,7 @@ export default function ReviewList({id}) {
       setStarReview = {setStarReview}
       starReview = {starReview}
     />}
-    {reviewState.map((info)=> (
+    {reviews.slice(0, dataCount).map((info)=> (
       <ReviewListEntry
         body = {info.body}
         title = {info.summary}
@@ -370,7 +479,10 @@ export default function ReviewList({id}) {
     ))}
   </div>
   <div>
-  <button className = "reviewButton">MORE REVIEWS</button>
+
+  {dataCount < reviews.length && reviews.length > 2  && reviews.length !== 101 ?
+  <button className = "reviewButton" onClick = {() => {setDataCount(dataCount + 2)}}>MORE REVIEWS</button> : null }
+
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
   </div>
   </div>

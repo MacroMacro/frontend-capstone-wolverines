@@ -21,7 +21,7 @@ export default function Ratings(props) {
     props.reviews.forEach((item) => {
       if (item.rating === 5) {
         countFive++
-      } else if (item.rating=== 4) {
+      } else if (item.rating === 4) {
         countFour++
       } else if (item.rating === 3) {
         countThree++
@@ -161,3 +161,9 @@ export default function Ratings(props) {
   </div>
  )
 }
+
+// {dataCount < reviews.length && reviews.length > 2  && reviews.length !== 101 ?
+//   <button className = "reviewButton" onClick = {() => {setDataCount(dataCount + 2)}}>MORE REVIEWS</button> : null }
+// const [radioClick, setRadioClick] = useState(1);
+// {radioWidth > 1 ?
+//   <div className = "radioTitle">Width</div> : <div>none selected</div>}
