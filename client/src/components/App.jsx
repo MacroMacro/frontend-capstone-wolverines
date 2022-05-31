@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Overview from './Overview/Overview.jsx';
-// import Reviews from './Reviews/Reviews.jsx';
-// import QandAs from './QandAs/QandAs.jsx';
+import ReviewList from './Reviews/ReviewList.jsx';
+import QandAs from './QandAs/QandAs.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
 import axios from 'axios';
 
@@ -41,8 +41,8 @@ function App () {
         {console.log(productID)}
         <Overview product = {products[curProduct]} productID={productID} searchProduct = {searchProduct}/>
         <RelatedItems product={products[curProduct]} productID={productID} updateProduct={updateProduct}/>
-        {/* <ReviewList id={products[curProduct].id}/>
-        <QandAs product_id = {products[curProduct].id}/> */}
+        <ReviewList id={products[curProduct].id}/>
+        <QandAs product_id = {products[curProduct].id}/>
       </div>
     ) : (
       <div id = 'test'><h1>Hello world</h1></div>

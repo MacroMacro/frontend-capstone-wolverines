@@ -23,7 +23,7 @@ app.get('/products', (req, res) => {
 
 /*Reviews */
 //get reviews for specific product id
-//from client end: axios.get('/reviews/40344')
+//from client end: axios.get('/reviews/?id=40344')
 app.get('/reviews/:id', (req, res) => {
   var id = req.params.id;
   console.log('id', id);
