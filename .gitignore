@@ -1,4 +1,6 @@
 .env
 .DS_Store
 node_modules/
-client/dist/
+client/dist/bundle.js
+client/dist/bundle.js.map
+package-lock.json

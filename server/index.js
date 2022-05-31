@@ -24,7 +24,7 @@ app.get('/products', (req, res) => {
 
 /*Reviews */
 //get reviews for specific product id
-//from client end: axios.get('/reviews/?id=40344')
+//from client end: axios.get('/reviews/40344')
 app.get('/reviews/:id', (req, res) => {
   var id = req.params.id;
   console.log('id', id);
@@ -197,7 +197,7 @@ app.get('/cart', (req, res) => {
 });
 
 //add to cart
-///axios.post('cart?sku_id=1394799')
+///axios.post('cart/?sku_id=1394799')
 app.post('/cart', (req, res) => {
   var sku_id = req.query['sku_id'];
   axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart`, {"sku_id": sku_id}, { headers: {'Authorization': process.env.token}})
