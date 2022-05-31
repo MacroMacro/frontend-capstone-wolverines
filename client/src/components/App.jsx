@@ -15,7 +15,7 @@ function App () {
 
   useEffect(() => {
     axios.get('/products')
-      .then((response) =>{setProduct(response.data);})
+      .then((response) =>{setProduct(response.data); setProductID(response.data[0].id); console.log('products', response.data, response.data[0].id)})
       .catch(err => console.log(err));
   }, [])
 
@@ -38,10 +38,11 @@ function App () {
 
   return (
     <>
-    {products.length ? (
+    {console.log(products, curProduct, productID, 'seee')}
+    {productID ? (
       <div>
         <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
-        <RelatedItems product={products[curProduct]} productID={products[curProduct].id}/>
+        <RelatedItems product={products[curProduct]} productID={productID} updateProduct={updateProduct}/>
         <ReviewList id={products[curProduct].id}/>
         <QandAs product_id = {products[curProduct].id}/>
       </div>
