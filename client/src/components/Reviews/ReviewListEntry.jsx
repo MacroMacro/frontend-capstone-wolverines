@@ -39,13 +39,13 @@ export default function ReviewListEntry(props) {
 
   const recommended = (bool) => {
     if (bool === true) {
-      return (<div>I recommend this product</div>)
+      return (<div>✔ I recommend this product</div>)
     }
   }
 
   //  need response
   // need verified icon
-  
+
   return(
     <div className = "reviewItem">
       <StarRatings
@@ -55,7 +55,7 @@ export default function ReviewListEntry(props) {
       starRatedColor="black"
     />
 
-    <div className = "reviewDate">{props.name}, {moment(props.date).format("MMM Do, YYYY")}</div>
+    <div className = "reviewDate">☑ {props.name}, {moment(props.date).format("MMM Do, YYYY")}</div>
     <h1 className = "reviewTitle">{props.title}</h1>
     <div className = "reviewBody">{props.body}</div>
     <div className = "reviewRec">{recommended(recommend)}</div>
@@ -70,5 +70,6 @@ export default function ReviewListEntry(props) {
     <u>No</u>
     </button>
     </div>
+
   )
 }

@@ -215,6 +215,7 @@ export default function ReviewList({id}) {
   return(
   formView ? (
     <div className = "reviewBox">
+
   <div id = "list" className = "reviewList">
   <div>
 
@@ -240,6 +241,8 @@ export default function ReviewList({id}) {
       starReview = {starReview}
 
     />}
+
+    <nav>
     {reviews.slice(0, dataCount).map((info)=> (
       <ReviewListEntry
         body = {info.body}
@@ -253,8 +256,10 @@ export default function ReviewList({id}) {
         key = {info.review_id}
       />
     ))}
-
+    </nav>
   </div>
+
+
   {dataCount < reviews.length && reviews.length > 2 && reviews.length !== 101 ?
   <button className = "reviewButton" onClick = {() => {setDataCount(dataCount + 2)}}>MORE REVIEWS</button> : null }
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
@@ -273,7 +278,7 @@ export default function ReviewList({id}) {
       <br></br>
     <label className = "addReview">Review Summary: *</label>
     <br></br>
-    <input type="text" value={title} placeholder="Example: Best purchase ever!" onChange={e => {setTitle(e.target.value)}} maxLength = {5}></input>
+    <input type="text" value={title} placeholder="Example: Best purchase ever!" onChange={e => {setTitle(e.target.value)}}></input>
     <br></br>
 
     {/* here */}
@@ -473,6 +478,8 @@ export default function ReviewList({id}) {
       setStarReview = {setStarReview}
       starReview = {starReview}
     />}
+    
+    <nav>
     {reviews.slice(0, dataCount).map((info)=> (
       <ReviewListEntry
         body = {info.body}
@@ -486,6 +493,7 @@ export default function ReviewList({id}) {
         key = {info.review_id}
       />
     ))}
+    </nav>
   </div>
   <div>
 
