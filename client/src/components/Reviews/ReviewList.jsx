@@ -72,7 +72,7 @@ export default function ReviewList({id}) {
   useEffect(() => {
     getReviews();
     getReviewMeta();
-  }, [])
+  }, [id])
 
   const handleFormView = () => {
     setFormView(!formView);
@@ -214,7 +214,7 @@ export default function ReviewList({id}) {
 
   return(
   formView ? (
-    <div className = "reviewBox">
+    <div className = "reviewBox" id ='reviewList'>
 
   <div id = "list" className = "reviewList">
   <div>
@@ -454,7 +454,7 @@ export default function ReviewList({id}) {
   </div>
   </div>) : (
 
-<div className = "reviewBox">
+<div className = "reviewBox" id ='reviewList'>
   <div id = "list"  className = "reviewList">
   <div>
 

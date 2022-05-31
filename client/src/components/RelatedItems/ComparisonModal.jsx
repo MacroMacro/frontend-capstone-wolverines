@@ -1,3 +1,47 @@
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import styled from 'styled-components';
+
+// function ComparisonModal ({closeModal, parentProduct, compareProduct, combinedFeatures}) {
+
+//   function closeModal = (event) => {
+//     event.stopPropagation();
+//     closeModal();
+//   };
+
+//   return (
+//     <ModalWrapper
+//       className="modal"
+//       onClick={closeModal}
+//     >
+//       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+//       </div>
+//       <ModalContent>
+//         <ComparisonTitle>
+//           <CompareTitle>COMPARING</CompareTitle>
+//           <div>{null}</div>
+//           <div>{null}</div>
+//           <ProductTitle><b>{parentProduct}</b></ProductTitle>
+//           <div>{null}</div>
+//           <ProductTitle><b>{compareProduct}</b></ProductTitle>
+//         </ComparisonTitle>
+//         <CompareWrapper>
+//           {combinedFeatures.map((feature, i) => {
+//             if (feature) {
+//               if (feature[0] === '"') {
+//                 const cleanFeature = feature.substring(1, feature.length - 1);
+//                 return <TestDiv key={i}>{cleanFeature}</TestDiv>;
+//               }
+//               return <TestDiv key={i}>{feature}</TestDiv>;
+//             }
+//             return <TestDiv key={i}>{feature}</TestDiv>;
+//           })}
+//         </CompareWrapper>
+//       </ModalContent>
+//     </ModalWrapper>
+//   );
+// };
+
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -16,11 +60,10 @@ const ComparisonModal = (props) => {
       onClick={closeModal}
     >
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <CloseButton className="close" onClick={closeModal}>&times; </CloseButton>
       </div>
       <ModalContent>
         <ComparisonTitle>
-          <CompareTitle>COMPARING: </CompareTitle>
+          <CompareTitle>COMPARING</CompareTitle>
           <div>{null}</div>
           <div>{null}</div>
           <ProductTitle><b>{parentProduct}</b></ProductTitle>
@@ -43,14 +86,6 @@ const ComparisonModal = (props) => {
     </ModalWrapper>
   );
 };
-
-const CloseButton = styled.span`
-  color: #aaaaaa;
-  position: relative;
-  float: right; /* Positioned to the right of the parent container whichever size it is */
-  font-size: 25px;
-  font-weight: bold;
-`;
 
 const TestDiv = styled.div`
   text-align: center;
@@ -122,7 +157,7 @@ overflow: auto; /* Enable scroll if needed */
 padding-top: 80px; /* Location of the content container */
 font-size: calc(10px + 2vmin);
 color: black;
-z-index: 150;
+z-index: 1000;
 backdrop-filter: blur(8px) contrast(70%);
 `;
 
