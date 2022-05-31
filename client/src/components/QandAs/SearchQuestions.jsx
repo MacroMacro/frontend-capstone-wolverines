@@ -1,13 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 
-/*After the user types 3 or more characters into the search bar the results will begin to filter to only those containing matching text.
-
-The filter should continue to update as the user adds or removes characters.
-
-If the user clears the search term, or removes characters so that less than 3 remain, the list should return to the state where it is not filtered to matching text.
-
-The search filter should work with any other filters or sorts that have been applied, and narrow the results further. Changes to the sort and rating filters should not remove the search term filter.*/
 
 function SearchQuestions({ searchQuestions, product_id }) {
 
