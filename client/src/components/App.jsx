@@ -8,10 +8,9 @@ import axios from 'axios';
 function App () {
   // Remember to change individual github tokens when you pull down the repo to your local!
 
-  const[curProduct, setCurProduct] = useState(0);
+  const[curProduct, setCurProduct] = useState(4);
   const[products, setProduct] = useState([]);
   const[productID, setProductID] = useState('');
-  // const[yourOutfit, setYourOutfit] = useState([]);
 
 
   useEffect(() => {
@@ -24,13 +23,17 @@ function App () {
     products.map((product, index) => {
       if(product['name'].toLowerCase().indexOf(str) !== -1) {
         setCurProduct(index);
-        console.log('index', index);
       }
     })
   }
 
   function updateProduct (productID) {
     setProductID(productID);
+    products.map((product, index) => {
+      if(product['id'] === productID){
+        setcurProduct(index);
+      }
+    })
   }
 
   return (
@@ -38,8 +41,7 @@ function App () {
     {console.log(products, curProduct, productID, 'seee')}
     {productID ? (
       <div>
-        {console.log(productID)}
-        <Overview product = {products[curProduct]} productID={productID} searchProduct = {searchProduct}/>
+        <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
         <RelatedItems product={products[curProduct]} productID={productID} updateProduct={updateProduct}/>
         <ReviewList id={products[curProduct].id}/>
         <QandAs product_id = {products[curProduct].id}/>
