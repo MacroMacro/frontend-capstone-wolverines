@@ -71,7 +71,7 @@ export default function Ratings(props) {
     </div>
     <br></br>
   <br></br>
-    <div className = "bodyText">{props.percentHelpful}% of reviews recommend this product</div>
+    <div className = "bodyText">{props.percentHelpful.toFixed(0)}% of reviews recommend this product</div>
     {/* reviewdate */}
     <br></br>
     <button className = "rateNum" type="button" value = {5} onClick= {rateAdder}>5 stars</button>

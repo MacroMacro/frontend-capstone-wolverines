@@ -40,12 +40,13 @@ export default function ReviewList({id}) {
   const [radioQuality, setRadioQuality] = useState('');
   const [radioLength, setRadioLength] = useState('');
   const [radioFit, setRadioFit] = useState('');
+  const [bodyChar, setBodyChar] = useState(0);
 
   // create a state here to pass down to reviewListEntry
   // write a function here for maintaining rating state
   // pass the state down to ratings
 
-  console.log(reviews)
+  //console.log(reviews)
   // can i slice the data array here to load 2 and then 2 again?
   const getReviews = () =>
   {axios.get(`/reviews/${id}`)
@@ -174,14 +175,12 @@ export default function ReviewList({id}) {
   const newestSort = () => {
     let newReview = reviews.slice()
     newReview.sort((a, b) => {
-      // compare with &&
       return (a.date < b.date) ? 1 : -1
     })
     setReviews(newReview)
   }
 
   const changeOption = (event) => {
-    //console.log(event.target.value)
     if (event.target.value === 'Helpful') {
       helpfulSort()
     } else if (event.target.value === 'Newest') {
@@ -204,6 +203,14 @@ export default function ReviewList({id}) {
       setReviewState(reviews)
     }
   }, [starReview])
+
+  const reviewCounter = (e) => {
+    if (e.target.value.length < 50) {
+      document.getElementById('counter').innerHTML = 'Minimum required characters left:' + (50 - e.target.value.length)
+    } else {
+      document.getElementById('counter').innerHTML = 'Minimum reached'
+    }
+  }
 
   return(
   formView ? (
@@ -268,9 +275,12 @@ export default function ReviewList({id}) {
     <br></br>
     <input type="text" value={title} placeholder="Example: Best purchase ever!" onChange={e => {setTitle(e.target.value)}} maxLength = {5}></input>
     <br></br>
+
+    {/* here */}
     <label className = "addReview">Review Body: *</label>
     <br></br>
-    <textarea cols="40" rows="4" value={body} placeholder="Why did you like the product or not?" onChange={e => {setBody(e.target.value)}}></textarea>
+    <textarea cols="40" rows="4" value={body} id = "bodyBox" placeholder="Why did you like the product or not?" onChange={e => {setBody(e.target.value)}} onKeyUp = {(e) => reviewCounter(e)} minLength = "50" maxLength = "1000"></textarea>
+    <div id = "counter"></div>
     <br></br>
 
     <label className = "addReview">Overall Rating: *</label>
@@ -403,7 +413,6 @@ export default function ReviewList({id}) {
     </div>
     <br></br>
 
-{/* here */}
     <div>
     {radioFit.length > 0 ?
       <div className = "radioTitle">Fit &nbsp; {radioFit}</div> : <div className = "radioTitle">Fit &nbsp; none selected</div>}
