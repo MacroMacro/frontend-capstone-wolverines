@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+
 function Style ({style, curStyle, changeStyle}) {
 
   const thumbnails = style.reduce((imagesArray, stylei) => {
@@ -7,17 +9,52 @@ function Style ({style, curStyle, changeStyle}) {
   }, []);
 
   return (
-    <div className = 'Style'>
-      <div className = 'style-bar'><a>STYLE ></a> <a>{style[curStyle]['name']}</a> </div>
-      <div className = 'styles'>
+    <StyleContainer>
+      <StyleBar><a>STYLE ></a> <a>{style[curStyle]['name']}</a> </StyleBar>
+      <StyleDisContainer>
       {thumbnails.map((link, index) => {
         if (index === curStyle) {
-          return  <div className = 'styledisplay'><img className = 'styleimg' src = {link} width = '40px'></img><div className= 'check'> &#10004;</div></div>;
+          return  <StyleDisplay><StyleImg src = {link}></StyleImg><StyleCheck> &#10004;</StyleCheck></StyleDisplay>;
         } else {
-          return  <div className = 'styledisplay' onClick = {() => changeStyle(index)} ><img src = {link} className = 'styleimg' width = '40px'></img></div>;
+          return  <StyleDisplay onClick = {() => changeStyle(index)} ><StyleImg src = {link}></StyleImg></StyleDisplay>;
         }
       })}
-      </div>
-    </div>);
+      </StyleDisContainer>
+    </StyleContainer>);
 }
 export default Style;
+
+const StyleContainer = styled.div`
+  margin-top: 20px;
+  height: 280px;
+`;
+
+const StyleBar = styled.div`
+  font-weight: bold;
+  font-size: 20px;
+`;
+
+const StyleDisContainer = styled.div`
+  float: left;
+  height: 250px;
+`;
+
+const StyleDisplay = styled.div`
+  margin-top: 20px;
+  width: 25%;
+  display: inline-flex;
+`;
+
+const StyleImg = styled.img`
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  padding: 0px 5px;
+`;
+
+const StyleCheck = styled.div`
+  position: absolute;
+  margin-left: 70px;
+  font-size: 25px;
+  color: rgb(44, 24, 24);
+`;

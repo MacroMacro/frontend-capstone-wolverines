@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
+import styled from 'styled-components';
 
 function Skus ({skus, addYourOutfit}) {
   const [display, setDisplay] = useState(0);
@@ -23,8 +24,7 @@ function Skus ({skus, addYourOutfit}) {
       sizeOptions.push({'value': key, 'label': skus[key]['size']})};
     });
 
-  const sizeDisplay = [<Select className = 'select-size' placeholder = 'SELECT SIZE'
-  onChange = {changeSize} options = {sizeOptions}/>, <Select className = 'select-size' placeholder = 'SELECT SIZE'
+  const sizeDisplay = [<Select placeholder = 'SELECT SIZE' onChange = {changeSize} options = {sizeOptions}/>, <Select placeholder = 'SELECT SIZE'
   onChange = {changeSize} menuIsOpen options = {sizeOptions}/>];
   const warning = ['', 'Please select size'];
 
@@ -39,12 +39,13 @@ function Skus ({skus, addYourOutfit}) {
   function addCart () {
     if (sizeC === undefined) {
       setDisplay(1);
+    } else {
+      if (quantA === quantC){
+        delete skus[curSku];
+      }
+      setQuantA(quantA - quantC);
+      axios.post(`/cart/?sku_id=${curSku}`);
     }
-    if (quantA === quantC){
-      delete skus[curSku];
-    }
-    setQuantA(quantA - quantC);
-    axios.post(`/cart/?sku_id=${curSku}`);
   }
 
   function starClick () {
@@ -57,25 +58,45 @@ function Skus ({skus, addYourOutfit}) {
   }
 
   return (
-    <div className = 'Skus'>
-      <div className = 'warning'>{warning[display]}</div>
-      <div className = 'Select'>
+    <SkuContainer id = 'Skus'>
+      <SelectWarn>{warning[display]}</SelectWarn>
+      <SelectContainer>
       {sizeOptions.length > 0 ?
       <>{sizeDisplay[display]}</>
-      : <Select className = 'select-size' placeholder = 'OUT OF STOCK' isDisabled = {true} />}
+      : <Select placeholder = 'OUT OF STOCK' isDisabled = {true} />}
 
-      {sizeC ? <Select className = 'select-quant' placeholder = {'1'} onChange = {changeQuant} options = {quantOptions}/> : <Select className = 'select-quant' placeholder = '-'/>}
-      </div>
+      {sizeC ? <Select className='select-quant' placeholder = {'1'} onChange = {changeQuant} options = {quantOptions}/> : <Select className='select-quant' placeholder = '-'/>}
+      </SelectContainer>
 
-      <div className = 'Carts'>
+      <Carts>
         {sizeOptions.length > 0 ?
           <div className = 'add-cart'><button className = 'cart' onClick = {addCart} >Add to Cart</button></div> :
           <div className = 'add-cart'><button className = 'cart' disabled>Add to Cart</button></div>}
         <div className ='add-star' onClick = {starClick}><div class="material-symbols-outlined" id = {[starDisplay[starred]]} >grade</div></div>
-      </div>
+      </Carts>
 
-    </div>
+    </SkuContainer>
   );
 }
 
 export default Skus;
+
+const SkuContainer = styled.div`
+  width: 500px;
+`;
+
+const SelectContainer = styled.div`
+  display: flex;
+`;
+
+const SelectWarn = styled.div`
+  height: 25px;
+  font-size: 15px;
+  color: red;
+  text-transform: uppercase;
+`;
+
+const Carts = styled.div`
+  margin-top: 20px;
+  display: flex;
+`;

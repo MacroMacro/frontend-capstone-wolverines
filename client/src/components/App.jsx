@@ -8,7 +8,7 @@ import axios from 'axios';
 function App () {
   // Remember to change individual github tokens when you pull down the repo to your local!
 
-  const[curProduct, setCurProduct] = useState(0);
+  const[curProduct, setCurProduct] = useState(4);
   const[products, setProduct] = useState([]);
   const[productID, setProductID] = useState('');
 
