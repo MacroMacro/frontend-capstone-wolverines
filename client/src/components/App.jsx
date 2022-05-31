@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-// import Overview from './Overview/Overview.jsx';
-// import ReviewList from './Reviews/ReviewList.jsx';
+import Overview from './Overview/Overview.jsx';
+import ReviewList from './Reviews/ReviewList.jsx';
 import QandAs from './QandAs/QandAs.jsx';
 import AddQuestion from './QandAs/AddQuestion.jsx';
 import AddAnswer from './QandAs/AddAnswer.jsx';
-// import RelatedItems from './RelatedItems/RelatedItems.jsx';
+import RelatedItems from './RelatedItems/RelatedItems.jsx';
 import axios from 'axios';
 
 function App () {
@@ -95,9 +95,9 @@ function App () {
         ( null )}
       {/* {someState.reviews[0]['count']} */}
 
-        {/* <Overview product = {products[curProduct]} searchProduct = {searchProduct}/> */}
-        {/* <RelatedItems product={products[curProduct]} productID={products[curProduct].id}/> */}
-        {/* <ReviewList id={products[curProduct].id}/> */}
+        <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
+        <RelatedItems product={products[curProduct]} productID={products[curProduct].id}/>
+        <ReviewList id={products[curProduct].id}/>
         <QandAs product_id={products[4].id} toggleQuestionForm={toggleQuestionForm} toggleAnswerForm={toggleAnswerForm} updateAnswerID={updateAnswerID}/>
       </div>
     ) : (
