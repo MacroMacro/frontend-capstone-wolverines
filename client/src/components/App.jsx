@@ -31,7 +31,7 @@ function App () {
     setProductID(productID);
     products.map((product, index) => {
       if(product['id'] === productID){
-        setcurProduct(index);
+        setCurProduct(index);
       }
     })
   }

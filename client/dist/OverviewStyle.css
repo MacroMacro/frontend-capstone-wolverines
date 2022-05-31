@@ -1,3 +1,12 @@
+.select-quant {
+  margin-left: 20px;
+  width: 30%;
+}
+
+.select-size {
+  width: 50%
+}
+
 .cart {
   height: 35px;
   font-size: 18px;

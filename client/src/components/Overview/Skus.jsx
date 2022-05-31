@@ -24,8 +24,10 @@ function Skus ({skus, addYourOutfit}) {
       sizeOptions.push({'value': key, 'label': skus[key]['size']})};
     });
 
-  const sizeDisplay = [<Select placeholder = 'SELECT SIZE' onChange = {changeSize} options = {sizeOptions}/>, <Select placeholder = 'SELECT SIZE'
-  onChange = {changeSize} menuIsOpen options = {sizeOptions}/>];
+  const sizeDisplay = [
+    <Select className='select-size' placeholder = 'SELECT SIZE' onChange = {changeSize} options = {sizeOptions}/>,
+    <Select className='select-size' placeholder = 'SELECT SIZE' onChange = {changeSize} menuIsOpen options = {sizeOptions}/>];
+
   const warning = ['', 'Please select size'];
 
   const starDisplay = ['star-nofill', 'star-fill']
@@ -63,7 +65,7 @@ function Skus ({skus, addYourOutfit}) {
       <SelectContainer>
       {sizeOptions.length > 0 ?
       <>{sizeDisplay[display]}</>
-      : <Select placeholder = 'OUT OF STOCK' isDisabled = {true} />}
+      : <Select className='select-size' placeholder = 'OUT OF STOCK' isDisabled = {true} />}
 
       {sizeC ? <Select className='select-quant' placeholder = {'1'} onChange = {changeQuant} options = {quantOptions}/> : <Select className='select-quant' placeholder = '-'/>}
       </SelectContainer>
