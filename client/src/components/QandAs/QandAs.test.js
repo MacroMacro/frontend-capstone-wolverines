@@ -1,1 +1,0 @@
-const QandAs = require('./QandAs.jsx');

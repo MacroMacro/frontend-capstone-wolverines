@@ -10,11 +10,13 @@ function App () {
 
   const[curProduct, setCurProduct] = useState(0);
   const[products, setProduct] = useState([]);
+  const[productID, setProductID] = useState('');
+  // const[yourOutfit, setYourOutfit] = useState([]);
 
 
   useEffect(() => {
     axios.get('/products')
-      .then((response) =>{setProduct(response.data); console.log('products', response.data)})
+      .then((response) =>{setProduct(response.data); setProductID(response.data[0].id); console.log('products', response.data, response.data[0].id)})
       .catch(err => console.log(err));
   }, [])
 
@@ -27,19 +29,23 @@ function App () {
     })
   }
 
+  function updateProduct (productID) {
+    setProductID(productID);
+  }
+
   return (
     <>
-    {products.length ? (
+    {console.log(products, curProduct, productID, 'seee')}
+    {productID ? (
       <div>
-      {/* {someState.reviews[0]['count']} */}
-
-        <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
-        <RelatedItems product={products[curProduct]} productID={products[curProduct].id}/>
-        <Reviews id={products[curProduct].id}/>
+        {console.log(productID)}
+        <Overview product = {products[curProduct]} productID={productID} searchProduct = {searchProduct}/>
+        <RelatedItems product={products[curProduct]} productID={productID} updateProduct={updateProduct}/>
+        <ReviewList id={products[curProduct].id}/>
         <QandAs product_id = {products[curProduct].id}/>
       </div>
     ) : (
-      <div id = 'test'>Hello world></div>
+      <div id = 'test'><h1>Hello world</h1></div>
     )}
     </>
   )

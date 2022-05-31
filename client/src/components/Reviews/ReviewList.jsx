@@ -44,7 +44,7 @@ export default function ReviewList({id}) {
   return(
 
   formView ? (
-  <div className = "reviewList">
+  <div className = "reviewList" id ='reviewList'>
   <div>
     <div className = "reviewTitle">{reviews.length} reviews, sorted by <u>relevance ∨</u></div>
     {reviews.map((info)=> (
@@ -73,7 +73,7 @@ export default function ReviewList({id}) {
   <button className = "reviewButton">MORE REVIEWS</button>
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
   </div>
-  </div>) : (<div className = "reviewList">
+  </div>) : (<div className = "reviewList"  id ='reviewList'>
   <div>
     <div className = "reviewTitle">{reviews.length} reviews, sorted by <u>relevance ∨</u></div>
     {reviews.map((info)=> (
