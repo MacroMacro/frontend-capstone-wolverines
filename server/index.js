@@ -14,6 +14,7 @@ app.use(bodyParser.json());
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 })
+
 //get products
 app.get('/products', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products', { headers: {'Authorization': process.env.token}})
@@ -21,35 +22,46 @@ app.get('/products', (req, res) => {
   .catch((err) => {console.log('err', err); res.status(500).send(err);});
 });
 
-
 /*Reviews */
 //get reviews for specific product id
-//from client end: axios.get('/reviews/40344')
+//from client end: axios.get('/reviews/?id=40344')
+// `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=${id}&&count=100`
 app.get('/reviews/:id', (req, res) => {
   var id = req.params.id;
   console.log('id', id);
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=${id}`, { headers: {'Authorization': process.env.token}})
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=${id}&&count=300`, { headers: {'Authorization': process.env.token}})
   .then((data)=> {res.status(200).send(data.data)})
+  .catch((err) => {res.status(500).send(err);});
+});
+
+app.get('/reviews/meta/:id', (req, res) => {
+  var id = req.params.id;
+  //console.log('id', id);
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta/?product_id=40344`, { headers: {'Authorization': process.env.token}})
+  .then((data)=> {
+    console.log(data.data)
+    res.status(200).send(data.data)})
   .catch((err) => {res.status(500).send(err);});
 });
 
 app.post('/reviews/:id', (req, res) => {
   var id = req.params.id;
-  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=${id}`, req.body)
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews`, req.body, { headers: {'Authorization': process.env.token}})
   .then(response => {
-    res.send(response).status(200)
+    // console.log('this is the res', response)
+    res.status(200).send('wasabi is too spicy')
   })
   .catch(err => {
-    res.send(err).status(500)
+    res.status(500).send(err)
   })
 })
 
 //review_id:1135681
 //from client end: axios.put('/helpful/review/?id=1135681')
 app.put('/reviews/:review_id/helpful', (req, res) => {
-  console.log('req', req);
-  var id = req.params.id;
-  console.log('id',id);
+  console.log('req', req.query);
+  var id = req.params.review_id;
+  console.log('id',id); // undefined
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`, id ,{ headers: {'Authorization': process.env.token}})
   .then((data)=> { res.status(200).send(data.data)})
   .catch((err) => { res.status(500).send(err);});

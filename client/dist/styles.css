@@ -1,3 +1,5 @@
+/* Ratings & Reviews */
+
 .reviewItem {
   border-bottom: 2px solid black;
   border-width: thin;
@@ -53,6 +55,194 @@
   font-weight: bold;
   font-size: 10px;
 }
+
+.dropbutton {
+  background-color: transparent;
+  color: black;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropbutton:hover, .dropbutton:focus {
+  background-color: transparent;
+}
+
+.contentDropdown {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.contentDropdown a {
+  color: black;
+  padding: 3px 5px;
+  text-decoration: none;
+  display: block;
+}
+
+.contentDropdown a:hover {background-color: rgb(180, 180, 180)}
+
+.display {display:block;}
+
+.avgRating {
+  float: left;
+  font-size: 37px;
+  font-weight: bold;
+}
+
+.rateNum {
+  border: none;
+  background-color: transparent;
+  float: left;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.progBar {
+  padding-left: 50px;
+}
+
+.slider {
+  --sliderHeight: 20px;
+  --sliderWidth: 8px;
+  -webkit-appearance: none;
+  width: 43%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--sliderWidth);
+  height: var(--sliderHeight);
+  background: black;
+  cursor: pointer;
+}
+
+.fit {
+  color: grey;
+  font-size: 10.5px;
+}
+
+.modal > .content {
+  width: 100%;
+  padding: 10px 5px;
+}
+
+.popup-content {
+  background: blue;
+  width: 30%;
+  padding-left: 30px;
+}
+
+.box {
+border-color: gold;
+border-width: 1px;
+border-style: solid;
+position: fixed;
+background: red;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+padding: 50px;
+/* z-Index: 1000; */
+}
+
+.overlay {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(0,0,0, .7);
+/* z-Index: 1000; */
+}
+
+.reviewBox {
+  width: 300px;
+  /* border: 15px solid green; */
+  padding: 10px;
+  margin: 20px;
+  position: absolute;
+  right: 200px;
+
+}
+
+.ratingBox {
+  width: 300px;
+  /* border: 15px solid green; */
+  position: absolute;
+  left: -300px;
+  bottom: -70px;
+
+}
+
+.bodyText {
+  color: black;
+  font-size: 12px;
+}
+
+.ratingTitle {
+  color: black;
+  font-size: 12px;
+}
+
+.testing {
+  background-color: rgba(0,0,0, .7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-Index: 1000
+}
+
+::placeholder {
+  font-size: .6em;
+}
+
+.auth {
+  font-size: 12px;
+}
+
+.productTitle {
+  font-size: 12px;
+}
+
+input[type=radio] {
+  margin: 0 auto;
+  display: block;
+}
+
+label {
+  display: inline-block;
+}
+
+.radioButton {
+  font-size: 11px;
+}
+
+.radioTitle {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.nav {
+  height:300px;
+  overflow:auto;
+}
+
 /*    ---    QandAs styling    ---    */
 .search-bar {
   display: flex;

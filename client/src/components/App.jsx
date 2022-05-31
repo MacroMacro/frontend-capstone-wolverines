@@ -10,7 +10,7 @@ import axios from 'axios';
 function App () {
   // Remember to change individual github tokens when you pull down the repo to your local!
 
-  const[curProduct, setCurProduct] = useState(4);
+  const[curProduct, setCurProduct] = useState(0);
   const[products, setProduct] = useState([]);
   //Modal States
   const [showQuestionForm, setShowQuestionForm] = useState(false);
@@ -40,7 +40,7 @@ function App () {
     setProductID(productID);
     products.map((product, index) => {
       if(product['id'] === productID){
-        setcurProduct(index);
+        setCurProduct(index);
       }
     })
   }
