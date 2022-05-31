@@ -1,0 +1,149 @@
+.reviewItem {
+  border-bottom: 2px solid black;
+  border-width: thin;
+}
+
+.reviewTitle {
+  font-weight: bold;
+  font-size: 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.reviewBody {
+  font-weight: normal;
+  font-size: 12px;
+}
+
+.reviewRating {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.helpfulButton {
+  border: none;
+  background-color: transparent;
+  color: grey;
+  font-size: 8px;
+}
+
+.reportButton {
+  border: none;
+  background-color: transparent;
+  color: grey;
+  font-size: 8px;
+}
+
+.reviewList{
+  max-width: 50vw;
+  min-width: 25vw;
+}
+
+.reviewButton {
+  border-width: thin;
+  border-color: black;
+  background-color: transparent;
+  padding: 10px 20px;
+  margin-right: 20px;
+  margin-top: 25px;
+  font-size: 10px;
+}
+
+.addReview {
+  font-weight: bold;
+  font-size: 10px;
+}
+/*    ---    QandAs styling    ---    */
+.search-bar {
+  display: flex;
+  padding-bottom: 1%;
+}
+.modal, .question-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content, .question-modal-content {
+  width: 85%;
+  background-color: #fff;
+}
+
+.modal-header, .question-modal-header {
+  padding: 1%;
+}
+
+.close-button {
+  color:black;
+  border: none;
+  background-color: transparent;
+  float: right;
+}
+
+.close-button:hover {
+  color: rgb(175, 0, 0);
+}
+.modal-footer, .question-modal-footer {
+  padding: 1%;
+}
+
+.modal-title, .question-modal-title {
+  padding: 1% 0 1% 0;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.modal-subtitle, .question-modal-subtitle {
+  padding: 1% 0 1% 0;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+}
+
+.modal-body, .question-modal-body {
+  padding: 2%;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.input {
+  margin-top: 1%;
+  margin-bottom: 2%;
+  width: 99%;
+}
+
+.input-name {
+  margin-bottom: 0;
+}
+
+.name-message {
+  margin-top: 0;
+}
+
+.input-body {
+  height: 10vh;
+}
+
+.input-email {
+  margin-bottom: 0;
+}
+
+.email-message {
+  margin-top: 0;
+}
+
+.qna-box {
+overflow-y: auto;
+/* position: relative; */
+max-height: 50vh;
+}
+
+/* .qna-buttons {
+} */

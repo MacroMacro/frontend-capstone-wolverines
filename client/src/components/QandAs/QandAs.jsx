@@ -2,18 +2,25 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddQuestion from './AddQuestion.jsx'
 import Question from './Question.jsx'
+import SearchQuestions from './SearchQuestions.jsx';
 
-function QandAs ({ product_id }) {
+function QandAs ({ product_id, toggleQuestionForm, toggleAnswerForm, updateAnswerID }) {
   // State
   const [qnaFirstFour, setQnaFirstFour] = useState([]);
   const [qnaRest, setQnaRest] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [showMoreAnswers, setShowMoreAnswers] = useState(false);
+  const [
+    hasComponentSearched,
+    setHasComponentSearched
+  ] = useState(false)
 
   // setState
   const changeShowMoreAnswers = () =>
-    setShowMoreAnswers(!showMoreAnswers)
+    setShowMoreAnswers(!showMoreAnswers);
 
+    const changeShowForm = () =>
+      setShowForm(!showForm);
   // Component Methods
   const createQuestionStateObj = (questions) => {
     const result = []
@@ -41,44 +48,65 @@ function QandAs ({ product_id }) {
     return result;
   }
 
-  // On Load
-  const onQnALoad = () => {
-    axios.get(`/qa/questions/?product_id=${product_id}`)
+  const getQuestions = (search = null) => {
+    axios.get(`/qa/questions/?product_id=${product_id}&search=${search}`)
     .then((res) => {
       const { results: questions } = res.data;
-
+      console.log(res.data);
       let firstFour = questions.slice(0, 4);
       let rest = questions.slice(4);
 
-      firstFour = createQuestionStateObj(firstFour);
-      rest = createQuestionStateObj(rest);
-
-      setQnaFirstFour(firstFour)
-      setQnaRest(rest)
+      setQnaFirstFour(createQuestionStateObj(firstFour));
+      setQnaRest(createQuestionStateObj(rest));
     })
     .catch(err => console.log('error fetching from qna, ', err));
   }
 
-  useEffect(onQnALoad, []);
+  const searchQuestions = (search) => {
+    console.log(hasComponentSearched, search);
+    if (!hasComponentSearched && !search) {
+      return;
+    }
+
+    if (hasComponentSearched && !search) {
+        setHasComponentSearched(false)
+    } else if (!hasComponentSearched && search) {
+      setHasComponentSearched(true)
+    }
+
+    getQuestions(search);
+  }
+
+  const qSubmit = () => {
+    setShowForm(false);
+    getQuestions();
+  }
+
+
+  const qHelpfulness = () => {
+    getQuestions();
+  }
+
+  useEffect(getQuestions, []);
 
   // console.log(showForm);
   return(
     <div>
-      <h1>Questions & Answers</h1>
-
+      <h1 data-testid="test1">Questions & Answers</h1>
+      <SearchQuestions searchQuestions={searchQuestions} product_id={product_id}/>
       {qnaFirstFour.length ? (
-        <>
+        <div className="qna-box">
           {qnaFirstFour.map(oneQna => (
             <div key={oneQna.question_id}>
-              <Question question={oneQna} />
+              <Question qHelpfulness={qHelpfulness} question={oneQna} updateAnswerID={updateAnswerID} toggleAnswerForm={toggleAnswerForm}/>
             </div>
           ))}
           {showMoreAnswers && qnaRest.map(restQna => (
             <div key={restQna.question_id}>
-              <Question question={restQna} />
+              <Question qHelpfulness={qHelpfulness} question={restQna} updateAnswerID={updateAnswerID} toggleAnswerForm={toggleAnswerForm}/>
             </div>
           ))}
-          <div>
+          <div className="qna-buttons">
             <button
               type='button'
               onClick={changeShowMoreAnswers}
@@ -86,16 +114,16 @@ function QandAs ({ product_id }) {
               {`${showMoreAnswers ? 'Hide More' : 'More'} Answered Questions`}
             </button>
             <button
-              onClick={()=>{setShowForm(true)}}
+              onClick={toggleQuestionForm}
             >
               Add a Question
             </button>
           </div>
-        </>
+        </div>
       ) : <div>
-            <button onClick={()=>{setShowForm(true);}}>Add a Question</button>
+            <button onClick={toggleQuestionForm}>Add a Question</button>
         </div>}
-        {showForm ? <AddQuestion product_id={product_id}/> : null}
+        {/* {showForm ? <AddQuestion product_id={product_id} qSubmit={qSubmit}/> : null} */}
     </div>
   );
 }
