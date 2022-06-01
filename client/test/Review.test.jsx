@@ -6,7 +6,7 @@ import ReviewListEntry from '../src/components/Reviews/ReviewListEntry.jsx';
 test('it should display', () => {
   render(<ReviewListEntry/>);
   const value = document.getElementById('report').textContent;
-  expect(value).toBe('Report');
+  expect(value).toBe('No');
 })
 
 describe('ReviewList', () => {

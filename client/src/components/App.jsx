@@ -37,6 +37,8 @@ function App () {
     }
   })
 
+  console.log('nav',navBar);
+
   function searchProduct (str) {
     products.map((product, index) => {
       if(product['name'].toLowerCase().indexOf(str) !== -1) {
@@ -120,7 +122,7 @@ function App () {
         <QandAs product_id={products[4].id} toggleQuestionForm={toggleQuestionForm} toggleAnswerForm={toggleAnswerForm} updateAnswerID={updateAnswerID}/>
       </div>
     ) : (
-      <div id = 'test'><h1>Hello world</h1></div>
+      <div id = 'test'><h1>Loading...</h1></div>
     )}
     </>
   )

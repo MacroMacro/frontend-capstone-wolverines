@@ -69,18 +69,19 @@ function Skus ({skus, addYourOutfit}) {
           : <Select placeholder = 'OUT OF STOCK' isDisabled = {true} />}
         </SelectSize>
         <SelectQuant>
-          {sizeC ? <Select className='select-quant' placeholder = {'1'} onChange = {changeQuant} options = {quantOptions}/> : <Select className='select-quant' placeholder = '-'/>}
+          {sizeC ? <Select className='select-quant' placeholder = {'1'} onChange = {changeQuant} options = {quantOptions}/>
+          : <Select className='select-quant' placeholder = '-'/>}
         </SelectQuant>
       </SelectContainer>
       <CartContainer>
         {sizeOptions.length > 0 ?
-          <div><Cart onClick = {addCart} >Add to Cart</Cart></div> :
-          <div><Cart disabled>Add to Cart</Cart></div>}
+          <div><Cart data-testid="cartbutton" onClick = {addCart} >Add to Cart</Cart></div> :
+          <div><Cart data-testid="cartbutton" disabled>Add to Cart</Cart></div>}
 
         <StarContainer>
         {starred === 0 ?
-          <StarNoFill onClick = {starClick}><div class="material-symbols-outlined" id = 'star-nofill' >grade</div></StarNoFill> :
-          <StarFill onClick = {starClick}><div class="material-symbols-outlined" id = 'star-fill' >grade</div></StarFill>
+          <StarNoFill onClick = {starClick}><div className="material-symbols-outlined" id = 'star-nofill' >grade</div></StarNoFill> :
+          <StarFill onClick = {starClick}><div className="material-symbols-outlined" id = 'star-fill' >grade</div></StarFill>
         }
         </StarContainer>
       </CartContainer>

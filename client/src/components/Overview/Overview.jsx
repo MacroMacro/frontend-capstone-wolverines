@@ -89,11 +89,17 @@ function Overview ({product, navBar, searchProduct, updateProduct}) {
 
       <Slogan>{product['slogan']}</Slogan>
       <Description>{product['description']}</Description>
-    </div> ): (<div>Welcome to Wolverine ... </div>) }
+    </div> ): (<ProductOverview>Welcome to Wolverine ... </ProductOverview>) }
   </div>)
 }
 
 export default Overview;
+
+const ProductOverview = styled.div`
+  height: 1000px;
+  width: 100%;
+  text-align: center;
+`;
 
 const MainOverview = styled.div`
   display: flex;
