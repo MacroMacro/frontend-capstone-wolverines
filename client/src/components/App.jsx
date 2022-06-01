@@ -5,6 +5,7 @@ import QandAs from './QandAs/QandAs.jsx';
 import AddQuestion from './QandAs/AddQuestion.jsx';
 import AddAnswer from './QandAs/AddAnswer.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
+import Footer from './Overview/Footer.jsx';
 import axios from 'axios';
 
 function App () {
@@ -120,6 +121,7 @@ function App () {
         <RelatedItems product={products[curProduct]} productID={productID} updateProduct={updateProduct}/>
         <ReviewList id={products[curProduct].id}/>
         <QandAs product_id={products[4].id} toggleQuestionForm={toggleQuestionForm} toggleAnswerForm={toggleAnswerForm} updateAnswerID={updateAnswerID}/>
+        <Footer/>
       </div>
     ) : (
       <div id = 'test'><h1>Loading...</h1></div>

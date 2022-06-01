@@ -20,9 +20,10 @@ function Nav ({searchProduct, navBar, updateProduct}) {
 
   document.getElementById('app').style.backgroundColor = darkmode === 1? 'black' : 'white';
   document.getElementById('app').style.color = darkmode === 1? 'white': 'black';
+  document.getElementById('formbackground') ? (document.getElementById('formbackground').style.backgroundColor = darkmode === 1? 'rgb(43,45,47)' : 'white') : (console.log('havent find formbackground'));
 
   return (
-    <NavContainer>
+    <NavContainer id = 'Nav'>
       <Navi>
         <NavHeader>Wolverine</NavHeader>
         <Menu>{Object.keys(navBar).map((cat)=>

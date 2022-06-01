@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1654069578202" clover="3.2.0">
-  <project timestamp="1654069578202" name="All files">
+<coverage generated="1654104843994" clover="3.2.0">
+  <project timestamp="1654104843994" name="All files">
     <metrics statements="800" coveredstatements="257" conditionals="267" coveredconditionals="21" methods="280" coveredmethods="26" elements="1347" coveredelements="304" complexity="0" loc="800" ncloc="800" packages="6" files="22" classes="22"/>
     <package name="src.components">
       <metrics statements="49" coveredstatements="21" conditionals="16" coveredconditionals="1" methods="19" coveredmethods="2"/>
@@ -195,13 +195,13 @@
         <line num="95" count="2" type="stmt"/>
         <line num="99" count="2" type="stmt"/>
         <line num="103" count="2" type="stmt"/>
-        <line num="107" count="2" type="stmt"/>
-        <line num="112" count="2" type="stmt"/>
-        <line num="119" count="2" type="stmt"/>
-        <line num="124" count="2" type="stmt"/>
-        <line num="139" count="2" type="stmt"/>
-        <line num="152" count="2" type="stmt"/>
-        <line num="159" count="2" type="stmt"/>
+        <line num="108" count="2" type="stmt"/>
+        <line num="114" count="2" type="stmt"/>
+        <line num="121" count="2" type="stmt"/>
+        <line num="126" count="2" type="stmt"/>
+        <line num="141" count="2" type="stmt"/>
+        <line num="154" count="2" type="stmt"/>
+        <line num="161" count="2" type="stmt"/>
       </file>
       <file name="Style.jsx" path="/Users/zhangfan/Dropbox/HackReactor/frontend-capstone-wolverines/client/src/components/Overview/Style.jsx">
         <metrics statements="13" coveredstatements="6" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>

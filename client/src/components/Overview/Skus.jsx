@@ -69,8 +69,8 @@ function Skus ({skus, addYourOutfit}) {
           : <Select placeholder = 'OUT OF STOCK' isDisabled = {true} />}
         </SelectSize>
         <SelectQuant>
-          {sizeC ? <Select className='select-quant' placeholder = {'1'} onChange = {changeQuant} options = {quantOptions}/>
-          : <Select className='select-quant' placeholder = '-'/>}
+          {sizeC ? <Select placeholder = {'1'} onChange = {changeQuant} options = {quantOptions}/>
+          : <Select placeholder = '-'/>}
         </SelectQuant>
       </SelectContainer>
       <CartContainer>
@@ -101,12 +101,14 @@ const SelectContainer = styled.div`
 `;
 
 const SelectSize = styled.div`
-  width: 50%
+  width: 50%;
+  color: black;
 `;
 
 const SelectQuant = styled.div`
   margin-left: 20px;
   width: 30%;
+  color: black;
 `;
 
 const SelectWarn = styled.div`
