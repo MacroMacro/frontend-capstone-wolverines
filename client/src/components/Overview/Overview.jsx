@@ -11,7 +11,7 @@ import styled from 'styled-components';
 
 //Get all the styles data for a product given product id
 //Pass down style specific data
-function Overview ({product, searchProduct}) {
+function Overview ({product, navBar, searchProduct}) {
   const [style, setStyle] = useState([]);
   const [curStyle, setCurStyle] = useState(null);
   const [rating, setRating] = useState(0);
@@ -38,8 +38,7 @@ function Overview ({product, searchProduct}) {
 //rating bar
     axios.get(`/reviews/${product['id']}`)
     .then((response)=> { return ([response.data['results'].reduce((prev, cur) => prev = prev + cur['rating'], 0), response.data['results'].length])})
-    .then(([total, nums]) => {setRating(total/nums); setNumRating(nums);
-    })
+    .then(([total, nums]) => {setRating(total/nums); setNumRating(nums);})
     .catch((err) => console.log(`can't load for product with id ${product['id']}`));
   };
 
@@ -47,12 +46,6 @@ function Overview ({product, searchProduct}) {
 
   function changeStyle(n) {
     setCurStyle(n);
-  }
-
-  function scrollReview () {
-    console.log('document', document);
-    console.log('scroll', document.getElementById('reviewList'));
-    document.getElementById('reviewList').scrollIntoView();
   }
 
   function addYourOutfit (starred) {
@@ -65,7 +58,7 @@ function Overview ({product, searchProduct}) {
 
   return (
   <div className = 'ProductOverview'>
-    <Nav searchProduct = {searchProduct}/>
+    <Nav searchProduct = {searchProduct} navBar = {navBar}/>
     {style.length ? (
       <div>
         <MainOverview>
@@ -74,7 +67,7 @@ function Overview ({product, searchProduct}) {
           <ProductInfo id = 'overview'>
             <div>
               <StarRating rating = {rating} starRatedColor="black" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
-              <a style = {{'margin-left': '10px'}}>{rating}</a>
+              <a style = {{'margin-left': '10px'}}>{rating.toFixed(1)}</a>
               <a href="#reviewList" style = {{'margin-left': '10px'}} >Read all {numRating} reviews</a>
             </div>
             <ProductCat> {product['category']}</ProductCat>

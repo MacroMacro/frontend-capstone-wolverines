@@ -25,12 +25,12 @@ function Skus ({skus, addYourOutfit}) {
     });
 
   const sizeDisplay = [
-    <Select className='select-size' placeholder = 'SELECT SIZE' onChange = {changeSize} options = {sizeOptions}/>,
-    <Select className='select-size' placeholder = 'SELECT SIZE' onChange = {changeSize} menuIsOpen options = {sizeOptions}/>];
+    <Select placeholder = 'SELECT SIZE' onChange = {changeSize} options = {sizeOptions}/>,
+    <Select placeholder = 'SELECT SIZE' onChange = {changeSize} menuIsOpen options = {sizeOptions}/>];
 
   const warning = ['', 'Please select size'];
 
-  const starDisplay = ['star-nofill', 'star-fill']
+
 
   const quantOptions = Array.from({length: Math.min(15, quantA)}, (_, i) => {return ({'value': i+1, 'label': i+1})});
 
@@ -63,19 +63,27 @@ function Skus ({skus, addYourOutfit}) {
     <SkuContainer id = 'Skus'>
       <SelectWarn>{warning[display]}</SelectWarn>
       <SelectContainer>
-      {sizeOptions.length > 0 ?
-      <>{sizeDisplay[display]}</>
-      : <Select className='select-size' placeholder = 'OUT OF STOCK' isDisabled = {true} />}
-
-      {sizeC ? <Select className='select-quant' placeholder = {'1'} onChange = {changeQuant} options = {quantOptions}/> : <Select className='select-quant' placeholder = '-'/>}
+        <SelectSize>
+          {sizeOptions.length > 0 ?
+          <>{sizeDisplay[display]}</>
+          : <Select placeholder = 'OUT OF STOCK' isDisabled = {true} />}
+        </SelectSize>
+        <SelectQuant>
+          {sizeC ? <Select className='select-quant' placeholder = {'1'} onChange = {changeQuant} options = {quantOptions}/> : <Select className='select-quant' placeholder = '-'/>}
+        </SelectQuant>
       </SelectContainer>
-
-      <Carts>
+      <CartContainer>
         {sizeOptions.length > 0 ?
-          <div className = 'add-cart'><button className = 'cart' onClick = {addCart} >Add to Cart</button></div> :
-          <div className = 'add-cart'><button className = 'cart' disabled>Add to Cart</button></div>}
-        <div className ='add-star' onClick = {starClick}><div class="material-symbols-outlined" id = {[starDisplay[starred]]} >grade</div></div>
-      </Carts>
+          <div><Cart onClick = {addCart} >Add to Cart</Cart></div> :
+          <div><Cart disabled>Add to Cart</Cart></div>}
+
+        <StarContainer>
+        {starred === 0 ?
+          <StarNoFill onClick = {starClick}><div class="material-symbols-outlined" id = 'star-nofill' >grade</div></StarNoFill> :
+          <StarFill onClick = {starClick}><div class="material-symbols-outlined" id = 'star-fill' >grade</div></StarFill>
+        }
+        </StarContainer>
+      </CartContainer>
 
     </SkuContainer>
   );
@@ -91,6 +99,15 @@ const SelectContainer = styled.div`
   display: flex;
 `;
 
+const SelectSize = styled.div`
+  width: 50%
+`;
+
+const SelectQuant = styled.div`
+  margin-left: 20px;
+  width: 30%;
+`;
+
 const SelectWarn = styled.div`
   height: 25px;
   font-size: 15px;
@@ -98,7 +115,49 @@ const SelectWarn = styled.div`
   text-transform: uppercase;
 `;
 
-const Carts = styled.div`
+const CartContainer = styled.div`
   margin-top: 20px;
   display: flex;
+`;
+
+const Cart = styled.button`
+  height: 35px;
+  font-size: 18px;
+  font-family: 'Times New Roman', Times, serif;
+  background-color: white;
+  border: 1px solid darkgrey;
+  border-radius: 7%;
+  margin-left: 0px;
+  margin-top: 0px;
+  padding: 0px 10px;
+  &:hover {
+    background-color: darkgrey;
+  }
+`;
+
+const StarContainer = styled.div`
+  border: 1px solid darkgrey;
+  border-radius: 15%;
+  width: 25px;
+  height: 25px;
+  margin-left: 50px;
+  font-size: 20px;
+  padding: 5px;
+`;
+
+const StarNoFill = styled.div`
+  border: 1px;
+  color: grey;
+  font-variation-settings:
+  'FILL' 0;
+  &:hover {
+    background-color: darkgrey;
+  }
+`;
+
+const StarFill = styled.div`
+  color: rgb(202, 202, 3);
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400
 `;

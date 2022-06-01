@@ -24,9 +24,18 @@ function App () {
 
   useEffect(() => {
     axios.get('/products')
-      .then((response) =>{setProduct(response.data); setProductID(response.data[0].id); console.log('products', response.data, response.data[0].id)})
+      .then((response) =>{setProduct(response.data); setProductID(response.data[0].id);})
       .catch(err => console.log(err));
   }, [])
+
+  const navBar = {};
+  products.map((product) => {
+    if (navBar[product['category']]) {
+      navBar[product['category']].push({'id': product['id'], 'name': product['name']});
+    } else {
+      navBar[product['category']] = [{'id': product['id'], 'name': product['name']}];
+    }
+  })
 
   function searchProduct (str) {
     products.map((product, index) => {
@@ -47,7 +56,7 @@ function App () {
   //Load products again for Q&A Fns
   const loadProducts = () => {
     axios.get('/products')
-      .then((response) => {setProduct(response.data); console.log('products', response.data)})
+      .then((response) => {setProduct(response.data);})
       .catch(err => console.log(err));
   }
 
@@ -105,7 +114,7 @@ function App () {
         ( null )}
       {/* {someState.reviews[0]['count']} */}
 
-        <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
+        <Overview product = {products[curProduct]} navBar = {navBar} searchProduct = {searchProduct}/>
         <RelatedItems product={products[curProduct]} productID={productID} updateProduct={updateProduct}/>
         <ReviewList id={products[curProduct].id}/>
         <QandAs product_id={products[4].id} toggleQuestionForm={toggleQuestionForm} toggleAnswerForm={toggleAnswerForm} updateAnswerID={updateAnswerID}/>
