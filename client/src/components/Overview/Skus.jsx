@@ -143,6 +143,9 @@ const StarContainer = styled.div`
   margin-left: 50px;
   font-size: 20px;
   padding: 5px;
+  &:hover {
+    background-color: darkgrey;
+  }
 `;
 
 const StarNoFill = styled.div`
@@ -150,13 +153,10 @@ const StarNoFill = styled.div`
   color: grey;
   font-variation-settings:
   'FILL' 0;
-  &:hover {
-    background-color: darkgrey;
-  }
 `;
 
 const StarFill = styled.div`
-  color: rgb(202, 202, 3);
+  color: #FFCC00;
   font-variation-settings:
   'FILL' 1,
   'wght' 400

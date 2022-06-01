@@ -145,7 +145,7 @@ const Slogan = styled.div`
 `;
 
 const Description = styled.div`
-  font-size: 15px;
+  font-size: 18px;
   margin-top: 20px;
   margin-left: 100px;
 `;

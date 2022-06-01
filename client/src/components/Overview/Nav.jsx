@@ -41,8 +41,8 @@ function Nav ({searchProduct, navBar, updateProduct}) {
           <span className ="material-symbols-outlined">shopping_cart_checkout</span>
         </NavCart>
         <NavSearch>
-          <input value = {search} onChange = {changeSearch}></input>
-          <button onClick = {clickHandler} className = 'search-button'>🔍</button>
+          <SearchInput value = {search} onChange = {changeSearch}></SearchInput>
+          <SearchButton onClick = {clickHandler} className = 'search-button'>🔍</SearchButton>
         </NavSearch>
       </Navi>
 
@@ -125,6 +125,18 @@ const NavSearch = styled.div`
   margin-top: 20px;
   float: right;
   margin-left: 50px;
+`;
+
+const SearchInput = styled.input`
+  height: 20px;
+  border: none;
+  border-bottom: 1px solid black;
+`;
+
+const SearchButton = styled.button`
+  border: none;
+  border-radius: 5px;
+  margin-left: 3px;
 `;
 
 const NavCart = styled.div`
