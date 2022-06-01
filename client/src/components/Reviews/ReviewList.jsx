@@ -5,6 +5,7 @@ import Ratings from './Ratings.jsx';
 import StarRatings from 'react-star-ratings';
 import Popup from 'reactjs-popup';
 import moment from 'moment';
+import {Image} from 'cloudinary-react';
 // list will map and pass to list entry to have the individual data
 // ratings bar will be own seperate component
 // make reviews scrollable
@@ -33,6 +34,7 @@ export default function ReviewList({id}) {
   const [starReview, setStarReview] = useState({});
   const [reviewState, setReviewState] = useState([]);
   const [dataCount, setDataCount] = useState(2);
+  const [imageSelected, setImageSelected] = useState([]);
 
   const [radioSize, setRadioSize] = useState('');
   const [radioWidth, setRadioWidth] = useState('');
@@ -46,7 +48,7 @@ export default function ReviewList({id}) {
   // write a function here for maintaining rating state
   // pass the state down to ratings
 
-  //console.log(reviews)
+  console.log(reviews)
   // can i slice the data array here to load 2 and then 2 again?
   const getReviews = () =>
   {axios.get(`/reviews/${id}`)
@@ -96,12 +98,7 @@ export default function ReviewList({id}) {
 
   const submitFn = (event) => {
     event.preventDefault()
-    axios.post(`/reviews/${id}`,
-    {
-      //obtain metadata for characteristics
-      // grab the characteristic id if you fetch for the metadata
-      // refernce getreviewmeta func
-      // take local file, send to 3rd party api, and grab the url to import here
+    let formObj = {
       product_id: id,
       rating: Number(rating),
       summary: title,
@@ -109,9 +106,10 @@ export default function ReviewList({id}) {
       recommend: recommend,
       name: name,
       email: "hi@gmail.com",
-      photos: ['text'],
+      photos: imageSelected, // ['test']
       characteristics: {'135219': 5, '135220': 5}
-    })
+    }
+    axios.post(`/reviews/${id}`, formObj)
     .then((response) => {
       if (body.length === 0) {
         alert('You must enter the following: Review')
@@ -134,7 +132,7 @@ export default function ReviewList({id}) {
       //console.log(body.length)
       getReviews()
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {console.log(formObj); console.log(err)})
   }
 
   const percentRec = (array) => {
@@ -169,7 +167,7 @@ export default function ReviewList({id}) {
   const helpfulSort = () => {
     let helpfulReview = reviews.slice()
     helpfulReview.sort((a, b) => (a['helpfulness'] < b['helpfulness']) ? 1 : -1)
-    setReviews(helpfulReview)
+    setReviewState(helpfulReview)
   }
 
   const newestSort = () => {
@@ -177,7 +175,7 @@ export default function ReviewList({id}) {
     newReview.sort((a, b) => {
       return (a.date < b.date) ? 1 : -1
     })
-    setReviews(newReview)
+    setReviewState(newReview)
   }
 
   const changeOption = (event) => {
@@ -196,10 +194,10 @@ export default function ReviewList({id}) {
     let rate = reviews.filter((item) =>
         item.rating === starReview[String(item.rating)]
     )
-    console.log(rate)
+    //console.log(rate)
     setReviewState(rate)
     } else {
-      console.log('reached')
+      // console.log('reached')
       setReviewState(reviews)
     }
   }, [starReview])
@@ -210,6 +208,17 @@ export default function ReviewList({id}) {
     } else {
       document.getElementById('counter').innerHTML = 'Minimum reached'
     }
+  }
+
+  const uploadImage = (event) => {
+    //console.log(files[0]);
+    const formData = new FormData()
+    formData.append("file", event.target.files[0])
+    formData.append("upload_preset", "d3rcyhun")
+
+    axios.post("https://api.cloudinary.com/v1_1/djmupj0f5/image/upload",
+    formData)
+    .then((response) => {console.log(response.data.url); setImageSelected([...imageSelected, response.data.url])})
   }
 
   return(
@@ -243,7 +252,7 @@ export default function ReviewList({id}) {
     />}
 
     <nav>
-    {reviews.slice(0, dataCount).map((info)=> (
+    {reviewState.slice(0, dataCount).map((info)=> (
       <ReviewListEntry
         body = {info.body}
         title = {info.summary}
@@ -253,6 +262,8 @@ export default function ReviewList({id}) {
         id = {info.review_id}
         date = {info.date}
         recommend = {info.recommend}
+        response = {info.response}
+        photos = {info.photos}
         key = {info.review_id}
       />
     ))}
@@ -282,7 +293,6 @@ export default function ReviewList({id}) {
     <input type="text" value={title} placeholder="Example: Best purchase ever!" onChange={e => {setTitle(e.target.value)}}></input>
     <br></br>
 
-    {/* here */}
     <label className = "addReview">Review Body: *</label>
     <br></br>
     <textarea cols="40" rows="4" value={body} id = "bodyBox" placeholder="Why did you like the product or not?" onChange={e => {setBody(e.target.value)}} onKeyUp = {(e) => reviewCounter(e)} minLength = "50" maxLength = "1000"></textarea>
@@ -291,7 +301,7 @@ export default function ReviewList({id}) {
 
     <label className = "addReview">Overall Rating: *</label>
     <br></br>
-    {/* <input type="text" value= {rating} onChange={e => {setRating(e.target.value)}}></input> */}
+
     <StarRatings
       rating={rating}
       starRatedColor="black"
@@ -318,6 +328,20 @@ export default function ReviewList({id}) {
     <br></br>
     <input type="email" placeholder="Example: jackson11@email.com"></input>
     <div className = "auth">For authentication reasons, you will not be emailed</div>
+
+    <br></br>
+    <div>
+      <input type = "file" onChange = {uploadImage}/>
+      <img src = {imageSelected[0]} className = "imgPreview"></img>
+      <input type = "file" onChange = {uploadImage}/>
+      <img src = {imageSelected[1]} className = "imgPreview"></img>
+      <input type = "file" onChange = {uploadImage}/>
+      <img src = {imageSelected[2]} className = "imgPreview"></img>
+      <input type = "file" onChange = {uploadImage}/>
+      <img src = {imageSelected[3]} className = "imgPreview"></img>
+      <input type = "file" onChange = {uploadImage}/>
+      <img src = {imageSelected[4]} className = "imgPreview"></img>
+    </div>
     <br></br>
 
     <label className = "addReview">Characteristics*</label>
@@ -481,7 +505,7 @@ export default function ReviewList({id}) {
     />}
 
     <nav className = "nav">
-    {reviews.slice(0, dataCount).map((info)=> (
+    {reviewState.slice(0, dataCount).map((info, index)=> (
       <ReviewListEntry
         body = {info.body}
         title = {info.summary}
@@ -491,6 +515,8 @@ export default function ReviewList({id}) {
         id = {info.review_id}
         date = {info.date}
         recommend = {info.recommend}
+        response = {info.response}
+        photos = {info.photos}
         key = {info.review_id}
       />
     ))}

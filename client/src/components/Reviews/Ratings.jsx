@@ -41,6 +41,10 @@ export default function Ratings(props) {
 
     // use a set state to show the number next to the bar
     setTotalFive(countFive);
+    setTotalFour(countFour);
+    setTotalThree(countThree);
+    setTotalTwo(countTwo);
+    setTotalOne(countOne);
 
     let divOne = countOne/ props.reviews.length  * (100)
     let divTwo = countTwo / props.reviews.length  * (100)
@@ -104,6 +108,7 @@ export default function Ratings(props) {
     width = {`50%`}
     maxCompleted = {50}
     />
+    <div>{totalFour}</div>
     </div>
     <br></br>
 
@@ -116,6 +121,7 @@ export default function Ratings(props) {
     width = {`50%`}
     maxCompleted = {50}
     />
+    <div>{totalThree}</div>
     </div>
     <br></br>
 
@@ -128,6 +134,7 @@ export default function Ratings(props) {
     width = {`50%`}
     maxCompleted = {50}
     />
+    <div>{totalTwo}</div>
     </div>
     <br></br>
 
@@ -140,6 +147,7 @@ export default function Ratings(props) {
     width = {`50%`}
     maxCompleted = {50}
     />
+    <div>{totalOne}</div>
     </div>
     <br></br>
 

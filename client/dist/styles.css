@@ -184,7 +184,7 @@ background-color: rgba(0,0,0, .7);
   /* border: 15px solid green; */
   position: absolute;
   left: -300px;
-  bottom: -70px;
+  bottom: -120px;
 
 }
 
@@ -241,6 +241,11 @@ label {
 .nav {
   height:300px;
   overflow:auto;
+}
+
+.imgPreview {
+  max-width: 50px;
+  max-height: 50px;
 }
 
 /*    ---    QandAs styling    ---    */

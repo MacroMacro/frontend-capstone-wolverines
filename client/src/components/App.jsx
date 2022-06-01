@@ -91,7 +91,7 @@ function App () {
 
   return (
     <>
-    {console.log(products, curProduct, productID, 'seee')}
+    {/* {console.log(products, curProduct, productID, 'seee')} */}
     {productID ? (
       <div>
         {showQuestionForm && !showAnswerForm ? (
@@ -105,10 +105,10 @@ function App () {
         ( null )}
       {/* {someState.reviews[0]['count']} */}
 
-        <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
-        <RelatedItems product={products[curProduct]} productID={productID} updateProduct={updateProduct}/>
+        {/* <Overview product = {products[curProduct]} searchProduct = {searchProduct}/>
+        <RelatedItems product={products[curProduct]} productID={productID} updateProduct={updateProduct}/> */}
         <ReviewList id={products[curProduct].id}/>
-        <QandAs product_id={products[4].id} toggleQuestionForm={toggleQuestionForm} toggleAnswerForm={toggleAnswerForm} updateAnswerID={updateAnswerID}/>
+        {/* <QandAs product_id={products[4].id} toggleQuestionForm={toggleQuestionForm} toggleAnswerForm={toggleAnswerForm} updateAnswerID={updateAnswerID}/> */}
       </div>
     ) : (
       <div id = 'test'><h1>Hello world</h1></div>
