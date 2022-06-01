@@ -11,7 +11,7 @@ import styled from 'styled-components';
 
 //Get all the styles data for a product given product id
 //Pass down style specific data
-function Overview ({product, navBar, searchProduct}) {
+function Overview ({product, navBar, searchProduct, updateProduct}) {
   const [style, setStyle] = useState([]);
   const [curStyle, setCurStyle] = useState(null);
   const [rating, setRating] = useState(0);
@@ -58,7 +58,7 @@ function Overview ({product, navBar, searchProduct}) {
 
   return (
   <div className = 'ProductOverview'>
-    <Nav searchProduct = {searchProduct} navBar = {navBar}/>
+    <Nav searchProduct = {searchProduct} navBar = {navBar} updateProduct = {updateProduct}/>
     {style.length ? (
       <div>
         <MainOverview>
@@ -66,7 +66,7 @@ function Overview ({product, navBar, searchProduct}) {
 
           <ProductInfo id = 'overview'>
             <div>
-              <StarRating rating = {rating} starRatedColor="black" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
+              <StarRating rating = {rating} id = 'OverviewRating' starRatedColor="#FFCC00" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
               <a style = {{'margin-left': '10px'}}>{rating.toFixed(1)}</a>
               <a href="#reviewList" style = {{'margin-left': '10px'}} >Read all {numRating} reviews</a>
             </div>
@@ -115,7 +115,6 @@ const ProductCat = styled.div`
 
 const ProductName = styled.div`
   font-size: 35px;
-  color: black;
   margin-top: 20px;
   font-weight: bold;
 `;
@@ -147,7 +146,6 @@ const Slogan = styled.div`
 
 const Description = styled.div`
   font-size: 15px;
-  color: black;
   margin-top: 20px;
   margin-left: 100px;
 `;

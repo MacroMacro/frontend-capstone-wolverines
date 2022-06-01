@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function Nav ({searchProduct, navBar}) {
+function Nav ({searchProduct, navBar, updateProduct}) {
   const [search, setSearch] = useState();
   const [dropdown, setDropdown] = useState(0);
-  const dropdownOptions = ['none', 'block'];
+  const [darkmode, setDarkmode] = useState(0);
 
   function changeSearch (e) {
     setSearch(e.target.value);
@@ -14,22 +14,29 @@ function Nav ({searchProduct, navBar}) {
     searchProduct(search.toLowerCase());
   }
 
-  function showDropdown (e, cat) {
-    document.getElementById(cat).style.display = 'block';
+  function Darkmode () {
+    setDarkmode(1-darkmode);
   }
+
+  document.getElementById('app').style.backgroundColor = darkmode === 1? 'black' : 'white';
+  document.getElementById('app').style.color = darkmode === 1? 'white': 'black';
 
   return (
     <NavContainer>
       <Navi>
         <NavHeader>Wolverine</NavHeader>
         <Menu>{Object.keys(navBar).map((cat)=>
-        <Cat onClick = {(e) => showDropdown(e, cat)} >
-          <DropButton>{cat}</DropButton>
-          <Dropdown id ={cat}>
-            {navBar[cat].map((product)=><List >{product['name']}</List>)}
-          </Dropdown>
-        </Cat>)}
-      </Menu>
+          <Cat id = 'menubar' >
+            <DropButton>{cat}</DropButton>
+            <Dropdown id = 'menulist'>
+              {navBar[cat].map((product)=><List onClick = {() => updateProduct(product['id'])}>{product['name']}</List>)}
+            </Dropdown>
+          </Cat>)}
+       </Menu>
+       <DarkCheck>
+        <input type = 'checkbox' id = 'darkmode' name = 'darkmode' value = 'yes' onClick = {Darkmode}/>
+        <label for = 'darkmode'> Darkmode</label>
+       </DarkCheck>
         <NavCart>
           <span className ="material-symbols-outlined">shopping_cart_checkout</span>
         </NavCart>
@@ -46,15 +53,16 @@ function Nav ({searchProduct, navBar}) {
 export default Nav;
 
 const NavContainer = styled.div`
-  margin: 10px 40px 40px 80px;
+  margin: 0px 40px 40px 80px;
+  padding-top: 40px;
   height: 70px;
   z-index: 1;
+  border-bottom: 2px solid;
 `;
 
 const Navi = styled.div`
   width: 100%;
   display: inline-block;
-  background-color: #c1ade5;
   font-family: 'Courier New', Courier, monospace;
   border-radius: 1%;
   height: 70px;
@@ -78,14 +86,13 @@ const Cat = styled.div`
   overflow: hidden;
 `;
 
-const DropButton = styled.button`
+const DropButton = styled.div`
   cursor: pointer;
-  font-size: 16px;
+  font-size: 17px;
   border: none;
   outline: none;
   padding: 15px 16px;
   font-family: 'Courier New', Courier, monospace;
-  background-color: #c1ade5;
   margin: 0;
 `;
 
@@ -94,16 +101,24 @@ const Dropdown = styled.div`
   position: absolute;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 500;
+  background-color: white;
 `;
 
 const List = styled.a`
   float: none;
   color: black;
+  font-size: 14px;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
   text-align: left;
+  cursor: pointer;
+`;
+
+const DarkCheck = styled.div`
+  float: right;
+  margin-top: 22px;
+  margin-left: 20px;
 `;
 
 const NavSearch = styled.div`

@@ -56,5 +56,4 @@ const StyleCheck = styled.div`
   position: absolute;
   margin-left: 70px;
   font-size: 25px;
-  color: rgb(44, 24, 24);
 `;

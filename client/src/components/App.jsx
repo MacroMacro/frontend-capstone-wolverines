@@ -114,7 +114,7 @@ function App () {
         ( null )}
       {/* {someState.reviews[0]['count']} */}
 
-        <Overview product = {products[curProduct]} navBar = {navBar} searchProduct = {searchProduct}/>
+        <Overview product = {products[curProduct]} navBar = {navBar} searchProduct = {searchProduct} updateProduct = {updateProduct}/>
         <RelatedItems product={products[curProduct]} productID={productID} updateProduct={updateProduct}/>
         <ReviewList id={products[curProduct].id}/>
         <QandAs product_id={products[4].id} toggleQuestionForm={toggleQuestionForm} toggleAnswerForm={toggleAnswerForm} updateAnswerID={updateAnswerID}/>
