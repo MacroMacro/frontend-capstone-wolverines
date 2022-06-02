@@ -204,7 +204,7 @@ z-index: 0;
 const ImageHolder = styled.div`
 height: 100%;
 width: 100%;
-margin-bottom: ;
+background-color: white;
 `;
 
 
