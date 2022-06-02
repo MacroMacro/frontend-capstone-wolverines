@@ -4,7 +4,7 @@ import axios from 'axios';
 import {format, parseISO} from 'date-fns';
 
 //States
-const Question = ({ question, qHelpfulness, updateAnswerID, toggleAnswerForm }) => {
+const Question = ({ question, reloadFn, updateAnswerID, toggleAnswerForm }) => {
   //commented out stuff is bc i had to move functionality from this component to app.jsx
 
   const [showMoreAs, setShowMoreAs] = useState(false);
@@ -27,7 +27,7 @@ const Question = ({ question, qHelpfulness, updateAnswerID, toggleAnswerForm }) 
 
   const addAnswerFn = () => {
     console.log('jksdahjkrl');
-    qHelpfulness();
+    reloadFn();
   }
 
   const helpfulnessFn = (id) => {
@@ -35,7 +35,7 @@ const Question = ({ question, qHelpfulness, updateAnswerID, toggleAnswerForm }) 
       console.log(id);
       setHelpfulnessClick(true);
       axios.put(`/qa/questions/${id}/helpful`)
-        .then(() => qHelpfulness())
+        .then(() => reloadFn())
         .catch(err => console.log('error putting', err));
     } else if (helpfulnessClick) {
       console.log('button already been clicked!')
@@ -47,7 +47,7 @@ const Question = ({ question, qHelpfulness, updateAnswerID, toggleAnswerForm }) 
       console.log(answerID);
       setAnswerHelpfulnessClick(true);
       axios.put(`/qa/answers/${answerID}/helpful`)
-        .then(() => qHelpfulness())
+        .then(() => reloadFn())
         .catch(err => console.log('error incrementing helpful for answers', err));
     } else if (answerHelpfulnessClick) {
       console.log('answer helpfulness button already clicked!');
@@ -59,7 +59,7 @@ const Question = ({ question, qHelpfulness, updateAnswerID, toggleAnswerForm }) 
        console.log(answerID);
        setAReportClick(true);
        axios.put(`/qa/answers/${answerID}/report`)
-        .then(() => qHelpfulness())
+        .then(() => reloadFn())
         .catch(err => console.log('error reporting this answer', err));
      } else if (aReportClick) {
        console.log('report button already clicked');
@@ -69,32 +69,48 @@ const Question = ({ question, qHelpfulness, updateAnswerID, toggleAnswerForm }) 
   return (
     <>
       <div style={{ display: "flex", justifyContent: 'space-between' }}>
-        <h2 style={{ margin: 0 }}>
-          Q:{' '}{question.question_body}
-        </h2>
+        <h3 className="question-question" style={{ margin: 0 }}><span className="big-Q">Q: </span>
+          {question.question_body}
+        </h3>
         <div style={{ marginTop: '6px' }}>
-          <span style={{paddingRight: '10px'}}>
+          <span className="right-side helpful">
             Helpful?
             {' '}
             <span type='button' onClick={() => helpfulnessFn(question.question_id)} style={{ textDecoration: "underline" }}>Yes</span>
             {` (${question.question_helpfulness})`}
           </span>
           |
-          <span type="button" onClick={() => {toggleAnswerForm(question.question_id, question.question_body)}} style={{paddingLeft: '10px'}}>
+          <span type="button" className="right-side add-answer" onClick={() => {toggleAnswerForm(question.question_id, question.question_body)}}>
             Add Answer
           </span>
-          {/* {addAnswerClick ? <AddAnswer question_id={question.question_id} reloadFn={qHelpfulness}/> : null} */}
         </div>
       </div>
       {question.firstTwoAnswers.map(oneAnswer => (
         <div key={oneAnswer.id}>
-          <h3>
+          <h4 className="question-answer">
             A:{' '}{oneAnswer.body}
-          </h3>
+          </h4>
           <div>
+            {oneAnswer.photos.length ? (
+              <>
+                {oneAnswer.photos.map(url => (
+                  <img className="thumbnail" src={url} key={url}/>
+                ))}
+              </>
+            ): null}
+          </div>
+          <div className="answer-subtext">
             <span>
-              {`by ${oneAnswer.answerer_name}, ${format(parseISO(oneAnswer.date), 'MMMM do, yyyy')} `}
+              {`by `}
             </span>
+              {oneAnswer.answerer_name.toLowerCase() === 'seller' ? (
+                <span><strong>{`${oneAnswer.answerer_name}, `}</strong></span>
+              ) : (
+                <span>{`${oneAnswer.answerer_name}, `}</span>
+              )}
+              <span> {`${format(parseISO(oneAnswer.date), 'MMMM do, yyyy')} `}
+            </span>
+            <span className="answer-helpful">
               | Helpful?
               {' '}
               <span
@@ -105,10 +121,12 @@ const Question = ({ question, qHelpfulness, updateAnswerID, toggleAnswerForm }) 
                 Yes
               </span>
               {` (${oneAnswer.helpfulness}) | `}
+              </span>
               <span
+                className="answer-report"
                 type='button'
                 onClick={()=>{answerReportFn(oneAnswer.id)}}
-                style={{ textDecoration: "underline"}}
+
                 >
                   Report
                 </span>
@@ -117,13 +135,30 @@ const Question = ({ question, qHelpfulness, updateAnswerID, toggleAnswerForm }) 
       ))}
       {showMoreAs && question.restOfAnswers.map(oneAnswer => (
         <div key={oneAnswer.id}>
-          <h3>
+          <h4 className="question-answer">
             A:{' '}{oneAnswer.body}
-          </h3>
-          <div>
+          </h4>
+          <div className="answer-images">
+            {oneAnswer.photos.length ? (
+              <>
+                {oneAnswer.photos.map(url => (
+                  <img className="thumbnail" src={url} key={url}/>
+                ))}
+              </>
+            ): null}
+          </div>
+          <div className="answer-subtext">
             <span>
-              {`by ${oneAnswer.answerer_name}, ${oneAnswer.date} `}
+              {`by `}
             </span>
+              {oneAnswer.answerer_name.toLowerCase() === 'seller' ? (
+                <span><strong>{`${oneAnswer.answerer_name}, `}</strong></span>
+              ) : (
+                <span>{`${oneAnswer.answerer_name}, `}</span>
+              )}
+              <span> {`${format(parseISO(oneAnswer.date), 'MMMM do, yyyy')} `}
+            </span>
+              <span className="answer-helpful">
               | Helpful?
               {' '}
               <span
@@ -134,10 +169,11 @@ const Question = ({ question, qHelpfulness, updateAnswerID, toggleAnswerForm }) 
                 Yes
               </span>
               {` (${oneAnswer.helpfulness}) | `}
+              </span>
               <span
+                className="answer-report"
                 type='button'
                 onClick={()=>{answerReportFn(oneAnswer.id)}}
-                style={{ textDecoration: "underline"}}
                 >
                   Report
                 </span>
@@ -145,13 +181,13 @@ const Question = ({ question, qHelpfulness, updateAnswerID, toggleAnswerForm }) 
         </div>
       ))}
       {question.restOfAnswers.length ? (
-        <div>
-          <span
+        <div className="see-more-answers">
+          <button
           type="button"
           onClick={changeQuestions}
           >
             {`${showMoreAs ? 'Collapse' : 'See More'} Answers`}
-          </span>
+          </button>
         </div>
       ) : null }
     </>
