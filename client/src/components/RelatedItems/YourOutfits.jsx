@@ -15,7 +15,7 @@ class YourOutfits extends React.Component {
     };
     this.scrollRight = this.scrollRight.bind(this);
     this.scrollLeft = this.scrollLeft.bind(this);
-    this.isOverflowing = this.isOverflowing.bind(this);
+    this.overflow = this.overflow.bind(this);
     this.handleCompareClick = this.handleCompareClick.bind(this);
   }
 
@@ -74,7 +74,7 @@ class YourOutfits extends React.Component {
     }
   }
 
-  isOverflowing() {
+  overflow() {
     // find carousel div
     const carousel = document.getElementById('productCarousels');
 
@@ -97,23 +97,21 @@ class YourOutfits extends React.Component {
     return (
       <div>
         {/*if images exist on the right, right button exists */}
-        {imagesToTheRight ?
-          (
-            <RightButton onClick={this.scrollRight}>
-              ⇨
-            </RightButton>
-          )
-          : null}
+        {imagesToTheRight ? (
+          <RightButton onClick={this.scrollRight}>
+            ⇨
+          </RightButton>
+        ) : null}
 
         {/* carousel is given an id to move the element, and set if there is right images to load the right button */}
-        <ListContainer id="productCarousels" onLoad={this.isOverflowing}>
+        <ListContainer id="productCarousels" onLoad={this.overflow}>
         <CardContainer>
             {/* <br></br> */}
             {/* Compare Modal button*/}
 
-            <ImageWrapper>
+            <ImageHolder>
               <Image src='https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg' onClick={this.handleCompareClick}/>
-            </ImageWrapper>
+            </ImageHolder>
             </CardContainer>
 
           { /* map over the related product IDs and pass info to cards */ }
@@ -128,15 +126,12 @@ class YourOutfits extends React.Component {
           ))}
         </ListContainer>
         {/*if images exist on the left, left button exists */}
-        {imagesToTheLeft ?
-          (
+        {imagesToTheLeft ? (
             <LeftButton onClick={this.scrollLeft}>
               ⇦
             </LeftButton>
-          )
-          : null}
+          ) : null}
       </div>
-
     );
   }
 }
@@ -179,13 +174,6 @@ position: relative;
 flex-shrink: 0;
 margin: 10px 10px;
 outline-style: inset;
-// background: rgba(255,255,255,0.1);
-// background: linear-gradient(180deg, hsl(190,70%,99%), hsl(240,60%,100%));
-// &:hover {
-//   box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-//   bottom-border: 0px;
-//   cursor: pointer;
-// }
 `;
 
 const RightButton = styled.button`
@@ -213,10 +201,10 @@ object-position: 50% 0;
 z-index: 0;
 `;
 
-const ImageWrapper = styled.div`
+const ImageHolder = styled.div`
 height: 100%;
 width: 100%;
-margin-bottom: ;
+background-color: white;
 `;
 
 

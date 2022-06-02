@@ -1,53 +1,9 @@
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import styled from 'styled-components';
-
-// function ComparisonModal ({closeModal, parentProduct, compareProduct, combinedFeatures}) {
-
-//   function closeModal = (event) => {
-//     event.stopPropagation();
-//     closeModal();
-//   };
-
-//   return (
-//     <ModalWrapper
-//       className="modal"
-//       onClick={closeModal}
-//     >
-//       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-//       </div>
-//       <ModalContent>
-//         <ComparisonTitle>
-//           <CompareTitle>COMPARING</CompareTitle>
-//           <div>{null}</div>
-//           <div>{null}</div>
-//           <ProductTitle><b>{parentProduct}</b></ProductTitle>
-//           <div>{null}</div>
-//           <ProductTitle><b>{compareProduct}</b></ProductTitle>
-//         </ComparisonTitle>
-//         <CompareWrapper>
-//           {combinedFeatures.map((feature, i) => {
-//             if (feature) {
-//               if (feature[0] === '"') {
-//                 const cleanFeature = feature.substring(1, feature.length - 1);
-//                 return <TestDiv key={i}>{cleanFeature}</TestDiv>;
-//               }
-//               return <TestDiv key={i}>{feature}</TestDiv>;
-//             }
-//             return <TestDiv key={i}>{feature}</TestDiv>;
-//           })}
-//         </CompareWrapper>
-//       </ModalContent>
-//     </ModalWrapper>
-//   );
-// };
-
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
 const ComparisonModal = (props) => {
-  const closeModal = (event) => {
+  const closeScreen = (event) => {
     event.stopPropagation();
     props.closeModal();
   };
@@ -55,55 +11,55 @@ const ComparisonModal = (props) => {
   const { parentProduct, compareProduct, combinedFeatures } = props;
 
   return (
-    <ModalWrapper
-      className="modal"
-      onClick={closeModal}
+    <ModalTable
+      onClick={closeScreen}
     >
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div onClick={(e) => e.stopPropagation()}>
       </div>
-      <ModalContent>
-        <ComparisonTitle>
+      <ModalInfo>
+        <Title>
+          <div>{null}</div>
           <CompareTitle>COMPARING</CompareTitle>
           <div>{null}</div>
+          <FeatureTitles><b>{parentProduct}</b></FeatureTitles>
           <div>{null}</div>
-          <ProductTitle><b>{parentProduct}</b></ProductTitle>
-          <div>{null}</div>
-          <ProductTitle><b>{compareProduct}</b></ProductTitle>
-        </ComparisonTitle>
-        <CompareWrapper>
+          <FeatureTitles><b>{compareProduct}</b></FeatureTitles>
+        </Title>
+        <FeatureComparisons>
           {combinedFeatures.map((feature, i) => {
             if (feature) {
-              if (feature[0] === '"') {
-                const cleanFeature = feature.substring(1, feature.length - 1);
-                return <TestDiv key={i}>{cleanFeature}</TestDiv>;
+              if (feature[0] === '') {
+                const features = feature.substring(1, feature.length - 1);
+                return <Features key={i}>{features}</Features>;
               }
-              return <TestDiv key={i}>{feature}</TestDiv>;
+              return <Features key={i}>{feature}</Features>;
             }
-            return <TestDiv key={i}>{feature}</TestDiv>;
+            return <Features key={i}>{feature}</Features>;
           })}
-        </CompareWrapper>
-      </ModalContent>
-    </ModalWrapper>
+        </FeatureComparisons>
+      </ModalInfo>
+    </ModalTable>
   );
 };
 
-const TestDiv = styled.div`
+const Features = styled.div`
   text-align: center;
-  font-size: 17px;
+  font-size: 18px;
 `;
-const ProductTitle = styled.div`
+const FeatureTitles = styled.div`
   text-align: center;
-  font-size: 17px;
+  font-size: 18px;
   border-bottom: 1px solid grey;
   margin-bottom: 13px;
 `;
 
 const CompareTitle = styled.div`
-  margin: 30px 10px;
-  font-size: 15px;
+  margin: 20px 10px;
+  font-size: 24px;
+  text-align: center;
 `;
 
-const CompareWrapper = styled.div`
+const FeatureComparisons = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto;
@@ -115,7 +71,7 @@ const CompareWrapper = styled.div`
   z-index: 150;
 `;
 
-const ComparisonTitle = styled.div`
+const Title = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows:
@@ -126,38 +82,36 @@ const ComparisonTitle = styled.div`
   margin-bottom: 10px;
 `;
 
-const ModalContent = styled.div`
+const ModalInfo = styled.div`
 background-color: white;
-width: 75%; /* Width in proportion to its parent container*/
-max-width: 600px; /* Max width where it stops expanding */
-height: 35%; /* Height in proportion to its parent container */
-margin: auto; /* Auto margin according to the element width */
+width: 100%;
+max-width: 600px;
+height: 50%
+margin: auto
 justify-content: center;
 align-items: center;
 padding: 10px;
 border: 1px solid black;
-border-radius: 20px; /* Optional. Rounds container corners */
+border-radius: 20px;
 overflow: auto;
 `;
 
-const ModalWrapper = styled.div`
-background-color: rgb(0,0,0); /* Fallback color */
-background-color: rgba(0,0,0,0.4); /* Overlay effect: translucent background: black w/ partial opacity */
-background: rgba(0,0,0,0.55);
-z-index: 1; /* Overlay effect: positioned over other containers */
-width: 100%; /* Full width */
-height: 100%; /* Full height */
-position: fixed; /* Fix position on the top-left corner*/
+const ModalTable = styled.div`
+background-color: rgba(0,0,0,0.6);
+width: 100%;
+height: 100%;
+position: fixed;
 top: 0;
 left: 0;
 display: flex;
 justify-content: center;
 align-items: center;
-overflow: auto; /* Enable scroll if needed */
-padding-top: 80px; /* Location of the content container */
-font-size: calc(10px + 2vmin);
+overflow: auto;
+padding-top: 50px;
+padding-bottom: 50px;
+font-size: 18px;
 color: black;
-z-index: 1000;
+z-index: 7000;
 backdrop-filter: blur(8px) contrast(70%);
 `;
 
