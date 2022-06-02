@@ -71,6 +71,7 @@ function App () {
         <RelatedItems product={products[curProduct]} productID={productID} updateProduct={updateProduct}/>
         <QandAs product_id={products[curProduct].id} product_name={products[curProduct].name}/>
         <ReviewList id={products[curProduct].id}/>
+        <Footer/>
       </div>
     ) : (
       <div id = 'test'><h1>Loading...</h1></div>
