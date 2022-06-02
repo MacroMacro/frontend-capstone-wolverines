@@ -76,7 +76,8 @@ export default function ReviewList({id}) {
     getReviewMeta();
   }, [id])
 
-  const handleFormView = () => {
+  const handleFormView = (event) => {
+    event.stopPropagation();
     setFormView(!formView);
   }
 
@@ -224,70 +225,64 @@ export default function ReviewList({id}) {
   return(
   formView ? (
     <div className = "reviewWrapper">
-    <div className = "reviewBox" id ='reviewList'>
+      <div className = "reviewBox" id ='reviewList'>
+        <div id = "list" className = "reviewList">
+          <div>
+            <div className = "dropdown">
+              <div className = "reviewTitle">
+                {reviews.length} reviews, sorted by
+                <select value={option} onChange={changeOption} className = "dropbutton">
+                  <option value='Relevance' >Relevance</option>
+                  <option value= 'Helpful' >Helpful</option>
+                  <option value='Newest' >Newest</option>
+                </select>
+              </div>
+            </div>
 
-  <div id = "list" className = "reviewList">
-  <div>
+            {<Ratings
+              averageRate = {averageRate}
+              percentHelpful = {percentHelpful}
+              reviews = {reviews}
+              comfort = {comfort}
+              size = {size}
+              rating = {rating}
+              setStarReview = {setStarReview}
+              starReview = {starReview}
+              reviewState = {reviewState}
+            />}
 
-  <div className = "dropdown">
-    <div className = "reviewTitle">
-      {reviews.length} reviews, sorted by
-      <select value={option} onChange={changeOption} className = "dropbutton">
-      <option value='Relevance' >Relevance</option>
-      <option value= 'Helpful' >Helpful</option>
-      <option value='Newest' >Newest</option>
-      </select>
-      </div>
-    </div>
-
-    {<Ratings
-      averageRate = {averageRate}
-      percentHelpful = {percentHelpful}
-      reviews = {reviews}
-      comfort = {comfort}
-      size = {size}
-      rating = {rating}
-      setStarReview = {setStarReview}
-      starReview = {starReview}
-      reviewState = {reviewState}
-    />}
-
-    <nav>
-    {reviewState.slice(0, dataCount).map((info)=> (
-      <ReviewListEntry
-        body = {info.body}
-        title = {info.summary}
-        rating = {info.rating}
-        helpfulness = {info.helpfulness}
-        name = {info.reviewer_name}
-        id = {info.review_id}
-        date = {info.date}
-        recommend = {info.recommend}
-        response = {info.response}
-        photos = {info.photos}
-        key = {info.review_id}
-      />
-    ))}
-    </nav>
-  </div>
+            <nav>
+            {reviewState.slice(0, dataCount).map((info)=> (
+              <ReviewListEntry
+                body = {info.body}
+                title = {info.summary}
+                rating = {info.rating}
+                helpfulness = {info.helpfulness}
+                name = {info.reviewer_name}
+                id = {info.review_id}
+                date = {info.date}
+                recommend = {info.recommend}
+                response = {info.response}
+                photos = {info.photos}
+                key = {info.review_id}
+              />
+            ))}
+            </nav>
+          </div>
 
 
   {dataCount < reviews.length && reviews.length > 2 && reviews.length !== 101 ?
   <button className = "reviewButton" onClick = {() => {setDataCount(dataCount + 2)}}>MORE REVIEWS</button> : null }
   <button onClick={handleFormView} className = "reviewButton">ADD A REVIEW +</button>
 
-  <Popup trigger={
-    // add 2 srop propogation
-    <div className = "overlay" id = "review" onClick = {(event) => {
-      event.stopPropagation();
-      console.log('clicked');
-      setFormView(!formView);
-    }}>
-      <div className = "testing" >
-    <div className = "box" >
+
+
+    <div className = "overlay-review" onClick = {handleFormView}></div>
+
+    <div className = "box">
       <form onSubmit = {submitFn}>
-      <div>Write Your Review</div>
-      <div className = "productTitle">About the Product</div>
+      <div >Write Your Review</div>
+      <div className = "productSubTitle">About the Product</div>
       <br></br>
     <label className = "addReview">Review Summary: *</label>
     <br></br>
@@ -305,20 +300,16 @@ export default function ReviewList({id}) {
 
     <StarRatings
       rating={rating}
-      starRatedColor="black"
+      starRatedColor="green"
       changeRating={e => {setRating(e)}}
       numberOfStars={5}
       starDimension = {`15px`}
       starSpacing = {`2px`}
-      starEmptyColor = {`white`}
+      starEmptyColor = {`green`}
       starHoverColor = {`black`}
-
       />
 
-    {rating > 0 ?
-    (<div>hi</div>) : null
-    }
-
+    <br></br>
     <br></br>
     <label className = "addReview">What Is Your Nickname: *</label>
     <br></br>
@@ -329,7 +320,9 @@ export default function ReviewList({id}) {
     <br></br>
     <input type="email" placeholder="Example: jackson11@email.com"></input>
     <div className = "auth">For authentication reasons, you will not be emailed</div>
+    <br></br>
 
+    <div className = "addReview">Upload your photos:</div>
     <br></br>
     <div>
       <input type = "file" onChange = {uploadImage}/>
@@ -352,6 +345,7 @@ export default function ReviewList({id}) {
     <div>
      {radioSize.length > 0 ?
       <div className = "radioTitle">Size &nbsp; {radioSize}</div> : <div className = "radioTitle">Size &nbsp; none selected</div>}
+    <div className = "rBList">
     <label className = "radioButton" onClick = {() => {setRadioSize('A size too small')}}><input type="radio" />A size too small &nbsp;</label>
     <label className = "radioButton"><input type="radio" onClick = {() => {
       setRadioSize('½ a size too small')
@@ -366,11 +360,13 @@ export default function ReviewList({id}) {
       setRadioSize('A size too wide')
     }}><input type="radio" />A size too wide &nbsp;</label>
     </div>
+    </div>
     <br></br>
 
     <div>
     {radioWidth.length > 0 ?
       <div className = "radioTitle">Width &nbsp; {radioWidth}</div> : <div className = "radioTitle">Width &nbsp; none selected</div>}
+      <div className = "rBList">
     <label className = "radioButton" onClick = {() => {setRadioWidth('Too narrow')}}><input type="radio" />Too narrow &nbsp;</label>
     <label className = "radioButton"><input type="radio" onClick = {() => {
       setRadioWidth('Slightly narrow')
@@ -385,11 +381,13 @@ export default function ReviewList({id}) {
       setRadioWidth('Too wide')
     }}><input type="radio" />Too wide &nbsp;</label>
     </div>
+    </div>
     <br></br>
 
     <div>
     {radioComfort.length > 0 ?
       <div className = "radioTitle">Comfort &nbsp; {radioComfort}</div> : <div className = "radioTitle">Comfort &nbsp; none selected</div>}
+      <div className = "rBList">
     <label className = "radioButton" onClick = {() => {setRadioComfort('Uncomfortable')}}><input type="radio" />Uncomfortable &nbsp;</label>
     <label className = "radioButton"><input type="radio" onClick = {() => {
       setRadioComfort('Slightly uncomfortable')
@@ -404,11 +402,13 @@ export default function ReviewList({id}) {
       setRadioComfort('Perfect')
     }}><input type="radio" />Perfect &nbsp;</label>
     </div>
+    </div>
     <br></br>
 
     <div>
     {radioQuality.length > 0 ?
       <div className = "radioTitle">Quality &nbsp; {radioQuality}</div> : <div className = "radioTitle">Quality &nbsp; none selected</div>}
+      <div className = "rBList">
     <label className = "radioButton" onClick = {() => {setRadioQuality('Poor')}}><input type="radio" />Poor &nbsp;</label>
     <label className = "radioButton"><input type="radio" onClick = {() => {
       setRadioQuality('Below average')
@@ -423,11 +423,13 @@ export default function ReviewList({id}) {
       setRadioQuality('Perfect')
     }}><input type="radio" />Perfect &nbsp;</label>
     </div>
+    </div>
     <br></br>
 
     <div>
     {radioLength.length > 0 ?
       <div className = "radioTitle">Length &nbsp; {radioLength}</div> : <div className = "radioTitle">Length &nbsp; none selected</div>}
+      <div className = "rBList">
     <label className = "radioButton" onClick = {() => {setRadioLength('Runs Short')}}><input type="radio" />Runs Short &nbsp;</label>
     <label className = "radioButton"><input type="radio" onClick = {() => {
       setRadioLength('Runs slightly short')
@@ -442,11 +444,13 @@ export default function ReviewList({id}) {
       setRadioLength('Runs long')
     }}><input type="radio" />Runs long &nbsp;</label>
     </div>
+    </div>
     <br></br>
 
     <div>
     {radioFit.length > 0 ?
       <div className = "radioTitle">Fit &nbsp; {radioFit}</div> : <div className = "radioTitle">Fit &nbsp; none selected</div>}
+      <div className = "rBList">
     <label className = "radioButton" onClick = {() => {setRadioFit('Runs Short')}}><input type="radio" />Runs Short &nbsp;</label>
     <label className = "radioButton"><input type="radio" onClick = {() => {
       setRadioFit('Runs slightly short')
@@ -461,27 +465,23 @@ export default function ReviewList({id}) {
       setRadioFit('Runs long')
     }}><input type="radio" />Runs long &nbsp;</label>
     </div>
+    </div>
     <br></br>
 
     <label className = "addReview">Do You Recommend This Product? *</label>
     <br></br>
-    <input type="checkbox" name = "rec" value={recommend} onClick={e => {setRecommend(true)}}></input>Yes
-    <input type="checkbox" name = "rec" value={recommend} onClick={e => {setRecommend(false)}}></input>No
+
+    <div className = "checkAlign">
+    <input type="checkbox" name = "rec" value={recommend} onClick={e => {setRecommend(true)}}></input><div className = "checkLabel">Yes</div>
+    <input type="checkbox" name = "rec" value={recommend} onClick={e => {setRecommend(false)}}></input><div className = "checkLabel">No</div>
+    </div>
     <br></br>
-    <input type="submit" value="Submit Review" onClick = {(event) => {
-      event.stopPropagation();
-      console.log('clicked');
-      setFormView(!formView);
-    }}></input>
+    <input type="submit" value="Submit Review"></input>
   </form>
   </div>
   </div>
   </div>
-  } position="top center">
-  </Popup>
 
-  </div>
-  </div>
   </div>) : (
 
 <div className = "reviewWrapper" id ='reviewList'>

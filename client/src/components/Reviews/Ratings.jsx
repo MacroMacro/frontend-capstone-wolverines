@@ -70,10 +70,10 @@ export default function Ratings(props) {
     setRateAdded(!rateAdded);
   }
 
-  const removeFilters = () => {
-    // let objCopy = {...props.starReview}
-    props.setStarReview({})
-  }
+  // const removeFilters = () => {
+  //   // let objCopy = {...props.starReview}
+  //   props.setStarReview({})
+  // }
 
   return (
    <div className = "rating">
@@ -91,10 +91,10 @@ export default function Ratings(props) {
     </div>
     <br></br>
   <br></br>
-    <div className = "bodyText">{props.percentHelpful.toFixed(0)}% of reviews recommend this product</div>
+    {/* <div className = "bodyText">{props.percentHelpful.toFixed(0)}% of reviews recommend this product</div> */}
     {/* reviewdate */}
-    {rateAdded ? <button onClick = {removeFilters}>remove</button>:
-    null}
+    {/* {rateAdded ? <button onClick = {removeFilters}>remove</button>:
+    null} */}
 
     <br></br>
     <button className = "rateNum" type="button" value = {5} onClick={rateAdder}>5 stars</button>
