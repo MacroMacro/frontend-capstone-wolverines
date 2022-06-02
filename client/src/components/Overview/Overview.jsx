@@ -7,16 +7,18 @@ import Style from './Style.jsx';
 import StarRating from 'react-star-ratings';
 import {FacebookIcon, PinterestIcon,TwitterIcon } from 'react-share';
 import Share from './Share.jsx';
+import styled from 'styled-components';
+
 //Get all the styles data for a product given product id
 //Pass down style specific data
-function Overview ({product, searchProduct}) {
+function Overview ({product, navBar, searchProduct, updateProduct}) {
   const [style, setStyle] = useState([]);
   const [curStyle, setCurStyle] = useState(null);
   const [rating, setRating] = useState(0);
   const [price, setPrice] = useState(product['default_price']);
   const [largeImg, setlargeImg] = useState(0);
-  const [numRating, setNumRating] = useState();
-  const [icon, setIcon] = useState(<span className="material-symbols-outlined">fit_screen</span>);
+  const [numRating, setNumRating] = useState(' ');
+  // const [icon, setIcon] = useState(<span className="material-symbols-outlined">fit_screen</span>);
 
 
   const onLoad = ()=> {
@@ -36,28 +38,14 @@ function Overview ({product, searchProduct}) {
 //rating bar
     axios.get(`/reviews/${product['id']}`)
     .then((response)=> { return ([response.data['results'].reduce((prev, cur) => prev = prev + cur['rating'], 0), response.data['results'].length])})
-    .then(([total, nums]) => {setRating(total/nums); setNumRating(nums);
-    })
+    .then(([total, nums]) => {setRating(total/nums); setNumRating(nums);})
     .catch((err) => console.log(`can't load for product with id ${product['id']}`));
   };
 
   useEffect(onLoad, [product['id']]);
 
-  const icons = [<span className="material-symbols-outlined">fit_screen</span>, <span className="material-symbols-outlined">fullscreen_exit</span>];
-
   function changeStyle(n) {
     setCurStyle(n);
-  }
-
-  function enlarge() {
-    setIcon(icons[1-largeImg]);
-    setlargeImg(1-largeImg);
-  }
-
-  function scrollReview () {
-    console.log('document', document);
-    console.log('scroll', document.getElementById('reviewList'));
-    document.getElementById('reviewList').scrollIntoView();
   }
 
   function addYourOutfit (starred) {
@@ -69,44 +57,101 @@ function Overview ({product, searchProduct}) {
   }
 
   return (
-    <>
-    <Nav searchProduct = {searchProduct}/>
+  <div className = 'ProductOverview'>
+    <Nav searchProduct = {searchProduct} navBar = {navBar} updateProduct = {updateProduct}/>
     {style.length ? (
       <div>
-      <div className = 'main-overview'>
-        {curStyle !== null ? (<Photos photos = {style[curStyle]['photos']} enlargeCurImage = {enlarge} icon ={icon}/>) : (<a>Loading Styles</a>) }
+        <MainOverview>
+          {curStyle !== null ? (<Photos photos = {style[curStyle]['photos']} />) : (<a>Loading Styles</a>) }
 
-        <div className = 'overview'>
-          <div className = 'rating'>
-            <StarRating rating = {rating} starRatedColor="black" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
-            <a className = 'reviewnum'>{rating}</a>
+          <ProductInfo id = 'overview'>
+            <div>
+              <StarRating rating = {rating} id = 'OverviewRating' starRatedColor="#FFCC00" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
+              <a style = {{'margin-left': '10px'}}>{rating.toFixed(1)}</a>
+              <a href="#reviewList" style = {{'margin-left': '10px'}} >Read all {numRating} reviews</a>
+            </div>
+            <ProductCat> {product['category']}</ProductCat>
+            <ProductName>{product['name']}</ProductName>
 
-            {numRating ? (<a className = 'reviewlink' href="#reviewList" >Read all {numRating} reviews</a>) : (<a className = 'reviewlink' href="#reviewList" >Read all reviews</a>)}
+            {curStyle !== null ?
+            (<ProductPrice>{
+              style[curStyle]['sale_price'] === null ? (<>${style[curStyle]['original_price']}</>) : (<><ProductSale> ${style[curStyle]['sale_price']}</ProductSale><ProductOrg>${style[curStyle]['original_price']}</ProductOrg></>)
+            }</ProductPrice>) : (<div>Loading prices</div>)}
 
-          </div>
-          <div className = 'category'> {product['category']}</div>
-          <div className = 'name'><h2>{product['name']}</h2></div>
+            {curStyle !== null ? (<>
+            <Style style = {style} curStyle = {curStyle} changeStyle = {changeStyle} />
+            <Skus changeStyle = {changeStyle} addYourOutfit = {addYourOutfit} skus= {style[curStyle]['skus']}/> </>) : (<a>Loading Skus</a>)}
 
-          {curStyle !== null ?
-          (<div className = 'price'>{
-            style[curStyle]['sale_price'] === null ? (<>${style[curStyle]['original_price']}</>) : (<><span id='salePrice'> ${style[curStyle]['sale_price']}</span><span id ='orgPrice'>${style[curStyle]['original_price']}</span></>)
-          }</div>) : (<div>Loading prices</div>)}
+            {curStyle !== null ?
+            (<Share url = {style[curStyle]['photos'][0]['url']} quote = {`Check out ${product['name']} with style ${style[curStyle]['name']}`}/>) : (<><FacebookIcon size={40} round /><TwitterIcon size={40} round /><PinterestIcon size={40} round /></>)}
+          </ProductInfo>
+        </MainOverview>
 
-          {curStyle !== null ? (<>
-          <Style style = {style} curStyle = {curStyle} changeStyle = {changeStyle} />
-          <Skus changeStyle = {changeStyle} addYourOutfit = {addYourOutfit} skus= {style[curStyle]['skus']}/> </>) : (<a>Loading Skus</a>)}
-
-          {curStyle !== null ?
-          (<Share url = {style[curStyle]['photos'][0]['url']} quote = {`Check out ${product['name']} with style ${style[curStyle]['name']}`}/>) : (<><FacebookIcon size={40} round /><TwitterIcon size={40} round /><PinterestIcon size={40} round /></>)}
-        </div>
-      </div>
-
-      <div className = 'slogan'>{product['slogan']}</div>
-      <div className = 'description'>{product['description']}</div>
-    </div> )
-    : (<div>Welcome to Wolverine ... </div>) }
-  </>)
-
+      <Slogan>{product['slogan']}</Slogan>
+      <Description>{product['description']}</Description>
+    </div> ): (<ProductOverview>Welcome to Wolverine ... </ProductOverview>) }
+  </div>)
 }
 
 export default Overview;
+
+const ProductOverview = styled.div`
+  height: 1000px;
+  width: 100%;
+  text-align: center;
+`;
+
+const MainOverview = styled.div`
+  display: flex;
+  margin: 40px 100px;
+`;
+
+const ProductInfo = styled.div`
+  width: 40%;
+  margin-left: 200px;
+  margin-top: 20px;
+`;
+
+const ProductCat = styled.div`
+  font-size: 25px;
+  color: grey;
+  margin-top: 20px;
+  text-transform: uppercase;
+`;
+
+const ProductName = styled.div`
+  font-size: 35px;
+  margin-top: 20px;
+  font-weight: bold;
+`;
+
+const ProductPrice = styled.div`
+  margin-top: 15px;
+  height: 40px;
+  font-size: 20px;
+`;
+
+const ProductSale = styled.span`
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+`;
+
+const ProductOrg = styled.span`
+  text-decoration: line-through;
+  margin-left: 10px;
+  font-size: 20px;
+`;
+
+const Slogan = styled.div`
+  margin-top: 10px;
+  margin-left: 100px;
+  font-size: 20px;
+  color: grey;
+`;
+
+const Description = styled.div`
+  font-size: 18px;
+  margin-top: 20px;
+  margin-left: 100px;
+`;

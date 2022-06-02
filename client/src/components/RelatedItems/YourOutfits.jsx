@@ -136,6 +136,8 @@ class YourOutfits extends React.Component {
   }
 }
 
+export default YourOutfits;
+
 const ListContainer = styled.div`
 display: flex;
 justify-content: flex-start;
@@ -206,4 +208,3 @@ margin-bottom: ;
 `;
 
 
-export default YourOutfits;

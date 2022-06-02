@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import {FacebookShareButton, TwitterShareButton, PinterestShareButton} from 'react-share';
 import {FacebookIcon, PinterestIcon,TwitterIcon } from 'react-share';
 
@@ -6,27 +7,30 @@ function Share ({url, quote}) {
 
   return (
 
-      <div className = 'Share'>
-      <FacebookShareButton
-        url= {url}
-        quote={quote}
-        id="share">
-        <FacebookIcon size={40} round /></FacebookShareButton>
+      <ShareContainer id='Share'>
+        <ShareIcon>
+          <FacebookShareButton url= {url} quote={quote}><FacebookIcon size={40} round /></FacebookShareButton>
+        </ShareIcon>
 
-      <TwitterShareButton
-        url={url}
-        title = {quote} id='share'>
-        <TwitterIcon size={40} round />
-      </TwitterShareButton>
+        <ShareIcon>
+        <TwitterShareButton url={url} title = {quote}><TwitterIcon size={40} round /></TwitterShareButton>
+        </ShareIcon>
 
-      <PinterestShareButton
-        url={url}
-        media ={url}
-        id='share'>
-        <PinterestIcon size={40} round />
-      </PinterestShareButton>
-      </div>
+        <ShareIcon>
+        <PinterestShareButton url={url} media ={url}><PinterestIcon size={40} round /></PinterestShareButton>
+        </ShareIcon>
+      </ShareContainer>
     );
 
 }
 export default Share;
+
+const ShareContainer = styled.div`
+  margin: 40px 0px;
+  display: flex;
+`;
+
+const ShareIcon = styled.div`
+  margin-right: 20px;
+`;
+
