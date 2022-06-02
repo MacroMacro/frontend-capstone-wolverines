@@ -278,12 +278,12 @@ export default function ReviewList({id}) {
 
   <Popup trigger={
     // add 2 srop propogation
-    <div className = "overlay">
-      <div className = "testing" onClick = {() => {
-      // event.stopPropagation();
-      // console.log('clicked');
-      // setFormView(!formView);
+    <div className = "overlay" id = "review" onClick = {(event) => {
+      event.stopPropagation();
+      console.log('clicked');
+      setFormView(!formView);
     }}>
+      <div className = "testing" >
     <div className = "box" >
       <form onSubmit = {submitFn}>
       <div>Write Your Review</div>
@@ -468,7 +468,11 @@ export default function ReviewList({id}) {
     <input type="checkbox" name = "rec" value={recommend} onClick={e => {setRecommend(true)}}></input>Yes
     <input type="checkbox" name = "rec" value={recommend} onClick={e => {setRecommend(false)}}></input>No
     <br></br>
-    <input type="submit" value="Submit Review"></input>
+    <input type="submit" value="Submit Review" onClick = {(event) => {
+      event.stopPropagation();
+      console.log('clicked');
+      setFormView(!formView);
+    }}></input>
   </form>
   </div>
   </div>
