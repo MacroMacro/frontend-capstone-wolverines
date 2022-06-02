@@ -1,36 +1,71 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
-//in terms of loading the photos, this will be done in the questions file I think, and it will need the info in the array, in order to make cloudinary requests for that specific photo.
+const validationSchema = Yup.object({
+  name: Yup.string()
+    .max(60, 'Must be 60 characters or less')
+    .required('Required'),
+  body: Yup.string()
+    .max(1000, 'Must be 1000 characters or less')
+    .required('Required'),
+  email: Yup.string()
+    .email('Invalid email address')
+    .required('Required'),
+})
 
-const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFalse, answerSubmit}) => {
-  const [answerResponses, setAnswerResponses] = useState({
-    name: '',
-    email: '',
-    body: '',
-    photos: []
-  });
+const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFalse}) => {
+
+  //leaving this in case I have to undo Formik
+  // const [answerResponses, setAnswerResponses] = useState({
+  //   name: '',
+  //   email: '',
+  //   body: '',
+  // });
 
   const [selectedFile, setSelectedFile] = useState('');
-//TODO might have to change preview source to an object containing a photos:[] so that it does not begin as uncontrolled
   const [previewSource, setPreviewSource] = useState([]);
 
-  const [fileInputState, setFileInputState] = useState('');
+  // const onAnswerChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setAnswerResponses({...answerResponses, [name]: value});
+  // }
+
+  const submitAnswer = (values) => {
+    // e.preventDefault();
+    console.log(values);
+
+    axios.post('/api/upload', {data: previewSource})
+      .then(res => {
+        console.log('res', res.data)
+
+        axios.post(
+          `/qa/questions/${question_id}/answers`,
+          { ...values, ['photos']: res.data.data }
+        )
+          .then(() => reloadFn())
+          .catch(err => console.log('err posting answer', err));
+
+      })
+      .catch(err => console.log('err', err))
 
 
-  const onAnswerChange = (e) => {
-    const { name, value } = e.target;
-    setAnswerResponses({...answerResponses, [name]: value});
-  }
-
-  const submitAnswer = (e) => {
-    e.preventDefault();
-    // console.log('preview source from onsubmit fn', previewSource);
-    axios.post(`/qa/questions/${question_id}/answers`, { answerResponses })
-      .then(() => reloadFn())
-      .catch(err => console.log('err posting answer', err));
       console.log('answer submitted');
   }
+
+  //formik code
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      body: '',
+    },
+    validationSchema: validationSchema,
+    onSubmit: values => {
+      submitAnswer(values);
+    }
+  })
 
   //ESC key functionality
   const closeOnEscKey = (e) => {
@@ -40,45 +75,25 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
   }
 
   //cloudinary code
-  const previewFile = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      console.log(reader.result, previewSource)
-      let newArr = [...previewSource];
-      newArr = newArr.concat(reader.result);
-      console.log(newArr);
-      setPreviewSource(newArr);
-      //TODO - unsure about where this funciton goes tbh
-      setAnswerResponses([...answerResponses.photos, previewSource]);
-      uploadImage(newArr);
-
-      // setAnswerResponses({...answerResponses, photos: reader.result});
-    }
-  }
-
   const handleFileInputChange = (e) => {
     const files = e.target.files;
     console.log(files);
     const fileArray = Object.values(files);
     fileArray.forEach(file => {
       console.log(file);
-      previewFile(file);
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setPreviewSource([...previewSource, reader.result]);
+      }
 
     })
   }
 
-  // const handleSubmitFile = (e) => {
-  //   e.preventDefault();
-  //   if(!previewSource) return;
-  //   uploadImage(previewSource);
-  // }
-
   const uploadImage = (base64EncodedImage) => {
     console.log(base64EncodedImage);
     axios.post('/api/upload', {data: base64EncodedImage})
-      // .then((result) => previewFile(result.base64EncodedImage));
-      // .catch((err) => console.log('error posting from FE', err));
   }
 
   useEffect (() => {
@@ -86,7 +101,7 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
     return function cleanup() {
       document.body.removeEventListener('keydown', closeOnEscKey)
     }
-  }, []);
+  }, [product_name]);
 
 
   return (
@@ -98,20 +113,21 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
           <h4 className="modal-subtitle answer-modal-subtitle">{product_name}: {currentQBody}</h4>
         </div>
         <div className="modal-body answer-modal-body">
-        <form onSubmit={(e) => {submitAnswer(e)}}>
-          <label>
-            Name*
-              <input
-                className="input input-name"
-                type="text"
-                name="name"
-                placeholder="Example: jackson543!"
-                value={answerResponses.name}
-                onChange={(e) => onAnswerChange(e)}
-                maxLength="60"
-                required
-              />
-          </label>
+        <form onSubmit={formik.handleSubmit}>
+          <label htmlFor="answer-name">Name*</label>
+          <input
+            className="input input-name"
+            id="answer-name"
+            type="text"
+            name="name"
+            placeholder="Example: jackson543!"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+          />
+          {formik.touched.name && formik.errors.name ? (
+            <div className="error-message">{formik.errors.name}</div>
+          ) : null}
           <p className="name-message">For privacy reasons, do not use your full name or email address</p>
           <label>
             Answer*
@@ -119,12 +135,14 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
                 className="input input-body"
                 type="text"
                 name="body"
-                value={answerResponses.body}
-                onChange={(e) => onAnswerChange(e)}
-                maxLength="1000"
-                required
+                value={formik.values.body}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
           </label>
+          {formik.touched.body && formik.errors.body ? (
+            <div className="error-message">{formik.errors.body}</div>
+          ) : null}
           <label>
             email*
               <input
@@ -132,43 +150,43 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
                 type="email"
                 name="email"
                 placeholder="jack@email.com"
-                value={answerResponses.email}
-                onChange={(e) => onAnswerChange(e)}
-                maxLength="60"
-                required
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
               />
           </label>
-          <p className="email-message">For authentication reasons, you will not be emailed</p>
-          {previewSource.length <= 5 ? (<label>
-            Upload Your Photos
-              <input
-                className="form-input"
-                type="file"
-                name="photos"
-                onChange={handleFileInputChange}
-                // value={fileInputState}
-                multiple
-              />
-          </label>) : (null)}
+          {formik.touched.email && formik.errors.email ? (
+            <div className="error-message">{formik.errors.email}</div>
+          ) : null}
+          <p className="email-message">
+            For authentication reasons, you will not be emailed
+          </p>
+          {previewSource.length <= 4 ? (
+            <label>
+              Upload Your Photos
+                <input
+                  className="form-input"
+                  type="file"
+                  name="photos"
+                  onChange={handleFileInputChange}
+                />
+            </label>
+          ) : null}
 
           {previewSource.length ?
             <div className="images">
-            {previewSource.map(singleSource => (<img
-            key={singleSource}
-            src={singleSource}
-              alt="chosen"
-              style={{height: '100px'}}
-              />))}
+              {previewSource.map(singleSource => (
+                <img
+                  key={singleSource}
+                  src={singleSource}
+                  alt="chosen"
+                  style={{height: '100px'}}
+                />
+              ))}
             </div>
-          : (
-            null)}
+          : null}
           <br/>
           <div className="modal-footer answer-modal-footer">
-            {/* {answerResponses.photos.length <= 5 ? (
-            <input type="submit" value="submit"/>
-            ) : (
-              null
-            )} */}
             <input type="submit" value="submit"/>
           </div>
         </form>

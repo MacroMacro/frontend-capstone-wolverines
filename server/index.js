@@ -136,14 +136,14 @@ app.put('/qa/answers/:answer_id/report', (req, res) => {
 //POSTing question to the server
 app.post('/qa/questions', (req, res) => {
   // const { product_id } = req.params;
-  const { responses } = req.body;
-  console.log('POST body', responses)
+  const values = req.body;
+  console.log('POST body', req.body)
   const newQ = {
-    body: responses.question,
+    body: values.question,
     // product_id: parseInt(product_id),
-    email: responses.email,
-    name: responses.name,
-    product_id: responses.product_id
+    email: values.email,
+    name: values.name,
+    product_id: values.product_id
   }
 
   axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions`, newQ, { headers: {'Authorization': process.env.token}})
@@ -155,10 +155,16 @@ app.post('/qa/questions', (req, res) => {
  //parameters - question_id
   //body params - body, name, email, [photos]
 app.post('/qa/questions/:question_id/answers', (req, res) => {
-  console.log(req.body);
   const { question_id } = req.params;
-  const { answerResponses } = req.body;
-  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question_id}/answers`, answerResponses, { headers: {'Authorization': process.env.token}})
+  const answerResponses = req.body;
+  // console.log(req.body);
+
+  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question_id}/answers`, {
+    name: answerResponses.name,
+    email: answerResponses.email,
+    body: answerResponses.body,
+    photos: answerResponses.photos,
+  }, { headers: {'Authorization': process.env.token}})
     .then((results) => { res.status(201).send(results.data)})
     .catch(err => console.log('error posting answer in server, ', err));
 })
@@ -166,13 +172,20 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
 //CLOUDINARY POST
 app.post('/api/upload', async (req, res) => {
   try {
-    console.log('req body', req.body, req.body.data.length);
-    const fileStr = req.body.data[req.body.data.length - 1];
-    const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
-      upload_preset: 'ml_default'
-    })
-    console.log('uploaded res', uploadedResponse);
-    res.status(201).send({status: 'ok'});
+    // console.log('req body', req.body, req.body.data.length);
+
+    const { data } = req.body;
+    const photoUrls = []
+
+    for (let i = 0; i < data.length; i++) {
+      const uploadedResponse = await cloudinary
+        .uploader
+        .upload(data[i], {upload_preset: 'ml_default'})
+      photoUrls.push(uploadedResponse.url)
+    }
+
+    res.status(201).send({status: 'ok', data: photoUrls});
+
   } catch (error) {
     console.log('error uploading to cloudinary', error);
     res.status(500).send('err something went wrong', error)
