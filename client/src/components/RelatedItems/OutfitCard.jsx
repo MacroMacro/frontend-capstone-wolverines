@@ -1,11 +1,6 @@
-
-
-/* eslint-disable react/prop-types */
-/* eslint-disable no-console */
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import ComparisonModal from './ComparisonModal.jsx';
 import StarRating from 'react-star-ratings';
 
 class OutfitCard extends React.Component {
@@ -17,15 +12,11 @@ class OutfitCard extends React.Component {
       parentProductIDInfo,
       featuredURL: '',
       loaded: 0,
-      openCompareModal: false,
-      combinedFeatures: '',
       salePrice: '',
       rating: 0,
     };
     // bind functions here
     this.handleCompareClick = this.handleCompareClick.bind(this);
-    // this.combineFeatures = this.combineFeatures.bind(this);
-    // this.changeProduct = this.changeProduct.bind(this);
   }
 
   componentDidMount() {
@@ -90,7 +81,6 @@ class OutfitCard extends React.Component {
       });
   }
 
-  //
   handleCompareClick() {
     const { productID } = this.props;
     localStorage.removeItem(productID)
@@ -102,10 +92,10 @@ class OutfitCard extends React.Component {
       salePrice,
       loaded,
       featuredURL,
-      productIDInfo, openCompareModal, parentProductIDInfo,
-      combinedFeatures,
+      productIDInfo, parentProductIDInfo,
       rating,
     } = this.state;
+
     const sale = {
       textDecoration: salePrice ? 'line-through' : 'none',
       color: salePrice ? 'red' : 'black',
@@ -119,57 +109,39 @@ class OutfitCard extends React.Component {
     return (
       <div>
         {/* If < 2 maintain loading */}
-        {
-          loaded < 2
-          && <CardContainer style={loading} />
+        {loaded < 2 &&
+          <CardContainer style={loading} />
         }
-        {
-          loaded >= 2
-          && (
+        {loaded >= 2 &&
           <CardContainer>
             {/* <br></br> */}
             {/* Compare Modal button*/}
-            <ButtonWrapper>
+            <Button>
               <CompareButton onClick={this.handleCompareClick}>X</CompareButton>
-            </ButtonWrapper>
+            </Button>
 
-            <ImageWrapper>
+            <ImageHolder>
               <Image src={featuredURL} alt={productIDInfo.name} />
-            </ImageWrapper>
+            </ImageHolder>
 
-            <ProductContentWrapper>
+            <BasicLayout>
               <small>{productIDInfo.category}</small>
-            </ProductContentWrapper>
+            </BasicLayout>
 
-            <ProductContentWrapper onClick={this.changeProduct} style={{ fontSize: '17px', fontWeight: 'bold' }}>
+            <BasicLayout onClick={this.changeProduct} style={{ fontSize: '17px', fontWeight: 'bold' }}>
               {productIDInfo.name}
-            </ProductContentWrapper>
+            </BasicLayout>
 
-            <ProductContentWrapper style={sale}>
+            <BasicLayout style={sale}>
               ${productIDInfo.default_price}
-            </ProductContentWrapper>
+            </BasicLayout>
 
 
-            <ProductContentWrapper>
-              <StarRating rating = {rating} starRatedColor="black" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
-            </ProductContentWrapper>
+            <BasicLayout>
+              <StarRating rating = {rating} starRatedColor="gold" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
+            </BasicLayout>
 
             </CardContainer>
-            )
-
-        }
-        {
-          openCompareModal
-          && (
-          <div>
-            <ComparisonModal
-              closeModal={this.handleCompareClick}
-              parentProduct={parentProductIDInfo.name}
-              compareProduct={productIDInfo.name}
-              combinedFeatures={combinedFeatures}
-            />
-          </div>
-          )
         }
       </div>
     );
@@ -184,7 +156,7 @@ object-position: 50% 0;
 z-index: 0;
 `;
 
-const ProductContentWrapper = styled.div`
+const BasicLayout = styled.div`
   margin: 5px 15px;
 `;
 
@@ -195,13 +167,6 @@ position: relative;
 flex-shrink: 0;
 margin: 10px 10px;
 outline-style: inset;
-// background: rgba(255,255,255,0.1);
-// background: linear-gradient(180deg, hsl(190,70%,99%), hsl(240,60%,100%));
-// &:hover {
-//   box-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-//   bottom-border: 0px;
-//   cursor: pointer;
-// }
 `;
 
 const CompareButton = styled.button`
@@ -211,21 +176,18 @@ const CompareButton = styled.button`
   background: none;
   font-size: 25px;
   color: black;
-  &:hover {
-    color: gold;
-  }
 `;
 
-const ButtonWrapper = styled.div`
+const Button = styled.div`
   position: absolute;
   top: 0px;
   right: 15px;
   margin-top: 5px;
-  z-index: 10;
+  z-index: 5000;
   background: white;
 `;
 
-const ImageWrapper = styled.div`
+const ImageHolder = styled.div`
 height: 200px;
 width: auto;
 margin-bottom: 30px;
