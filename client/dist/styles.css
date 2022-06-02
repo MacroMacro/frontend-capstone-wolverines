@@ -1,3 +1,7 @@
+/*Product Overview*/
+#menubar:hover > #menulist {
+  display: block;
+}
 /* Ratings & Reviews */
 
 .reviewItem {
@@ -448,3 +452,98 @@ max-height: 50vh;
   transform: translateY(-1px);
  }
 
+/*Footer*/
+.footer {
+  border-top: 2px solid;
+  width: 100%;
+  display: flex;
+  margin: 20px 80px 0px 80px;
+  padding-top: 10px;
+}
+
+.footer-item {
+  width : 33%;
+  text-align: center;
+}
+
+/* .button {
+  font-size: 1em;
+  padding: 15px 35px;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  border-radius: 50px;
+} */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.8);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.wrapper {
+  margin: 70px auto;
+  padding: 20px;
+  background: #e7e7e7;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 2s ease-in-out;
+  z-index: 100000;
+}
+
+.wrapper h2{
+  margin-top: 0;
+}
+
+.wrapper .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.wrapper .content {
+  max-height: 30%;
+  overflow: autol
+}
+
+.ContactContainer {
+  border-radius: 5px;
+  padding: 20px 0;
+}
+
+input[type=text], textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+.footer input[type = "submit"]{
+  padding: 15px 50px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
