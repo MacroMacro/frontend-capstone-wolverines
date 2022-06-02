@@ -42,11 +42,11 @@ export default function footer () {
           <div className = 'ContactContent'></div>
             <div className = 'contactContainer'>
               <form onSubmit = {sendEmail}>
-                <label>First Name</label>
+                <FormLabel>First Name</FormLabel>
                 <input type = 'text' onChange = {handleChange} value = {values['Name']} name = 'Name' placeholder = 'Your Name'></input>
-                <label>Email</label>
+                <FormLabel>Email</FormLabel>
                 <input type = 'text' onChange = {handleChange} value = {values['Email']} name = 'Email' placeholder = 'Your Email'></input>
-                <label>Subject</label>
+                <FormLabel>Subject</FormLabel>
                 <textarea onChange = {handleChange} value = {values['Feedback']} name = 'Feedback' placeholder = 'Your Feedback Here'></textarea>
                 <input type = 'submit' value ='Submit'></input>
               </form>
@@ -59,3 +59,9 @@ export default function footer () {
     </div>
   );
 }
+
+const FormLabel = styled.label`
+  text-transform: capitalize;
+  font-weight: 500;
+  letter-spacing: 3px;
+`;

@@ -46,7 +46,9 @@ function Skus ({skus, addYourOutfit}) {
         delete skus[curSku];
       }
       setQuantA(quantA - quantC);
-      axios.post(`/cart/?sku_id=${curSku}`);
+      for (var i= 0; i<quantC; i++) {
+        axios.post(`/cart/?sku_id=${curSku}`);
+      }
     }
   }
 

@@ -105,7 +105,7 @@ const ImageMain = styled.img`
 `;
 
 const Prev = styled.div`
-  z-index: 100;
+  z-index: 0;
   cursor: pointer;
   margin-right: -40px;
   color: white;
@@ -114,7 +114,7 @@ const Prev = styled.div`
 `;
 
 const Next = styled.div`
-  z-index: 100;
+  z-index: 0;
   cursor: pointer;
   margin-left: -40px;
   color: white;
