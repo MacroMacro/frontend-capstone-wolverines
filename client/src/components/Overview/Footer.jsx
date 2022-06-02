@@ -48,7 +48,7 @@ export default function footer () {
                 <input type = 'text' onChange = {handleChange} value = {values['Email']} name = 'Email' placeholder = 'Your Email'></input>
                 <FormLabel>Subject</FormLabel>
                 <textarea onChange = {handleChange} value = {values['Feedback']} name = 'Feedback' placeholder = 'Your Feedback Here'></textarea>
-                <input type = 'submit' value ='Submit'></input>
+                <input className = 'footersubmit' type = 'submit' value ='Submit'></input>
               </form>
             </div>
           </div>
