@@ -8,24 +8,17 @@ function Share ({url, quote}) {
   return (
 
       <ShareContainer id='Share'>
-        <FacebookShareButton
-          url= {url}
-          quote={quote}
-          id="share">
-          <FacebookIcon size={40} round /></FacebookShareButton>
+        <ShareIcon>
+          <FacebookShareButton url= {url} quote={quote}><FacebookIcon size={40} round /></FacebookShareButton>
+        </ShareIcon>
 
-        <TwitterShareButton
-          url={url}
-          title = {quote} id='share'>
-          <TwitterIcon size={40} round />
-        </TwitterShareButton>
+        <ShareIcon>
+        <TwitterShareButton url={url} title = {quote}><TwitterIcon size={40} round /></TwitterShareButton>
+        </ShareIcon>
 
-        <PinterestShareButton
-          url={url}
-          media ={url}
-          id='share'>
-          <PinterestIcon size={40} round />
-        </PinterestShareButton>
+        <ShareIcon>
+        <PinterestShareButton url={url} media ={url}><PinterestIcon size={40} round /></PinterestShareButton>
+        </ShareIcon>
       </ShareContainer>
     );
 
@@ -33,5 +26,11 @@ function Share ({url, quote}) {
 export default Share;
 
 const ShareContainer = styled.div`
-  margin: 20px 0px;
+  margin: 40px 0px;
+  display: flex;
 `;
+
+const ShareIcon = styled.div`
+  margin-right: 20px;
+`;
+
