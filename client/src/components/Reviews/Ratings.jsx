@@ -10,6 +10,8 @@ export default function Ratings(props) {
   const [ratePercent, setRatePercent] = useState({1: 0, 2: 0, 3: 0, 4: 0, 5: 0});
   const [changeComfort, setChangeComfort] = useState(0);
   const [starRating, setStarRating] = useState(0);
+  // const [remove, setRemove] = useState('remove');
+  const [rateAdded, setRateAdded] = useState(false);
 
   const [totalFive, setTotalFive] = useState(0);
   const [totalFour, setTotalFour] = useState(0);
@@ -56,20 +58,25 @@ export default function Ratings(props) {
 
   }, [props.reviews])
 
+
   const rateAdder = (e) => {
-    // setStarReview {}
     let objCopy = {...props.starReview}
     if (objCopy[e.target.value]) {
       delete objCopy[e.target.value]
     } else {
       objCopy[e.target.value] = Number(e.target.value)
     }
-
     props.setStarReview(objCopy)
+    setRateAdded(!rateAdded);
   }
 
+  // const removeFilters = () => {
+  //   let objCopy = {...props.starReview}
+  //   props.setStarReview(props.reviewState)
+  // }
+
   return (
-   <div className = "ratingBox">
+   <div className = "rating">
   <div>
     <div className = "ratingTitle">RATINGS & REVIEWS</div>
     <br></br>
@@ -77,38 +84,41 @@ export default function Ratings(props) {
     <div className = "starRating">
     <StarRatings
       rating={props.averageRate}
-      starDimension="11px"
+      starDimension="18px"
       starSpacing="1px"
-      starRatedColor="black"
+      starRatedColor="gold"
     />
     </div>
     <br></br>
   <br></br>
     <div className = "bodyText">{props.percentHelpful.toFixed(0)}% of reviews recommend this product</div>
     {/* reviewdate */}
+    {/* {rateAdded ? <button onClick = {removeFilters}>remove</button>:
+    null} */}
+
     <br></br>
-    <button className = "rateNum" type="button" value = {5} onClick= {rateAdder}>5 stars</button>
+    <button className = "rateNum" type="button" value = {5} onClick={rateAdder}>5 stars</button>
     <div className = "progBar">
     <ProgressBar
     completed={ratePercent.Five}
-    isLabelVisible = {false}
+    customLabel={totalFive}
+    isLabelVisible = {true}
     bgColor = {`green`}
     width = {`50%`}
     maxCompleted = {50}
     />
-    <div>{totalFive}</div>
     </div>
   <br></br>
   <button className = "rateNum" type="button" value = {4} onClick= {rateAdder}>4 stars</button>
   <div className = "progBar">
     <ProgressBar
     completed={ratePercent.Four}
-    isLabelVisible = {false}
+    customLabel={totalFour}
+    isLabelVisible = {true}
     bgColor = {`green`}
     width = {`50%`}
     maxCompleted = {50}
     />
-    <div>{totalFour}</div>
     </div>
     <br></br>
 
@@ -116,12 +126,12 @@ export default function Ratings(props) {
     <div className = "progBar">
     <ProgressBar
     completed={ratePercent.Three}
-    isLabelVisible = {false}
+    customLabel={totalThree}
+    isLabelVisible = {true}
     bgColor = {`green`}
     width = {`50%`}
     maxCompleted = {50}
     />
-    <div>{totalThree}</div>
     </div>
     <br></br>
 
@@ -129,12 +139,12 @@ export default function Ratings(props) {
     <div className = "progBar">
     <ProgressBar
     completed={ratePercent.Two}
-    isLabelVisible = {false}
+    customLabel={totalTwo}
+    isLabelVisible = {true}
     bgColor = {`green`}
     width = {`50%`}
     maxCompleted = {50}
     />
-    <div>{totalTwo}</div>
     </div>
     <br></br>
 
@@ -142,12 +152,12 @@ export default function Ratings(props) {
     <div className = "progBar">
     <ProgressBar
     completed={ratePercent.One}
-    isLabelVisible = {false}
+    customLabel={totalOne}
+    isLabelVisible = {true}
     bgColor = {`green`}
     width = {`50%`}
     maxCompleted = {50}
     />
-    <div>{totalOne}</div>
     </div>
     <br></br>
 
@@ -160,7 +170,11 @@ export default function Ratings(props) {
         disabled
         />
     </div>
-    <div className = "fit">Too small &nbsp; &nbsp;Perfect &nbsp; &nbsp;Too large</div>
+    <div className = "sizeFit">
+      <div>Too small</div>
+      <div>Perfect</div>
+      <div>Too large</div>
+    </div>
     <br></br>
 
     <div>Comfort</div>
@@ -172,7 +186,10 @@ export default function Ratings(props) {
         disabled
         />
     </div>
-    <div className = "fit">Poor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Perfect</div>
+    <div className = "comfortFit">
+      <div>Poor</div>
+      <div>Perfect</div>
+      </div>
     <br></br>
 
   </div>

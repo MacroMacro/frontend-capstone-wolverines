@@ -223,6 +223,7 @@ export default function ReviewList({id}) {
 
   return(
   formView ? (
+    <div className = "reviewWrapper">
     <div className = "reviewBox" id ='reviewList'>
 
   <div id = "list" className = "reviewList">
@@ -248,7 +249,7 @@ export default function ReviewList({id}) {
       rating = {rating}
       setStarReview = {setStarReview}
       starReview = {starReview}
-
+      reviewState = {reviewState}
     />}
 
     <nav>
@@ -476,9 +477,23 @@ export default function ReviewList({id}) {
   </Popup>
 
   </div>
+  </div>
   </div>) : (
 
-<div className = "reviewBox" id ='reviewList'>
+<div className = "reviewWrapper" id ='reviewList'>
+<div className = "ratingsWrapper">
+    <Ratings
+      averageRate = {averageRate}
+      percentHelpful = {percentHelpful}
+      reviews = {reviews}
+      comfort = {comfort}
+      size = {size}
+      rating = {rating}
+      setStarReview = {setStarReview}
+      starReview = {starReview}
+      reviewState = {reviewState}
+    />
+</div>
   <div id = "list"  className = "reviewList">
   <div>
 
@@ -493,17 +508,9 @@ export default function ReviewList({id}) {
       </div>
     </div>
 
-    {<Ratings
-      averageRate = {averageRate}
-      percentHelpful = {percentHelpful}
-      reviews = {reviews}
-      comfort = {comfort}
-      size = {size}
-      rating = {rating}
-      setStarReview = {setStarReview}
-      starReview = {starReview}
-    />}
 
+
+<div className = "reviewBox">
     <nav className = "nav">
     {reviewState.slice(0, dataCount).map((info, index)=> (
       <ReviewListEntry
@@ -521,6 +528,7 @@ export default function ReviewList({id}) {
       />
     ))}
     </nav>
+    </div>
   </div>
   <div>
 
