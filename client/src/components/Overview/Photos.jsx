@@ -35,10 +35,10 @@ function Photos ({photos}) {
         <ImagesTN>
           {photos.map((photo, index, array) => {
               if(index === curImage) {
-                return (<div><ImageCurTN key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} width = '100px' ></ImageCurTN></div>);
+                return (<div><ImageCurTN key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} ></ImageCurTN></div>);
               } else {
                 if (index >= curImage) {
-                  return (<div><ImageOthTN key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} width = '100px' onClick = {() => setCurImg(index)}></ImageOthTN></div>)
+                  return (<div><ImageOthTN key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} onClick = {() => setCurImg(index)}></ImageOthTN></div>)
                 }
               }
             })}
@@ -83,12 +83,14 @@ const ImageCurTN = styled.img`
   margin: 2px auto;
   height: 80px;
   width: 80px;
+  object-fit: cover;
 `;
 
 const ImageOthTN = styled.img`
   margin: 2px auto;
   height: 80px;
   width: 80px;
+  object-fit: cover;
 `;
 
 const ImageMainContainer = styled.div`
