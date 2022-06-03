@@ -75,10 +75,10 @@ function AddQuestion({ product_id, questionSubmit, product_name, setQFalse }) {
         </div>
         <div className="question-modal-body">
           <form onSubmit={formik.handleSubmit}>
-              <label htmlFor="question-name">Name*</label>
+              <label htmlFor="question-name" className="label-titles">Name*</label>
               <input
                 id="question-name"
-                className="input input-name"
+                className="qna-input input-name"
                 type="text"
                 name="name"
                 placeholder="Example: jackson11"
@@ -93,10 +93,10 @@ function AddQuestion({ product_id, questionSubmit, product_name, setQFalse }) {
               <div className="error-message">{formik.errors.name}</div>
               ) : null}
             <p className="name-message">For privacy reasons, do not use your full name or email address</p>
-            <label>
+            <label className="label-titles">
               Question*
               <textarea
-                className="input input-body"
+                className="qna-input input-body"
                 type="text"
                 name="question"
                 value={formik.values.question}
@@ -110,10 +110,10 @@ function AddQuestion({ product_id, questionSubmit, product_name, setQFalse }) {
             {formik.touched.question && formik.errors.question ? (
             <div className="error-message">{formik.errors.question}</div>
           ) : null}
-            <label>
+            <label className="label-titles">
               Email*
               <input
-                className="input input-email"
+                className="qna-input input-email"
                 type="email"
                 name="email"
                 placeholder="jack@email.com"

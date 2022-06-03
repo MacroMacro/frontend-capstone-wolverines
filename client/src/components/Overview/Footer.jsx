@@ -31,37 +31,122 @@ export default function footer () {
     }));
   }
   return (
-    <div className = 'footer'>
-      <div className = 'footer-item' id ='box'>
+    <FooterContainer>
+      <FooterItem id ='box'>
         <a href ='#ContactUsForm'>Contact us</a>
-      </div>
-      <div className = 'overlay' id = 'ContactUsForm'>
-        <div className = 'wrapper' id = 'formbackground'>
+      </FooterItem>
+      <Overlay id = 'ContactUsForm'>
+        <Wrapper id = 'formbackground'>
           <h2>Contact the Wolverines</h2>
-          <a href='#' className='close'>&times;</a>
-          <div className = 'ContactContent'></div>
-            <div className = 'contactContainer'>
-              <form onSubmit = {sendEmail}>
+          <Close href='#box'>&times;</Close>
+            <Container>
+              <form onSubmit = {sendEmail} id = 'contact'>
                 <FormLabel>First Name</FormLabel>
-                <input type = 'text' onChange = {handleChange} value = {values['Name']} name = 'Name' placeholder = 'Your Name'></input>
+                <Input type = 'text' onChange = {handleChange} value = {values['Name']} name = 'Name' placeholder = 'Your Name'></Input >
                 <FormLabel>Email</FormLabel>
-                <input type = 'text' onChange = {handleChange} value = {values['Email']} name = 'Email' placeholder = 'Your Email'></input>
+                <Input  type = 'text' onChange = {handleChange} value = {values['Email']} name = 'Email' placeholder = 'Your Email'></Input >
                 <FormLabel>Subject</FormLabel>
-                <textarea onChange = {handleChange} value = {values['Feedback']} name = 'Feedback' placeholder = 'Your Feedback Here'></textarea>
-                <input className = 'footersubmit' type = 'submit' value ='Submit'></input>
+                <TextArea id = 'contact' onChange = {handleChange} value = {values['Feedback']} name = 'Feedback' placeholder = 'Your Feedback Here'></TextArea>
+                <Submit type = 'submit' value ='Submit'></Submit>
               </form>
-            </div>
-          </div>
+            </Container>
+          </Wrapper>
 
-      </div>
-      <div className = 'footer-item'><a href="#Nav">Back to top</a></div>
-      <div className = 'footer-item'>Team Wolverine @MacroMacro All rights reserved</div>
-    </div>
+      </Overlay>
+      <FooterItem><a href="#Nav">Back to top</a></FooterItem>
+      <FooterItem>Team Wolverine @MacroMacro All rights reserved</FooterItem>
+    </FooterContainer>
   );
 }
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.8);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+  &:target {
+    visibility: visible;
+    opacity: 1;
+  }
+`;
+
+const Close = styled.a`
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+`;
+
+const Container = styled.div`
+  border-radius: 5px;
+  padding: 20px 0;
+`;
+
+const Wrapper = styled.div`
+  margin: 70px auto;
+  padding: 20px;
+  background: #e7e7e7;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 2s ease-in-out;
+  z-index: 100000;
+`;
 
 const FormLabel = styled.label`
   text-transform: capitalize;
   font-weight: 500;
   letter-spacing: 3px;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 12px;
+  border: 1px solid;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+`;
+
+const TextArea = styled.textarea`
+  width: 100%;
+  padding: 12px;
+  border: 1px solid;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+`;
+
+const Submit = styled.input`
+  padding: 15px 50px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+`;
+
+const FooterContainer = styled.div`
+  border-top: 2px solid;
+  width: 100%;
+  display: flex;
+  margin: 20px 80px 0px 80px;
+  padding-top: 10px;
+`;
+
+const FooterItem = styled.div`
+  width : 33%;
+  text-align: center;
 `;

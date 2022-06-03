@@ -17,25 +17,25 @@ describe('Overview', () => {
     expect(screen.findByAltText('SELECT SIZE').toExist);
   });
 
-  test('add to cart button', () => {
-    expect(screen.findByAltText('Add to Cart').toExist);
-  });
+//   test('add to cart button', () => {
+//     expect(screen.findByAltText('Add to Cart').toExist);
+//   });
 
-  test('render product info correctly', () => {
-    expect(screen.findByAltText('Jackets').toExist);
-    expect(screen.findByAltText('Camo Onesie').toExist);
-  });
+//   test('render product info correctly', () => {
+//     expect(screen.findByAltText('Jackets').toExist);
+//     expect(screen.findByAltText('Camo Onesie').toExist);
+//   });
 
-  test('warning for add-to-cart if not choose size', async () => {
-    render(<Skus skus={skus1}/>);
-    const CartButton = await screen.findByTestId('cartbutton');
-    fireEvent.click(CartButton);
-    expect(screen.findByAltText('PLEASE SELECT SIZE').toExist);
-  });
+//   test('warning for add-to-cart if not choose size', async () => {
+//     render(<Skus skus={skus1}/>);
+//     const CartButton = await screen.findByTestId('cartbutton');
+//     fireEvent.click(CartButton);
+//     expect(screen.findByAltText('PLEASE SELECT SIZE').toExist);
+//   });
 
-  test('out-of-stock for empty skus', async () => {
-    render(<Skus skus={skus2}/>);
-    expect(screen.findByAltText('OUT OF STOCK').toExist);
-  })
+//   test('out-of-stock for empty skus', async () => {
+//     render(<Skus skus={skus2}/>);
+//     expect(screen.findByAltText('OUT OF STOCK').toExist);
+//   })
 
-});
+// });

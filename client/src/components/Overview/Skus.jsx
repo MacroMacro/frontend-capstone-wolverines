@@ -128,7 +128,7 @@ const CartContainer = styled.div`
 const Cart = styled.button`
   height: 35px;
   font-size: 18px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Roboto', sans-serif;
   background-color: white;
   border: 1px solid darkgrey;
   border-radius: 7%;
