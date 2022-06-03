@@ -97,7 +97,7 @@ export default function Ratings(props) {
     null} */}
 
     <br></br>
-    <button className = "rateNum" type="button" value = {5} onClick={rateAdder}>5 stars</button>
+    <button className = "rateNum" id = "starRate" type="button" value = {5} onClick={rateAdder}>5 stars</button>
     <div className = "progBar">
     <ProgressBar
     completed={ratePercent.Five}
@@ -171,7 +171,7 @@ export default function Ratings(props) {
         />
     </div>
     <div className = "sizeFit">
-      <div>Too small</div>
+      <div id ="small">Too small</div>
       <div>Perfect</div>
       <div>Too large</div>
     </div>

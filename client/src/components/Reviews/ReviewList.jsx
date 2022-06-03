@@ -294,7 +294,7 @@ export default function ReviewList({ id }) {
 
         <div className="box">
           <form onSubmit={submitFn}>
-            <div className ="productTitle">Write Your Review</div>
+            <div className ="productTitle" id = "productT">Write Your Review</div>
             <div className="productSubTitle">About the Product</div>
             <br></br>
             <label className="addReview">Review Summary: *</label>
@@ -302,7 +302,7 @@ export default function ReviewList({ id }) {
             <input type="text" value={title} placeholder="Example: Best purchase ever!" onChange={e => {setTitle(e.target.value)}}></input>
             <br></br>
 
-            <label className="addReview">Review Body: *</label>
+            <label className="addReview" id = "reviewBody">Review Body: *</label>
             <br></br>
             <textarea cols="40" rows="4" value={body} id="bodyBox" placeholder="Why did you like the product or not?" onChange={e => { setBody(e.target.value) }} onKeyUp={(e) => reviewCounter(e)} minLength="50" maxLength="1000"></textarea>
             <div id="counter"></div>
