@@ -337,7 +337,7 @@ export default function ReviewList({ id }) {
 
             <div className="addReview">Upload your photos:</div>
             <br></br>
-            <div>
+            <div className = "imgFlex">
               <input type="file" onChange={uploadImage} />
               <img src={imageSelected[0]} className="imgPreview"></img>
               <input type="file" onChange={uploadImage} />

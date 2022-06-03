@@ -4,6 +4,12 @@
 }
 /* Ratings & Reviews */
 
+.imgFlex {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .reviewItem {
   border-bottom: 2px solid black;
   border-width: thin;
