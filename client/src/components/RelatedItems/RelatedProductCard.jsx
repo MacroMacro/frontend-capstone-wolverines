@@ -16,7 +16,7 @@ function RelatedProductCard ({parentProductID, productID, parentProductIDInfo, u
   const [salePrice, setSale] = useState(0);
 
   const onLoad = ()=> {
-    console.log(parentProductIDInfo)
+    // console.log(parentProductIDInfo)
     axios.get(`/product/?id=${productID}`)
     .then(({ data }) => {
       setProduct(data);

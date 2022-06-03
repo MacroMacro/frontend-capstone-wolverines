@@ -15,7 +15,7 @@ function RelatedProductList ({productID, relatedProducts, updateProduct}) {
       return data.data
     })
     .then((info) => {
-      console.log(info, 'info'); setParent(info)})
+      setParent(info)})
     .catch((error) => {
       console.log('Error fetching product details in relatedProductsList', error);
     });
