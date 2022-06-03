@@ -32,7 +32,7 @@ function Nav ({searchProduct, navBar, updateProduct}) {
   return (
     <NavContainer id = 'Nav'>
       <Navi>
-        <NavHeader>Wolverine</NavHeader>
+        <NavHeader>MacroMacro</NavHeader>
         <Menu>{Object.keys(navBar).map((cat)=>
           <Cat id = 'menubar' >
             <DropButton>{cat}</DropButton>
