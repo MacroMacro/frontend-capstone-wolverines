@@ -134,7 +134,7 @@ export default function ReviewList({ id }) {
         //console.log(body.length)
         getReviews()
       })
-      .catch((err) => { console.log(formObj); console.log(err) })
+      .catch((err) => {console.log(err) })
   }
 
   const percentRec = (array) => {
@@ -223,7 +223,7 @@ export default function ReviewList({ id }) {
 
     axios.post("https://api.cloudinary.com/v1_1/djmupj0f5/image/upload",
       formData)
-      .then((response) => { console.log(response.data.url); setImageSelected([...imageSelected, response.data.url]) })
+      .then((response) => {setImageSelected([...imageSelected, response.data.url]) })
   }
 
   return (
