@@ -114,6 +114,7 @@ color: black;
 z-index: 7000;
 backdrop-filter: blur(8px) contrast(70%);
 `;
+ModalInfo.displayName = 'modal';
 
 
 export default ComparisonModal;

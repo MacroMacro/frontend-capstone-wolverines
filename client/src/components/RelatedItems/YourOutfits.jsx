@@ -22,7 +22,7 @@ class YourOutfits extends React.Component {
   componentDidMount() {
     // store original product info
     const { productID } = this.props;
-    console.log(productID, 'productID')
+    // console.log(productID, 'productID')
     axios.get(`/product/?id=${productID}`)
       .then(({ data }) => {
         this.setState({
