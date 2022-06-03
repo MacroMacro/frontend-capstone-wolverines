@@ -7,8 +7,6 @@
 .reviewItem {
   border-bottom: 2px solid black;
   border-width: thin;
-  /* display: flex;
-  flex-direction: column; */
 }
 
 .reviewTitle {
@@ -51,19 +49,19 @@
   font-family: 'Roboto', sans-serif;
 }
 
-/* .reviewList{
-  max-width: 50vw;
-  min-width: 25vw;
-} */
+.reviewContainer {
+  display: block;
+  position: absolute;
+}
 
 .reviewButton {
   border-width: thin;
   border-color: black;
   background-color: transparent;
-  padding: 10px 20px;
+  padding: 20px 30px;
   margin-right: 20px;
   margin-top: 25px;
-  font-size: 10px;
+  font-size: 14px;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -71,7 +69,6 @@
   font-weight: bold;
   font-size: 15px;
   font-family: 'Roboto', sans-serif;
-
 }
 
 .dropbutton {
@@ -103,12 +100,13 @@
 .contentDropdown a {
   color: black;
   padding: 3px 5px;
-  /* text-decoration: none; */
   display: block;
   font-family: 'Roboto', sans-serif;
 }
 
-.contentDropdown a:hover {background-color: rgb(180, 180, 180)}
+.contentDropdown a:hover {
+  background-color: rgb(180, 180, 180)
+}
 
 .display {display:block;}
 
@@ -156,6 +154,8 @@
   gap: 115px;
   color: grey;
   font-size: 10.5px;
+  width: 54%;
+  justify-content: space-evenly;
 }
 
 .comfortFit {
@@ -163,6 +163,8 @@
   gap: 290px;
   color: grey;
   font-size: 10.5px;
+  width: 54%;
+  justify-content: space-around;
 }
 
 .modal > .content {
@@ -198,10 +200,6 @@ left: 0;
 right: 0;
 bottom: 0;
 background-color: rgba(0,0,0, .7);
-/* z-index: 100; */
-/* height: 100vh;
-width: 100vw; */
-/* rgba(0,0,0, .7); */
 }
 
 .reviewWrapper {
@@ -227,7 +225,6 @@ width: 100vw; */
 }
 
 .bodyText {
-  /* center align */
   color: black;
   font-size: 18px;
   font-family: 'Roboto', sans-serif;
@@ -239,19 +236,9 @@ width: 100vw; */
 
 .ratingTitle {
   color: black;
-  font-size: 15px;
+  font-size: 17px;
   font-family: 'Roboto', sans-serif;
 }
-
-/* .testing {
-  background-color: red;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-Index: 1000
-} */
 
 .auth {
   font-size: 12px;
@@ -263,7 +250,8 @@ width: 100vw; */
 }
 
 .productTitle {
-  font-size: 12px;
+  font-weight: bold;
+  font-size: 18px;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -278,12 +266,12 @@ input[type=radio] {
 }
 
 .radioButton {
-  font-size: 11px;
+  font-size: 14px;
   display: inline-block;
 }
 
 .radioTitle {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: bold;
   font-family: 'Roboto', sans-serif;
 }
@@ -318,6 +306,7 @@ input[type=radio] {
   gap: 20px;
   justify-content: flex-start;
   font-family: 'Roboto', sans-serif;
+  font-size: 18px;
 }
 
 .checkLabel {
