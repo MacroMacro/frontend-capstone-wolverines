@@ -4,10 +4,10 @@ const app = express();
 const PORT = 3000 || process.env.PORT;
 const axios = require('axios');
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
+// const morgan = require('morgan');
 const { cloudinary } = require('./utils/cloudinary')
 
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(express.static('client/dist'));
 app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.json());
@@ -108,6 +108,10 @@ app.get('/qa/questions/', (req, res) => {
 //593082
 //Question helpfulness from client end: axios.put('/helpful/qa/?id=1135681')
 app.put('/qa/questions/:question_id/helpful', (req, res) => {
+<<<<<<< HEAD
+=======
+  // console.log('req.params, ', req.params.question_id);
+>>>>>>> main
   const { question_id} = req.params;
   // var id = req.params['id'];
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question_id}/helpful`,{}, { headers: {'Authorization': process.env.token}})
@@ -134,6 +138,10 @@ app.put('/qa/answers/:answer_id/helpful', (req, res) => {
 //REPORT ANSWER
 app.put('/qa/answers/:answer_id/report', (req, res) => {
   const { answer_id } = req.params;
+<<<<<<< HEAD
+=======
+  // console.log(req.params);
+>>>>>>> main
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${answer_id}/report`, {}, { headers: {'Authorization': process.env.token}})
     .then((data)=> { res.status(200).send(data.data)})
     .catch((err) => {res.status(500).send(err);});
@@ -143,6 +151,10 @@ app.put('/qa/answers/:answer_id/report', (req, res) => {
 app.post('/qa/questions', (req, res) => {
   // const { product_id } = req.params;
   const values = req.body;
+<<<<<<< HEAD
+=======
+  // console.log('POST body', req.body)
+>>>>>>> main
   const newQ = {
     body: values.question,
     // product_id: parseInt(product_id),
@@ -197,14 +209,14 @@ app.post('/api/upload', async (req, res) => {
 })
 
 //CLOUDINARY GET -- probably need to change fodler
-app.get('/api/images', async (req, res) => {
-  const { resources } = await cloudinary.search.expression('folder:dev_setups')
-  .sort_by('public_id', 'desc')
-  .max_results(30)
-  .execute();
-  const publicIds = resources.map(file => file.public_id);
-  res.send(publicIds);
-})
+// app.get('/api/images', async (req, res) => {
+//   const { resources } = await cloudinary.search.expression('folder:dev_setups')
+//   .sort_by('public_id', 'desc')
+//   .max_results(30)
+//   .execute();
+//   const publicIds = resources.map(file => file.public_id);
+//   res.send(publicIds);
+// })
 
 //get cart info
 app.get('/cart', (req, res) => {

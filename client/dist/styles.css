@@ -7,13 +7,11 @@
 .reviewItem {
   border-bottom: 2px solid black;
   border-width: thin;
-  /* display: flex;
-  flex-direction: column; */
 }
 
 .reviewTitle {
   font-weight: bold;
-  font-size: 15px;
+  font-size: 20px;
   margin-bottom: 30px;
   margin-top: 10px;
   font-family: 'Roboto', sans-serif;
@@ -21,7 +19,11 @@
 
 .reviewBody {
   font-weight: normal;
-  font-size: 12px;
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.reviewRec {
   font-family: 'Roboto', sans-serif;
 }
 
@@ -35,7 +37,7 @@
   border: none;
   background-color: transparent;
   color: grey;
-  font-size: 8px;
+  font-size: 15px;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -43,36 +45,36 @@
   border: none;
   background-color: transparent;
   color: grey;
-  font-size: 8px;
+  font-size: 15px;
   font-family: 'Roboto', sans-serif;
 }
 
-/* .reviewList{
-  max-width: 50vw;
-  min-width: 25vw;
-} */
+.reviewContainer {
+  display: block;
+  position: absolute;
+}
 
 .reviewButton {
   border-width: thin;
   border-color: black;
   background-color: transparent;
-  padding: 10px 20px;
+  padding: 20px 30px;
   margin-right: 20px;
   margin-top: 25px;
-  font-size: 10px;
+  font-size: 14px;
   font-family: 'Roboto', sans-serif;
 }
 
 .addReview {
   font-weight: bold;
-  font-size: 10px;
+  font-size: 15px;
   font-family: 'Roboto', sans-serif;
 }
 
 .dropbutton {
   background-color: transparent;
   color: black;
-  font-size: 16px;
+  font-size: 18px;
   border: none;
   cursor: pointer;
   text-decoration: none;
@@ -98,12 +100,13 @@
 .contentDropdown a {
   color: black;
   padding: 3px 5px;
-  /* text-decoration: none; */
   display: block;
   font-family: 'Roboto', sans-serif;
 }
 
-.contentDropdown a:hover {background-color: rgb(180, 180, 180)}
+.contentDropdown a:hover {
+  background-color: rgb(180, 180, 180)
+}
 
 .display {display:block;}
 
@@ -151,6 +154,8 @@
   gap: 115px;
   color: grey;
   font-size: 10.5px;
+  width: 54%;
+  justify-content: space-evenly;
 }
 
 .comfortFit {
@@ -158,6 +163,8 @@
   gap: 290px;
   color: grey;
   font-size: 10.5px;
+  width: 54%;
+  justify-content: space-around;
 }
 
 .modal > .content {
@@ -172,7 +179,6 @@
 }
 
 .box {
-border-color: gold;
 border-width: 1px;
 border-style: solid;
 position: fixed;
@@ -181,9 +187,13 @@ top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
 padding: 50px;
+z-index: 100;
+overflow: scroll;
+width: 50vw;
+height: 70vh;
 }
 
-.overlay #review{
+.overlay-review{
 position: fixed;
 top: 0;
 left: 0;
@@ -215,7 +225,6 @@ background-color: rgba(0,0,0, .7);
 }
 
 .bodyText {
-  /* center align */
   color: black;
   font-size: 18px;
   font-family: 'Roboto', sans-serif;
@@ -227,30 +236,32 @@ background-color: rgba(0,0,0, .7);
 
 .ratingTitle {
   color: black;
-  font-size: 15px;
+  font-size: 17px;
   font-family: 'Roboto', sans-serif;
-}
-
-.testing {
-  background-color: rgba(0,0,0, .7);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-Index: 1000
-}
-
-::placeholder {
-  font-size: .6em;
 }
 
 .auth {
   font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* ::placeholder {
+  font-size: .6em;
+} */
+
+.picUpload {
+  font-family: 'Roboto', sans-serif;
 }
 
 .productTitle {
+  font-weight: bold;
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.producSubTitle {
   font-size: 12px;
+  font-family: 'Roboto', sans-serif;
 }
 
 input[type=radio] {
@@ -258,17 +269,16 @@ input[type=radio] {
   display: block;
 }
 
-label {
+
+.radioButton {
+  font-size: 14px;
   display: inline-block;
 }
 
-.radioButton {
-  font-size: 11px;
-}
-
 .radioTitle {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: bold;
+  font-family: 'Roboto', sans-serif;
 }
 
 .nav {
@@ -282,8 +292,8 @@ label {
 }
 
 .reviewThumbnails {
-  max-height: 50px;
-  max-width: 50px;
+  max-height: 100px;
+  max-width: 100px;
 }
 
 .photoAlign {
@@ -296,6 +306,24 @@ label {
   max-height: 50px;
 }
 
+.rBList {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+}
+
+.checkLabel {
+  font-family: 'Roboto', sans-serif;
+}
+
+.checkAlign {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
 /*    ---    QandAs styling    ---    */
 
 .qnas {
@@ -303,6 +331,7 @@ label {
   margin-left: 10%;
   margin-right: 10%;
   max-width: 85vw;
+  /* width: 100% */
 }
 
 .qna-header {
@@ -353,6 +382,7 @@ label {
 }
 
 .modal-title, .question-modal-title {
+  color: black;
   padding: 1% 0 1% 0;
   display: flex;
   justify-content: center;
@@ -360,6 +390,7 @@ label {
 }
 
 .modal-subtitle, .question-modal-subtitle {
+  color: black;
   padding: 1% 0 1% 0;
   display: flex;
   justify-content: center;
@@ -372,10 +403,14 @@ label {
   border-bottom: 1px solid #eee;
 }
 
-.input {
+.qna-input {
   margin-top: 1%;
   margin-bottom: 2%;
   width: 99%;
+}
+
+.label-titles {
+  color: black;
 }
 
 .input-name {
@@ -383,6 +418,7 @@ label {
 }
 
 .name-message {
+  color: black;
   margin-top: 0;
 }
 
@@ -395,6 +431,7 @@ label {
 }
 
 .email-message {
+  color: black;
   margin-top: 0;
 }
 
@@ -408,7 +445,7 @@ max-height: 50vh;
   height: 5%;
   font-size: medium;
   margin: 1% 1% 0 0;
-  background-color: transparent;
+  background-color: white;
   border-radius: 1px;
 }
 
@@ -456,10 +493,13 @@ max-height: 50vh;
 }
 
 .question-question {
-  max-width: 70vw;
-  margin-top: 1%;
-}
 
+  max-width: 60vw;
+  margin:0 0 0 1%;
+}
+.question-body {
+  max-width: 65vw;
+}
 .error-message {
   font-size: 12px;
   color:rgb(175, 0, 0);
@@ -472,6 +512,7 @@ max-height: 50vh;
 }
 
 .big-Q {
+  /* margin-right: 1%; */
   margin-bottom: 2%;
   float: left;
 }

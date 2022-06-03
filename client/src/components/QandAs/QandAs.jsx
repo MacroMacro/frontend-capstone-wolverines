@@ -118,7 +118,7 @@ function QandAs ({ product_id, product_name }) {
     axios.get(`/qa/questions/?product_id=${product_id}&search=${search}`)
     .then((res) => {
       const { results: questions } = res.data;
-      console.log(res.data);
+      // console.log(res.data);
       let firstFour = questions.slice(0, 4);
       let rest = questions.slice(4);
 
@@ -129,7 +129,7 @@ function QandAs ({ product_id, product_name }) {
   }
 
   const searchQuestions = (search) => {
-    console.log(hasComponentSearched, search);
+    // console.log(hasComponentSearched, search);
     if (!hasComponentSearched && !search) {
       return;
     }
