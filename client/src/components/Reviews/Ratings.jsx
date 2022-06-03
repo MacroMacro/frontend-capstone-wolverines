@@ -71,8 +71,8 @@ export default function Ratings(props) {
   }
 
   // const removeFilters = () => {
-  //   let objCopy = {...props.starReview}
-  //   props.setStarReview(props.reviewState)
+  //   // let objCopy = {...props.starReview}
+  //   props.setStarReview({})
   // }
 
   return (
@@ -91,13 +91,13 @@ export default function Ratings(props) {
     </div>
     <br></br>
   <br></br>
-    <div className = "bodyText">{props.percentHelpful.toFixed(0)}% of reviews recommend this product</div>
+    {/* <div className = "bodyText">{props.percentHelpful.toFixed(0)}% of reviews recommend this product</div> */}
     {/* reviewdate */}
     {/* {rateAdded ? <button onClick = {removeFilters}>remove</button>:
     null} */}
 
     <br></br>
-    <button className = "rateNum" type="button" value = {5} onClick={rateAdder}>5 stars</button>
+    <button className = "rateNum" id = "starRate" type="button" value = {5} onClick={rateAdder}>5 stars</button>
     <div className = "progBar">
     <ProgressBar
     completed={ratePercent.Five}
@@ -171,7 +171,7 @@ export default function Ratings(props) {
         />
     </div>
     <div className = "sizeFit">
-      <div>Too small</div>
+      <div id ="small">Too small</div>
       <div>Perfect</div>
       <div>Too large</div>
     </div>

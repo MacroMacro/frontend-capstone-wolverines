@@ -7,13 +7,11 @@
 .reviewItem {
   border-bottom: 2px solid black;
   border-width: thin;
-  /* display: flex;
-  flex-direction: column; */
 }
 
 .reviewTitle {
   font-weight: bold;
-  font-size: 15px;
+  font-size: 20px;
   margin-bottom: 30px;
   margin-top: 10px;
   font-family: 'Roboto', sans-serif;
@@ -21,7 +19,11 @@
 
 .reviewBody {
   font-weight: normal;
-  font-size: 12px;
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.reviewRec {
   font-family: 'Roboto', sans-serif;
 }
 
@@ -35,7 +37,7 @@
   border: none;
   background-color: transparent;
   color: grey;
-  font-size: 8px;
+  font-size: 15px;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -43,36 +45,36 @@
   border: none;
   background-color: transparent;
   color: grey;
-  font-size: 8px;
+  font-size: 15px;
   font-family: 'Roboto', sans-serif;
 }
 
-/* .reviewList{
-  max-width: 50vw;
-  min-width: 25vw;
-} */
+.reviewContainer {
+  display: block;
+  position: absolute;
+}
 
 .reviewButton {
   border-width: thin;
   border-color: black;
   background-color: transparent;
-  padding: 10px 20px;
+  padding: 20px 30px;
   margin-right: 20px;
   margin-top: 25px;
-  font-size: 10px;
+  font-size: 14px;
   font-family: 'Roboto', sans-serif;
 }
 
 .addReview {
   font-weight: bold;
-  font-size: 10px;
+  font-size: 15px;
   font-family: 'Roboto', sans-serif;
 }
 
 .dropbutton {
   background-color: transparent;
   color: black;
-  font-size: 16px;
+  font-size: 18px;
   border: none;
   cursor: pointer;
   text-decoration: none;
@@ -98,12 +100,13 @@
 .contentDropdown a {
   color: black;
   padding: 3px 5px;
-  /* text-decoration: none; */
   display: block;
   font-family: 'Roboto', sans-serif;
 }
 
-.contentDropdown a:hover {background-color: rgb(180, 180, 180)}
+.contentDropdown a:hover {
+  background-color: rgb(180, 180, 180)
+}
 
 .display {display:block;}
 
@@ -151,6 +154,8 @@
   gap: 115px;
   color: grey;
   font-size: 10.5px;
+  width: 54%;
+  justify-content: space-evenly;
 }
 
 .comfortFit {
@@ -158,6 +163,8 @@
   gap: 290px;
   color: grey;
   font-size: 10.5px;
+  width: 54%;
+  justify-content: space-around;
 }
 
 .modal > .content {
@@ -172,7 +179,6 @@
 }
 
 .box {
-border-color: gold;
 border-width: 1px;
 border-style: solid;
 position: fixed;
@@ -181,9 +187,13 @@ top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
 padding: 50px;
+z-index: 100;
+overflow: scroll;
+width: 50vw;
+height: 70vh;
 }
 
-.overlay #review{
+.overlay-review{
 position: fixed;
 top: 0;
 left: 0;
@@ -215,7 +225,6 @@ background-color: rgba(0,0,0, .7);
 }
 
 .bodyText {
-  /* center align */
   color: black;
   font-size: 18px;
   font-family: 'Roboto', sans-serif;
@@ -227,48 +236,49 @@ background-color: rgba(0,0,0, .7);
 
 .ratingTitle {
   color: black;
-  font-size: 15px;
+  font-size: 17px;
   font-family: 'Roboto', sans-serif;
 }
 
-.testing {
-  background-color: rgba(0,0,0, .7);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-Index: 1000
+.auth {
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
 }
 
 /* ::placeholder {
   font-size: .6em;
 } */
 
-.auth {
-  font-size: 12px;
+.picUpload {
+  font-family: 'Roboto', sans-serif;
 }
 
 .productTitle {
-  font-size: 12px;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
 }
 
-/* input[type=radio] {
+.producSubTitle {
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+}
+
+input[type=radio] {
   margin: 0 auto;
   display: block;
 }
 
-label {
-  display: inline-block;
-} */
 
 .radioButton {
-  font-size: 11px;
+  font-size: 14px;
+  display: inline-block;
 }
 
 .radioTitle {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: bold;
+  font-family: 'Roboto', sans-serif;
 }
 
 .nav {
@@ -282,8 +292,8 @@ label {
 }
 
 .reviewThumbnails {
-  max-height: 50px;
-  max-width: 50px;
+  max-height: 100px;
+  max-width: 100px;
 }
 
 .photoAlign {
@@ -296,14 +306,32 @@ label {
   max-height: 50px;
 }
 
+.rBList {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+}
+
+.checkLabel {
+  font-family: 'Roboto', sans-serif;
+}
+
+.checkAlign {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
 /*    ---    QandAs styling    ---    */
 
 .qnas {
   font-family: 'Roboto', 'sans-serif';
   margin-left: 10%;
   margin-right: 10%;
-  /* max-width: 85vw; */
-  width: 100%
+  max-width: 85vw;
+  /* width: 100% */
 }
 
 .qna-header {
@@ -513,99 +541,3 @@ max-height: 50vh;
   font-weight: 700;
   transform: translateY(-1px);
  }
-
-/*Footer*/
-.footer {
-  border-top: 2px solid;
-  width: 100%;
-  display: flex;
-  margin: 20px 80px 0px 80px;
-  padding-top: 10px;
-}
-
-.footer-item {
-  width : 33%;
-  text-align: center;
-}
-
-/* .button {
-  font-size: 1em;
-  padding: 15px 35px;
-  color: #fff;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-  border-radius: 50px;
-} */
-
-.overlay #ContactUsForm{
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0,0,0,0.8);
-  transition: opacity 500ms;
-  visibility: hidden;
-  opacity: 0;
-}
-
-.overlay:target #ContactUsForm{
-  visibility: visible;
-  opacity: 1;
-}
-
-.wrapper {
-  margin: 70px auto;
-  padding: 20px;
-  background: #e7e7e7;
-  border-radius: 5px;
-  width: 30%;
-  position: relative;
-  transition: all 2s ease-in-out;
-  z-index: 100000;
-}
-
-.wrapper h2{
-  margin-top: 0;
-}
-
-.wrapper .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  transition: all 200ms;
-  font-size: 30px;
-  font-weight: bold;
-}
-
-.wrapper .content {
-  max-height: 30%;
-  overflow: autol
-}
-
-.ContactContainer {
-  border-radius: 5px;
-  padding: 20px 0;
-}
-
-/* input[type=text], textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid;
-  border-radius: 5px;
-  box-sizing: border-box;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: vertical;
-} */
-
-.footer input[type = "submit"]{
-  padding: 15px 50px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-}
