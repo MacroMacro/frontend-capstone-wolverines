@@ -19,7 +19,7 @@ app.listen(PORT, () => {
 app.get('/products', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products', { headers: {'Authorization': process.env.token}})
   .then((data)=> {res.status(200).send(data.data)})
-  .catch((err) => {console.log('err', err); res.status(500).send(err);});
+  .catch((err) => {res.status(500).send(err);});
 });
 
 /*Reviews */
@@ -28,7 +28,6 @@ app.get('/products', (req, res) => {
 // `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=${id}&&count=100`
 app.get('/reviews/:id', (req, res) => {
   var id = req.params.id;
-  console.log('id', id);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/?product_id=${id}&&count=300`, { headers: {'Authorization': process.env.token}})
   .then((data)=> {res.status(200).send(data.data)})
   .catch((err) => {res.status(500).send(err);});
@@ -39,7 +38,6 @@ app.get('/reviews/meta/:id', (req, res) => {
   //console.log('id', id);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta/?product_id=40344`, { headers: {'Authorization': process.env.token}})
   .then((data)=> {
-    console.log(data.data)
     res.status(200).send(data.data)})
   .catch((err) => {res.status(500).send(err);});
 });
@@ -59,9 +57,7 @@ app.post('/reviews/:id', (req, res) => {
 //review_id:1135681
 //from client end: axios.put('/helpful/review/?id=1135681')
 app.put('/reviews/:review_id/helpful', (req, res) => {
-  console.log('req', req.query);
   var id = req.params.review_id;
-  console.log('id',id); // undefined
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/helpful`, id ,{ headers: {'Authorization': process.env.token}})
   .then((data)=> { res.status(200).send(data.data)})
   .catch((err) => { res.status(500).send(err);});
@@ -73,7 +69,7 @@ app.put('/report/review', (req, res) => {
   var id = req.query['id'];
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/${id}/report`, id, { headers: {'Authorization': process.env.token}})
   .then((data)=> { res.status(200).send(data.data)})
-  .catch((err) => {console.log('err', err); res.status(500).send(err);});
+  .catch((err) => {res.status(500).send(err);});
 });
 
 /*       ------       QandAs       ------       */
@@ -106,18 +102,17 @@ app.get('/qa/questions/', (req, res) => {
       res.status(200).send(data.data);
     }
   })
-  .catch((err) => {console.log('err', err); res.status(500).send(err);});
+  .catch((err) => {res.status(500).send(err);});
 });
 
 //593082
 //Question helpfulness from client end: axios.put('/helpful/qa/?id=1135681')
 app.put('/qa/questions/:question_id/helpful', (req, res) => {
-  // console.log('req.params, ', req.params.question_id);
   const { question_id} = req.params;
   // var id = req.params['id'];
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question_id}/helpful`,{}, { headers: {'Authorization': process.env.token}})
   .then((data)=> { res.status(200).send(data.data)})
-  .catch((err) => {console.log('err', err); res.status(500).send(err);});
+  .catch((err) => {res.status(500).send(err);});
 });
 
 //Question Report from client end: axios.put('/report/qa/?id=1135681')
@@ -125,7 +120,7 @@ app.put('/qa/questions/:question_id/report', (req, res) => {
   const { reported } = req.params;
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${reported}/report`, {}, { headers: {'Authorization': process.env.token}})
     .then((data)=> { res.status(200).send(data.data)})
-    .catch((err) => {console.log('err', err); res.status(500).send(err);});
+    .catch((err) => { res.status(500).send(err);});
 });
 
 //MARK ANSWER AS HELPFUL
@@ -133,23 +128,21 @@ app.put('/qa/answers/:answer_id/helpful', (req, res) => {
   const {answer_id} = req.params;
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${answer_id}/helpful`, {}, { headers: {'Authorization': process.env.token}})
     .then((data) => { res.status(200).send(data.data)})
-    .catch((err) => {console.log('err', err); res.status(500).send(err);});
+    .catch((err) => { res.status(500).send(err);});
 });
 
 //REPORT ANSWER
 app.put('/qa/answers/:answer_id/report', (req, res) => {
   const { answer_id } = req.params;
-  // console.log(req.params);
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${answer_id}/report`, {}, { headers: {'Authorization': process.env.token}})
     .then((data)=> { res.status(200).send(data.data)})
-    .catch((err) => {console.log('err', err); res.status(500).send(err);});
+    .catch((err) => {res.status(500).send(err);});
 });
 
 //POSTing question to the server
 app.post('/qa/questions', (req, res) => {
   // const { product_id } = req.params;
   const values = req.body;
-  // console.log('POST body', req.body)
   const newQ = {
     body: values.question,
     // product_id: parseInt(product_id),
@@ -160,7 +153,7 @@ app.post('/qa/questions', (req, res) => {
 
   axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions`, newQ, { headers: {'Authorization': process.env.token}})
     .then((data) => { res.status(201).send(data.data)})
-    .catch(err => {console.log('error, ', err); res.status(500).send(err)});
+    .catch(err => { res.status(500).send(err)});
 })
 
 //POSTing Answer to given question
@@ -199,7 +192,6 @@ app.post('/api/upload', async (req, res) => {
     res.status(201).send({status: 'ok', data: photoUrls});
 
   } catch (error) {
-    console.log('error uploading to cloudinary', error);
     res.status(500).send('err something went wrong', error)
   }
 })
@@ -217,8 +209,8 @@ app.post('/api/upload', async (req, res) => {
 //get cart info
 app.get('/cart', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart`, { headers: {'Authorization': process.env.token}})
-  .then((data)=> {console.log(data); res.status(200).send(data.data)})
-  .catch((err) => {console.log('err', err); res.status(500).send(err);});
+  .then((data)=> {res.status(200).send(data.data)})
+  .catch((err) => { res.status(500).send(err);});
 });
 
 //add to cart
@@ -226,19 +218,17 @@ app.get('/cart', (req, res) => {
 app.post('/cart', (req, res) => {
   var sku_id = req.query['sku_id'];
   axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/cart`, {"sku_id": sku_id}, { headers: {'Authorization': process.env.token}})
-  .then((data)=> {console.log(data); res.status(200).send(data.data)})
-  .catch((err) => {console.log('err', err); res.status(500).send(err);});
+  .then((data)=> { res.status(200).send(data.data)})
+  .catch((err) => {res.status(500).send(err);});
 });
 
 //get styles
 //from client end: axios.get('/styles/?id=40344')
 app.get('/styles', (req, res) => {
-  console.log('here?');
   var id = req.query['id'];
-  console.log('id', id);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${id}/styles`, { headers: {'Authorization': process.env.token}})
   .then((data)=> {res.status(200).send(data.data)})
-  .catch((err) => {console.log('err', err); res.status(500).send(err);});
+  .catch((err) => {res.status(500).send(err);});
 });
 
 //get related
@@ -248,17 +238,14 @@ app.get('/related', (req, res) => {
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${id}/related`, { headers: {'Authorization': process.env.token}})
   .then((data)=> {
     res.status(200).send(data.data)})
-  .catch((err) => {console.log('err', err); res.status(500).send(err);});
+  .catch((err) => {res.status(500).send(err);});
 });
 
 //get product
 app.get('/product', (req, res) => {
-  console.log('working?');
   var id = req.query['id'];
-  console.log('id', id);
   axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${id}`, { headers: {'Authorization': process.env.token}})
   .then((data)=> {
-    console.log(data.data)
     res.status(200).send(data.data)})
   .catch((err) => {res.status(500).send(err);});
 });
