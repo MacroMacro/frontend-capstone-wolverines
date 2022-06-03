@@ -229,7 +229,7 @@ export default function ReviewList({ id }) {
   return (
     formView ? (
 
-      <div className="reviewWrapper">
+      <div className="reviewWrapper" id = "reviewList">
 
         <div className="ratingsWrapper">
           <Ratings
@@ -494,7 +494,7 @@ export default function ReviewList({ id }) {
 
     ) : (
 
-      <div className="reviewWrapper">
+      <div className="reviewWrapper" id = "reviewList">
         <div className="ratingsWrapper">
           <Ratings
             averageRate={averageRate}
