@@ -26,13 +26,13 @@ const Question = ({ question, reloadFn, updateAnswerID, toggleAnswerForm }) => {
   const changeAddAnswer = () => setAddAnswerClick(!addAnswerClick);
 
   const addAnswerFn = () => {
-    console.log('jksdahjkrl');
+    // console.log('jksdahjkrl');
     reloadFn();
   }
 
   const helpfulnessFn = (id) => {
     if (!helpfulnessClick) {
-      console.log(id);
+      // console.log(id);
       setHelpfulnessClick(true);
       axios.put(`/qa/questions/${id}/helpful`)
         .then(() => reloadFn())
@@ -44,7 +44,7 @@ const Question = ({ question, reloadFn, updateAnswerID, toggleAnswerForm }) => {
 
   const answersHelpfulnessFn = (answerID) => {
     if (!answerHelpfulnessClick) {
-      console.log(answerID);
+      // console.log(answerID);
       setAnswerHelpfulnessClick(true);
       axios.put(`/qa/answers/${answerID}/helpful`)
         .then(() => reloadFn())
@@ -56,7 +56,7 @@ const Question = ({ question, reloadFn, updateAnswerID, toggleAnswerForm }) => {
 
    const answerReportFn = (answerID) => {
      if (!aReportClick) {
-       console.log(answerID);
+      //  console.log(answerID);
        setAReportClick(true);
        axios.put(`/qa/answers/${answerID}/report`)
         .then(() => reloadFn())
@@ -69,8 +69,10 @@ const Question = ({ question, reloadFn, updateAnswerID, toggleAnswerForm }) => {
   return (
     <>
       <div style={{ display: "flex", justifyContent: 'space-between' }}>
-        <h3 className="question-question" style={{ margin: 0 }}><span className="big-Q">Q: </span>
+        <h3 className="question-question"><span className="big-Q">Q: </span>
+        <span className="question-body">
           {question.question_body}
+        </span>
         </h3>
         <div style={{ marginTop: '6px' }}>
           <span className="right-side helpful">
@@ -90,11 +92,11 @@ const Question = ({ question, reloadFn, updateAnswerID, toggleAnswerForm }) => {
           <h4 className="question-answer">
             A:{' '}{oneAnswer.body}
           </h4>
-          <div>
+          <div className="answer-images">
             {oneAnswer.photos.length ? (
               <>
                 {oneAnswer.photos.map(url => (
-                  <img className="thumbnail" src={url} key={url}/>
+                  <img className="thumbnail" alt="answerer's image" src={url} key={url}/>
                 ))}
               </>
             ): null}
@@ -142,7 +144,7 @@ const Question = ({ question, reloadFn, updateAnswerID, toggleAnswerForm }) => {
             {oneAnswer.photos.length ? (
               <>
                 {oneAnswer.photos.map(url => (
-                  <img className="thumbnail" src={url} key={url}/>
+                  <img className="thumbnail" alt="answerer's image" src={url} key={url}/>
                 ))}
               </>
             ): null}

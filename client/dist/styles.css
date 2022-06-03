@@ -245,6 +245,10 @@ background-color: rgba(0,0,0, .7);
   font-family: 'Roboto', sans-serif;
 }
 
+/* ::placeholder {
+  font-size: .6em;
+} */
+
 .picUpload {
   font-family: 'Roboto', sans-serif;
 }
@@ -264,6 +268,7 @@ input[type=radio] {
   margin: 0 auto;
   display: block;
 }
+
 
 .radioButton {
   font-size: 14px;
@@ -326,6 +331,7 @@ input[type=radio] {
   margin-left: 10%;
   margin-right: 10%;
   max-width: 85vw;
+  /* width: 100% */
 }
 
 .qna-header {
@@ -376,6 +382,7 @@ input[type=radio] {
 }
 
 .modal-title, .question-modal-title {
+  color: black;
   padding: 1% 0 1% 0;
   display: flex;
   justify-content: center;
@@ -383,6 +390,7 @@ input[type=radio] {
 }
 
 .modal-subtitle, .question-modal-subtitle {
+  color: black;
   padding: 1% 0 1% 0;
   display: flex;
   justify-content: center;
@@ -395,10 +403,14 @@ input[type=radio] {
   border-bottom: 1px solid #eee;
 }
 
-.input {
+.qna-input {
   margin-top: 1%;
   margin-bottom: 2%;
   width: 99%;
+}
+
+.label-titles {
+  color: black;
 }
 
 .input-name {
@@ -406,6 +418,7 @@ input[type=radio] {
 }
 
 .name-message {
+  color: black;
   margin-top: 0;
 }
 
@@ -418,6 +431,7 @@ input[type=radio] {
 }
 
 .email-message {
+  color: black;
   margin-top: 0;
 }
 
@@ -431,7 +445,7 @@ max-height: 50vh;
   height: 5%;
   font-size: medium;
   margin: 1% 1% 0 0;
-  background-color: transparent;
+  background-color: white;
   border-radius: 1px;
 }
 
@@ -479,10 +493,13 @@ max-height: 50vh;
 }
 
 .question-question {
-  max-width: 70vw;
-  margin-top: 1%;
-}
 
+  max-width: 60vw;
+  margin:0 0 0 1%;
+}
+.question-body {
+  max-width: 65vw;
+}
 .error-message {
   font-size: 12px;
   color:rgb(175, 0, 0);
@@ -495,6 +512,7 @@ max-height: 50vh;
 }
 
 .big-Q {
+  /* margin-right: 1%; */
   margin-bottom: 2%;
   float: left;
 }
@@ -523,99 +541,3 @@ max-height: 50vh;
   font-weight: 700;
   transform: translateY(-1px);
  }
-
-/*Footer*/
-.footer {
-  border-top: 2px solid;
-  width: 100%;
-  display: flex;
-  margin: 20px 80px 0px 80px;
-  padding-top: 10px;
-}
-
-.footer-item {
-  width : 33%;
-  text-align: center;
-}
-
-/* .button {
-  font-size: 1em;
-  padding: 15px 35px;
-  color: #fff;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-  border-radius: 50px;
-} */
-
-.overlay #ContactUsForm{
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0,0,0,0.8);
-  transition: opacity 500ms;
-  visibility: hidden;
-  opacity: 0;
-}
-
-.overlay:target #ContactUsForm{
-  visibility: visible;
-  opacity: 1;
-}
-
-.wrapper {
-  margin: 70px auto;
-  padding: 20px;
-  background: #e7e7e7;
-  border-radius: 5px;
-  width: 30%;
-  position: relative;
-  transition: all 2s ease-in-out;
-  z-index: 100000;
-}
-
-.wrapper h2{
-  margin-top: 0;
-}
-
-.wrapper .close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  transition: all 200ms;
-  font-size: 30px;
-  font-weight: bold;
-}
-
-.wrapper .content {
-  max-height: 30%;
-  overflow: autol
-}
-
-.ContactContainer {
-  border-radius: 5px;
-  padding: 20px 0;
-}
-
-input[type=text], textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid;
-  border-radius: 5px;
-  box-sizing: border-box;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: vertical;
-}
-
-.footer input[type = "submit"]{
-  padding: 15px 50px;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 15px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-}

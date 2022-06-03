@@ -34,11 +34,11 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
 
   const submitAnswer = (values) => {
     // e.preventDefault();
-    console.log(values);
+    // console.log(values);
 
     axios.post('/api/upload', {data: previewSource})
       .then(res => {
-        console.log('res', res.data)
+        // console.log('res', res.data)
 
         axios.post(
           `/qa/questions/${question_id}/answers`,
@@ -77,10 +77,10 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
   //cloudinary code
   const handleFileInputChange = (e) => {
     const files = e.target.files;
-    console.log(files);
+    // console.log(files);
     const fileArray = Object.values(files);
     fileArray.forEach(file => {
-      console.log(file);
+      // console.log(file);
 
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -92,7 +92,7 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
   }
 
   const uploadImage = (base64EncodedImage) => {
-    console.log(base64EncodedImage);
+    // console.log(base64EncodedImage);
     axios.post('/api/upload', {data: base64EncodedImage})
   }
 
@@ -116,7 +116,7 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
         <form onSubmit={formik.handleSubmit}>
           <label htmlFor="answer-name">Name*</label>
           <input
-            className="input input-name"
+            className="qna-input input-name"
             id="answer-name"
             type="text"
             name="name"
@@ -129,10 +129,10 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
             <div className="error-message">{formik.errors.name}</div>
           ) : null}
           <p className="name-message">For privacy reasons, do not use your full name or email address</p>
-          <label>
+          <label className="label-titles">
             Answer*
               <textarea
-                className="input input-body"
+                className="qna-input input-body"
                 type="text"
                 name="body"
                 value={formik.values.body}
@@ -143,10 +143,10 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
           {formik.touched.body && formik.errors.body ? (
             <div className="error-message">{formik.errors.body}</div>
           ) : null}
-          <label>
+          <label className="label-titles">
             email*
               <input
-                className="input input-email"
+                className="qna-input input-email"
                 type="email"
                 name="email"
                 placeholder="jack@email.com"
@@ -162,7 +162,7 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
             For authentication reasons, you will not be emailed
           </p>
           {previewSource.length <= 4 ? (
-            <label>
+            <label className="label-titles">
               Upload Your Photos
                 <input
                   className="form-input"

@@ -73,4 +73,35 @@ const skus2 ={
 
 };
 
-export {product, photos, navBar, skus1, skus2};
+const dummyQuestions = {
+    "product_id": "40348",
+    "results": [
+        {
+            "question_id": 593043,
+            "question_body": "Where is the line to get medical? I really need it for my dog, wait is it covered this my question",
+            "question_date": "2022-04-12T00:00:00.000Z",
+            "asker_name": "oba",
+            "question_helpfulness": 19,
+            "reported": false,
+            "answers": {
+                "5985387": {
+                    "id": 5985387,
+                    "body": "I don't know",
+                    "date": "2022-05-24T00:00:00.000Z",
+                    "answerer_name": "123fdf",
+                    "helpfulness": 0,
+                    "photos": []
+                },
+                "5985388": {
+                    "id": 5985388,
+                    "body": "fda",
+                    "date": "2022-05-24T00:00:00.000Z",
+                    "answerer_name": "fdf",
+                    "helpfulness": 0,
+                    "photos": []
+                }
+            }
+        }
+    ]
+}
+export {product, photos, navBar, skus1, skus2, dummyQuestions};
