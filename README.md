@@ -1,17 +1,19 @@
 # frontend-capstone-wolverines
-<font size = 2>**Description**</font>
+
+## **Description**
+***
 
 We built an e-commerce website with user-friendly interfaces, with Product Overview, Related Products, Questions and Answers, and Outfit, Ratings and Reviews sections.
 
-**Intallation**
-
+##**Intallation**
+***
 -npm install: install necessary dependencies for this project.
 -npm run react-dev: begin webpack for the client.
 -npm start: run the client server.
 -npx jest: run the testing files.
 
-**Components**
-
+##**Components**
+***
 1. Product Overview
   - Navigation bar with menu list, search function, and dark theme mode
   - Image gallery and production information section with style selector, adding to cart option
@@ -40,7 +42,8 @@ We built an e-commerce website with user-friendly interfaces, with Product Overv
   - Displays the overall rating of the current product
   ![Ratings   Reviews](https://user-images.githubusercontent.com/93555749/172021608-6c408683-3efc-4f7b-bdee-37e34917273c.jpg)
 
-**Credits**
+##**Credits**
+***
 - [Fan Zhang](https://github.com/AliciaFZhang), Product Overview
 - Barry Cheung, Related Products and Outfit
 - Jerry Tapia, Questions and Answers
