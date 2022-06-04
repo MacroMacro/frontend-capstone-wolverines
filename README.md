@@ -5,10 +5,10 @@
 We designed an e-commerce website with user-friendly interfaces to reflect the nested data retrieved from the API. The webpage mainly consists four sections: Product Overview, Related Products and Outfit, Questions and Answers, and Ratings and Reviews.
 
 ## **Intallation**
--npm install: install necessary dependencies for this project.
--npm run react-dev: begin webpack for the client.
--npm start: run the client server.
--npx jest: run the testing files.
+-npm install: install necessary dependencies for this project.<br>
+-npm run react-dev: begin webpack for the client.<br>
+-npm start: run the client server.<br>
+-npx jest: run the testing files.<br>
 
 ## **Components**
 
