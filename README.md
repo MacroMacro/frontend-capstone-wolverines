@@ -15,12 +15,14 @@ _npx jest_: run the testing files.<br>
 **1. Product Overview**
   - Navigation bar with menu list, search function, and dark theme mode
   - Image gallery and production information section with style selector, adding to cart option
+  
   ![Product Overview](https://user-images.githubusercontent.com/26387488/172020601-c541f147-b469-4095-8438-896c977d0823.png)
 
 **2. Related Products and Outfit**
   - Displays a set of products that are determined internally and another set of products hand picked by the user to create an "outfit".
   - Allows for comparison of a related item and the item showing in Overview.
   - Clicking on a related product will re-render the entire page based off that product's information
+  
   ![Related Products and Outfit](https://user-images.githubusercontent.com/99494242/172021736-c3541119-a31b-4fda-b4c9-a57a48f919e0.png)
 
 **3. Questions and Answers**
