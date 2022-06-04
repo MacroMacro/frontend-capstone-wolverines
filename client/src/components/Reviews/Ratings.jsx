@@ -10,7 +10,6 @@ export default function Ratings(props) {
   const [ratePercent, setRatePercent] = useState({1: 0, 2: 0, 3: 0, 4: 0, 5: 0});
   const [changeComfort, setChangeComfort] = useState(0);
   const [starRating, setStarRating] = useState(0);
-  // const [remove, setRemove] = useState('remove');
   const [rateAdded, setRateAdded] = useState(false);
 
   const [totalFive, setTotalFive] = useState(0);
@@ -41,7 +40,6 @@ export default function Ratings(props) {
       }
     })
 
-    // use a set state to show the number next to the bar
     setTotalFive(countFive);
     setTotalFour(countFour);
     setTotalThree(countThree);
@@ -70,18 +68,13 @@ export default function Ratings(props) {
     setRateAdded(!rateAdded);
   }
 
-  // const removeFilters = () => {
-  //   // let objCopy = {...props.starReview}
-  //   props.setStarReview({})
-  // }
-
   return (
-   <div className = "rating">
+   <div className="rating">
   <div>
-    <div className = "ratingTitle">RATINGS & REVIEWS</div>
+    <div className="ratingTitle">RATINGS & REVIEWS</div>
     <br></br>
-    <div className = "avgRating">{props.averageRate.toFixed(1)} &nbsp;</div>
-    <div className = "starRating">
+    <div className="avgRating">{props.averageRate.toFixed(1)} &nbsp;</div>
+    <div className="starRating">
     <StarRatings
       rating={props.averageRate}
       starDimension="18px"
@@ -91,14 +84,10 @@ export default function Ratings(props) {
     </div>
     <br></br>
   <br></br>
-    {/* <div className = "bodyText">{props.percentHelpful.toFixed(0)}% of reviews recommend this product</div> */}
-    {/* reviewdate */}
-    {/* {rateAdded ? <button onClick = {removeFilters}>remove</button>:
-    null} */}
 
     <br></br>
-    <button className = "rateNum" id = "starRate" type="button" value = {5} onClick={rateAdder}>5 stars</button>
-    <div className = "progBar">
+    <button className="rateNum" id="starRate" type="button" value = {5} onClick={rateAdder}>5 stars</button>
+    <div className="progBar">
     <ProgressBar
     completed={ratePercent.Five}
     customLabel={totalFive}
@@ -109,8 +98,8 @@ export default function Ratings(props) {
     />
     </div>
   <br></br>
-  <button className = "rateNum" type="button" value = {4} onClick= {rateAdder}>4 stars</button>
-  <div className = "progBar">
+  <button className="rateNum" type="button" value = {4} onClick= {rateAdder}>4 stars</button>
+  <div className="progBar">
     <ProgressBar
     completed={ratePercent.Four}
     customLabel={totalFour}
@@ -122,8 +111,8 @@ export default function Ratings(props) {
     </div>
     <br></br>
 
-    <button className = "rateNum" type="button" value = {3} onClick= {rateAdder}>3 stars</button>
-    <div className = "progBar">
+    <button className="rateNum" type="button" value = {3} onClick= {rateAdder}>3 stars</button>
+    <div className="progBar">
     <ProgressBar
     completed={ratePercent.Three}
     customLabel={totalThree}
@@ -135,8 +124,8 @@ export default function Ratings(props) {
     </div>
     <br></br>
 
-    <button className = "rateNum" type="button" value = {2} onClick= {rateAdder}>2 stars</button>
-    <div className = "progBar">
+    <button className="rateNum" type="button" value = {2} onClick= {rateAdder}>2 stars</button>
+    <div className="progBar">
     <ProgressBar
     completed={ratePercent.Two}
     customLabel={totalTwo}
@@ -148,8 +137,8 @@ export default function Ratings(props) {
     </div>
     <br></br>
 
-    <button className = "rateNum" type="button" value = {1} onClick= {rateAdder}>1 stars</button>
-    <div className = "progBar">
+    <button className="rateNum" type="button" value = {1} onClick= {rateAdder}>1 stars</button>
+    <div className="progBar">
     <ProgressBar
     completed={ratePercent.One}
     customLabel={totalOne}
@@ -163,15 +152,15 @@ export default function Ratings(props) {
 
     <div>Size</div>
     <div>
-    <input className = "slider"
+    <input className="slider"
         max = {5}
-        type = 'range'
+        type='range'
         value={Number(props.comfort)}
         disabled
         />
     </div>
-    <div className = "sizeFit">
-      <div id ="small">Too small</div>
+    <div className="sizeFit">
+      <div id="small">Too small</div>
       <div>Perfect</div>
       <div>Too large</div>
     </div>
@@ -179,14 +168,14 @@ export default function Ratings(props) {
 
     <div>Comfort</div>
     <div>
-    <input className = "slider"
+    <input className="slider"
         max = {5}
-        type = 'range'
+        type='range'
         value={Number(props.size)}
         disabled
         />
     </div>
-    <div className = "comfortFit">
+    <div className="comfortFit">
       <div>Poor</div>
       <div>Perfect</div>
       </div>
@@ -196,9 +185,3 @@ export default function Ratings(props) {
   </div>
  )
 }
-
-// {dataCount < reviews.length && reviews.length > 2  && reviews.length !== 101 ?
-//   <button className = "reviewButton" onClick = {() => {setDataCount(dataCount + 2)}}>MORE REVIEWS</button> : null }
-// const [radioClick, setRadioClick] = useState(1);
-// {radioWidth > 1 ?
-//   <div className = "radioTitle">Width</div> : <div>none selected</div>}

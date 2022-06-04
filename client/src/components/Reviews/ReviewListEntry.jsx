@@ -10,7 +10,6 @@ export default function ReviewListEntry(props) {
   const [recommend, setRecommend] = useState(props.recommend);
   const [response, setResponse] = useState(props.response);
   const [fullRes, setFullRes] = useState('');
-  // const [loadPhotos, setLoadPhotos] = useState(props.photos);
 
   let counter = helpful
   let photos = [];
@@ -46,20 +45,17 @@ export default function ReviewListEntry(props) {
   }
 
   useEffect(() => {
-    // let mounted = true;
     if (props.photos.length !== 0) {
-      //console.log(props.photos[0].url)
       for (var i = 0; i < props.photos.length; i++) {
         photos.push(props.photos[i].url)
       }
     }
 
-    // return () => mounted = false;
   }, [photos])
 
   return(
-    <div className = "reviewItem">
-      <div className = "stars">
+    <div className="reviewItem">
+      <div className="stars">
       <StarRatings
       rating={props.rating}
       starDimension="20px"
@@ -68,22 +64,21 @@ export default function ReviewListEntry(props) {
     />
       </div>
 
-    <div className = "reviewDate">☑ {props.name}, {moment(props.date).format("MMM Do, YYYY")}</div>
+    <div className="reviewDate">☑ {props.name}, {moment(props.date).format("MMM Do, YYYY")}</div>
     <br></br>
-    <h1 className = "reviewTitle">{props.title}</h1>
+    <h1 className="reviewTitle">{props.title}</h1>
     <br></br>
-    <div className = "reviewBody">{props.body}</div>
+    <div className="reviewBody">{props.body}</div>
     <br></br>
-    <div className = "response">{responded()}</div>
+    <div className="response">{responded()}</div>
     <br></br>
-    <div className = "reviewRec">{recommended(recommend)}</div>
+    <div className="reviewRec">{recommended(recommend)}</div>
     <br></br>
-    <div className = "photoAlign">
+    <div className="photoAlign">
 
     {props.photos.length !== 0 ?
     props.photos.map((item) => (
-      //hello
-      <div><img src={item.url} className = "reviewThumbnails" onClick ={() => {setFullRes(item.url)}}></img></div>
+      <div><img src={item.url} className="reviewThumbnails" onClick ={() => {setFullRes(item.url)}}></img></div>
     )) : null}
   </div>
 
@@ -93,14 +88,13 @@ export default function ReviewListEntry(props) {
     </div>
 }
 
-
-    <button id = "helpful" type="button" className = "helpfulButton" onClick={() => {helpfulCount(props.id)}}>Helpful? &nbsp;
+    <button id="helpful" type="button" className="helpfulButton" onClick={() => {helpfulCount(props.id)}}>Helpful? &nbsp;
     <u>Yes</u>
     <span> &nbsp; ( {helpful} )</span>
     </button>
 
-    <span className = "helpfulButton">|</span>
-    <button id = "report" type="button" className = "reportButton"
+    <span className="helpfulButton">|</span>
+    <button id="report" type="button" className="reportButton"
     onClick={() => {helpfulDecrementer(props.id)}}>
     <u>No</u>
     </button>

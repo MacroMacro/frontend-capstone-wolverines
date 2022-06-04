@@ -10,11 +10,9 @@ import styled from 'styled-components';
 
 
 function App () {
-  // Remember to change individual github tokens when you pull down the repo to your local!
 
   const[curProduct, setCurProduct] = useState(0);
   const[products, setProduct] = useState([]);
-  //Modal States
 
   const[productID, setProductID] = useState('');
 

@@ -251,10 +251,6 @@ background-color: rgba(0,0,0, .7);
   font-family: 'Roboto', sans-serif;
 }
 
-/* ::placeholder {
-  font-size: .6em;
-} */
-
 .picUpload {
   font-family: 'Roboto', sans-serif;
 }
@@ -338,7 +334,7 @@ input[type=radio] {
   margin-right: 10%;
   margin-bottom: 5%;
   max-width: 85vw;
-  /* width: 100% */
+  margin-bottom: 5%;
 }
 
 .qna-header {
