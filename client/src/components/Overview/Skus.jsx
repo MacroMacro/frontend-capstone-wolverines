@@ -30,8 +30,6 @@ function Skus ({skus, addYourOutfit}) {
 
   const warning = ['', 'Please select size'];
 
-
-
   const quantOptions = Array.from({length: Math.min(15, quantA)}, (_, i) => {return ({'value': i+1, 'label': i+1})});
 
   function changeQuant (e) {
@@ -62,22 +60,22 @@ function Skus ({skus, addYourOutfit}) {
   }
 
   return (
-    <SkuContainer id = 'Skus'>
+    <SkuContainer id="Skus">
       <SelectWarn>{warning[display]}</SelectWarn>
       <SelectContainer>
         <SelectSize>
           {sizeOptions.length > 0 ?
           <>{sizeDisplay[display]}</>
-          : <Select placeholder = 'OUT OF STOCK' isDisabled = {true} />}
+          : <Select placeholder="OUT OF STOCK" isDisabled = {true} />}
         </SelectSize>
         <SelectQuant>
-          {sizeC ? <Select placeholder = {'1'} onChange = {changeQuant} options = {quantOptions}/>
-          : <Select placeholder = '-'/>}
+          {sizeC ? <Select placeholder={ "1" } onChange={ changeQuant } options = {quantOptions}/>
+          : <Select placeholder=" -"/>}
         </SelectQuant>
       </SelectContainer>
       <CartContainer>
         {sizeOptions.length > 0 ?
-          <div><Cart data-testid="cartbutton" onClick = {addCart} >Add to Cart</Cart></div> :
+          <div><Cart data-testid="cartbutton" onClick={ addCart } >Add to Cart</Cart></div> :
           <div><Cart data-testid="cartbutton" disabled>Add to Cart</Cart></div>}
 
         <StarContainer>

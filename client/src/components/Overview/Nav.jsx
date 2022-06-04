@@ -21,13 +21,8 @@ function Nav ({searchProduct, navBar, updateProduct}) {
   document.getElementById('app').style.backgroundColor = darkmode === 1? 'black' : 'white';
   document.getElementById('app').style.color = darkmode === 1? 'white': 'black';
   if (document.getElementById('formbackground')) {
-    if (darkmode === 1) {
-      document.getElementById('formbackground').style.backgroundColor = 'rgb(43,45,47)';
-    } else {
-      document.getElementById('formbackground').style.backgroundColor = 'white';
-    }
+    document.getElementById('formbackground').style.backgroundColor = darkmode === 1? 'rgb(43,45,47)' : 'white';
   }
-  //document.getElementById('formbackground') ? (document.getElementById('formbackground').style.backgroundColor = darkmode === 1? 'rgb(43,45,47)' : 'white') : (console.log('havent find formbackground'));
 
   return (
     <NavContainer id = 'Nav'>
