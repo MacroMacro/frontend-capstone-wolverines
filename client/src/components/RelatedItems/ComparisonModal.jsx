@@ -2,18 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-const ComparisonModal = (props) => {
+const ComparisonModal = ({parentProduct, compareProduct, combinedFeatures, closeModal}) => {
   const closeScreen = (event) => {
     event.stopPropagation();
-    props.closeModal();
+    closeModal();
   };
 
-  const { parentProduct, compareProduct, combinedFeatures } = props;
-
   return (
-    <ModalTable
-      onClick={closeScreen}
-    >
+    <ModalTable onClick={closeScreen}>
       <div onClick={(e) => e.stopPropagation()}>
       </div>
       <ModalInfo>
@@ -83,38 +79,38 @@ const Title = styled.div`
 `;
 
 const ModalInfo = styled.div`
-background-color: white;
-width: 100%;
-max-width: 600px;
-height: 50%
-margin: auto
-justify-content: center;
-align-items: center;
-padding: 10px;
-border: 1px solid black;
-border-radius: 20px;
-overflow: auto;
+  background-color: white;
+  width: 100%;
+  max-width: 600px;
+  height: 50%
+  margin: auto
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 20px;
+  overflow: auto;
 `;
 
 const ModalTable = styled.div`
-background-color: rgba(0,0,0,0.6);
-width: 100%;
-height: 100%;
-position: fixed;
-top: 0;
-left: 0;
-display: flex;
-justify-content: center;
-align-items: center;
-overflow: auto;
-padding-top: 50px;
-padding-bottom: 50px;
-font-size: 18px;
-color: black;
-z-index: 7000;
-backdrop-filter: blur(8px) contrast(70%);
+  background-color: rgba(0,0,0,0.6);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  font-size: 18px;
+  color: black;
+  z-index: 7000;
+  backdrop-filter: blur(8px) contrast(70%);
 `;
-ModalInfo.displayName = 'modal';
 
+ModalInfo.displayName = 'modal';
 
 export default ComparisonModal;

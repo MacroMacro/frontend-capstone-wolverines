@@ -8,22 +8,19 @@ function RelatedItems ({product, productID, updateProduct}) {
   const [relatedProducts, setRelated] = useState([]);
 
   const onLoad = ()=> {
-  // get request for related product IDs
   axios.get(`/related/?id=${productID}`)
-  .then(({ data }) => {
-    // not all the data is unique, so filter the unique ones
-    let uniqueIDs = [];
-    data.forEach((id) => {
-      if (uniqueIDs.indexOf(id) < 0) {
-        uniqueIDs.push(id)
-      }
+    .then(({ data }) => {
+      let uniqueIDs = [];
+      data.forEach((id) => {
+        if (uniqueIDs.indexOf(id) < 0) {
+          uniqueIDs.push(id);
+        }
+      });
+      setRelated(uniqueIDs);
     })
-    // change the state of related products
-    setRelated(uniqueIDs)
-  })
-  .catch((error) => {
-    console.log('Error getting related data in relatedProductsMainView', error);
-  });
+    .catch((error) => {
+      console.log('Error getting related data in relatedProductsMainView', error);
+    });
 }
 
   useEffect(onLoad, [productID]);
@@ -32,23 +29,20 @@ function RelatedItems ({product, productID, updateProduct}) {
     <RelatedItemsAndOutfit id="RelatedItemsAndOutfit">
     <div>
       <div>
-        <h3>RELATED PRODUCTS</h3>
+        <Fonts>RELATED PRODUCTS</Fonts>
       </div>
       <ListWrapper>
-        {/* pass related IDs and the current product ID down*/}
         <RelatedProductsList
           productID={productID}
           relatedProducts={relatedProducts}
           updateProduct={updateProduct}
         />
       </ListWrapper>
-
+      <br></br>
       <div>
-        <h3>YOUR OUTFIT</h3>
-        {/* <span style={{ fontSize: '17px', fontWeight: 'bold' }}></span> */}
+        <Fonts>YOUR OUTFIT</Fonts>
       </div>
       <ListWrapper>
-        {/* pass related IDs and the current product ID down*/}
         <YourOutfits
           productID={productID}
           relatedProducts={relatedProducts}
@@ -58,8 +52,6 @@ function RelatedItems ({product, productID, updateProduct}) {
     </RelatedItemsAndOutfit>
   );
 }
-
-export default RelatedItems;
 
 const RelatedItemsAndOutfit = styled.div`
   padding: 5px 40px 0px 40px;
@@ -75,3 +67,11 @@ const ListWrapper = styled.div`
   position: relative;
   width: 100%;
 `;
+
+const Fonts = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Roboto', sans-serif;
+`;
+
+export default RelatedItems;
