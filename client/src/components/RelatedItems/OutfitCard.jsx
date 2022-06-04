@@ -15,13 +15,12 @@ class OutfitCard extends React.Component {
       salePrice: '',
       rating: 0,
     };
-    // bind functions here
+
     this.handleCompareClick = this.handleCompareClick.bind(this);
   }
 
   componentDidMount() {
     const { productID, parentProductIDInfo } = this.props;
-    // map over the IDs and store the info of them and the parent into the state
     axios.get(`/product/?id=${productID}`)
       .then(({ data }) => {
         this.setState({
@@ -35,9 +34,8 @@ class OutfitCard extends React.Component {
         console.log('Error fetching product details in relatedProductCard', error);
       });
 
-    // Fan's star rating
     axios.get(`/reviews/${productID}`)
-      .then((response)=> { return response.data['results'].reduce((prev, cur) => prev = prev + cur['rating'], 0)/response.data['results'].length})
+      .then((response)=> response.data['results'].reduce((prev, cur) => prev = prev + cur['rating'], 0)/response.data['results'].length)
       .then((averating) => {
         this.setState({
           rating: averating
@@ -45,25 +43,21 @@ class OutfitCard extends React.Component {
       })
       .catch((err) => console.log(`can't load for product with id ${productID}`));
 
-    // map over the IDs and find the default image
     axios.get(`/styles/?id=${productID}`)
       .then(({ data }) => {
         const defaultProduct = data.results.find((product) => product['default?'] === true);
         let url;
-        // if no default, then set it equal to the first image
         if (!defaultProduct) {
           url = data.results[0].photos[0].thumbnail_url;
           this.setState({
             salePrice: data.results[0].sale_price,
           });
-        // if default, set the url to be the default image's thumbnail
         } else {
           url = defaultProduct.photos[0].thumbnail_url;
           this.setState({
             salePrice: defaultProduct.sale_price,
           });
-        }
-        // if not image url, then give it a no image available
+        };
         if (url === null) {
           this.setState({
             loaded: this.state.loaded + 1,
@@ -74,18 +68,18 @@ class OutfitCard extends React.Component {
             loaded: this.state.loaded + 1,
             featuredURL: url,
           });
-        }
+        };
       })
       .catch((error) => {
         console.log('Error fetching product styles in relatedProductCard', error);
       });
-  }
+  };
 
   handleCompareClick() {
     const { productID } = this.props;
-    localStorage.removeItem(productID)
+    localStorage.removeItem(productID);
     window.location.reload(false);
-  }
+  };
 
   render() {
     const {
@@ -108,14 +102,11 @@ class OutfitCard extends React.Component {
     };
     return (
       <div>
-        {/* If < 2 maintain loading */}
         {loaded < 2 &&
           <CardContainer style={loading} />
         }
         {loaded >= 2 &&
           <CardContainer>
-            {/* <br></br> */}
-            {/* Compare Modal button*/}
             <Button>
               <CompareButton onClick={this.handleCompareClick}>X</CompareButton>
             </Button>
@@ -128,7 +119,7 @@ class OutfitCard extends React.Component {
               <small>{productIDInfo.category}</small>
             </BasicLayout>
 
-            <BasicLayout onClick={this.changeProduct} style={{ fontSize: '17px', fontWeight: 'bold' }}>
+            <BasicLayout onClick={this.changeProduct} style={{fontSize: "17px", fontWeight: "bold"}}>
               {productIDInfo.name}
             </BasicLayout>
 
@@ -138,7 +129,8 @@ class OutfitCard extends React.Component {
 
 
             <BasicLayout>
-              <StarRating rating = {rating} starRatedColor="gold" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
+              <StarRating rating={rating} starRatedColor="gold" starEmptyColor="grey" starSelectingHoverColor="black"
+              numberOfStars={5} name="rating" starDimension="15px" starSpacing="0px"/>
             </BasicLayout>
 
             </CardContainer>
@@ -149,24 +141,25 @@ class OutfitCard extends React.Component {
 }
 
 const Image = styled.img`
-height: 100%;
-width: 100%;
-object-fit: contain;
-object-position: 50% 0;
-z-index: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  object-position: 50% 0;
+  z-index: 0;
 `;
 
 const BasicLayout = styled.div`
   margin: 5px 15px;
+  font-family: 'Roboto', sans-serif;
 `;
 
 const CardContainer = styled.div`
-height: 400px;
-width: 275px;
-position: relative;
-flex-shrink: 0;
-margin: 10px 10px;
-outline-style: inset;
+  height: 400px;
+  width: 275px;
+  position: relative;
+  flex-shrink: 0;
+  margin: 10px 10px;
+  outline-style: inset;
 `;
 
 const CompareButton = styled.button`
@@ -188,9 +181,9 @@ const Button = styled.div`
 `;
 
 const ImageHolder = styled.div`
-height: 200px;
-width: auto;
-margin-bottom: 30px;
+  height: 200px;
+  width: auto;
+  margin-bottom: 30px;
 `;
 
 export default OutfitCard;
