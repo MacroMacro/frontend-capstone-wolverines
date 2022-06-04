@@ -64,7 +64,7 @@ function QandAs ({ product_id, product_name }) {
 
 
 
-  // setState
+  // setState :)
   const changeShowMoreAnswers = () =>
     setShowMoreAnswers(!showMoreAnswers);
 
