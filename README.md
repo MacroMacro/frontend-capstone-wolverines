@@ -1,8 +1,8 @@
-# frontend-capstone-wolverines
+# Front-End-Capstone
 
 ## **Description**
 
-We built an e-commerce website with user-friendly interfaces, with Product Overview, Related Products, Questions and Answers, and Outfit, Ratings and Reviews sections.
+We designed an e-commerce website with user-friendly interfaces to reflect the nested data retrieved from the API. The webpage mainly consists four sections: Product Overview, Related Products and Outfit, Questions and Answers, and Ratings and Reviews.
 
 ## **Intallation**
 -npm install: install necessary dependencies for this project.
