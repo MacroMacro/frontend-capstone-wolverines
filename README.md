@@ -17,4 +17,5 @@ We built an e-commerce website with user-friendly interfaces with...
   - allows users to report answers to have them no longer render on page
   - search bar allows users to filter questions
   - Add Question and Add Answer modals allow users to also upload questions and answers of their own
-  - ![image](https://user-images.githubusercontent.com/94881840/172021357-f4d3673d-8c41-49b8-bcb6-9b421db22de9.png)
+  ![image](https://user-images.githubusercontent.com/94881840/172021395-9b0f389c-a837-417d-b79f-ed7fe7d5a7df.png)
+
