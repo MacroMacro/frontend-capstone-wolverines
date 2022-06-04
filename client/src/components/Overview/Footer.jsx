@@ -12,7 +12,6 @@ export default function footer () {
 
   const handleChange = (e) => {
     e.persist();
-    console.log('form', e.target.name, e.target.value)
     setValues(values => ({
       ...values,
       [e.target.name]: e.target.value

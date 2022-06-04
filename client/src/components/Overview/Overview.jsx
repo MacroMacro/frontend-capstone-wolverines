@@ -5,13 +5,12 @@ import Skus from './Skus.jsx';
 import Nav from './Nav.jsx';
 import Style from './Style.jsx';
 import StarRating from 'react-star-ratings';
-import {FacebookIcon, PinterestIcon,TwitterIcon } from 'react-share';
 import Share from './Share.jsx';
 import styled from 'styled-components';
 
 //Get all the styles data for a product given product id
 //Pass down style specific data
-function Overview ({product}) {
+function Overview ({ product }) {
   const [style, setStyle] = useState([]);
   const [curStyle, setCurStyle] = useState(null);
   const [rating, setRating] = useState(0);
@@ -22,27 +21,28 @@ function Overview ({product}) {
 
 
   const onLoad = ()=> {
-    axios.get(`/styles/?id=${product['id']}`)
+    axios.get(`/styles/?id=${product["id"]}`)
     .then((response)=> {
       let results = response.data['results'];
       setStyle(results);
-      for (var i = 0; i < results.length; i ++ ) {
+      for (var i = 0; i < results.length; i++ ) {
         if (results[i]['default?'] === true) {
           setCurStyle(i);
           break;
         }
       }
     })
-    .catch((err) => console.log(`can't load for product with id ${product['id']}`));
+    .catch((err) => console.log(`can't load for product with id ${product["id"]}`));
 
 //rating bar
-    axios.get(`/reviews/${product['id']}`)
-    .then((response)=> { return ([response.data['results'].reduce((prev, cur) => prev = prev + cur['rating'], 0), response.data['results'].length])})
+    axios.get(`/reviews/${product["id"]}`)
+    .then((response)=> { return ([response.data['results'].reduce((prev, cur) => prev = prev + cur['rating'], 0),
+      response.data['results'].length])})
     .then(([total, nums]) => {setRating(total/nums); setNumRating(nums);})
-    .catch((err) => console.log(`can't load for product with id ${product['id']}`));
+    .catch((err) => console.log(`can't load for product with id ${product["id"]}`));
   };
 
-  useEffect(onLoad, [product['id']]);
+  useEffect(onLoad, [product["id"]]);
 
   function changeStyle(n) {
     setCurStyle(n);
@@ -50,45 +50,46 @@ function Overview ({product}) {
 
   function addYourOutfit (starred) {
     if (starred === 0) {
-      localStorage.setItem(product['id'], product['id']);
+      localStorage.setItem(product["id"], product["id"]);
     } else {
-      delete localStorage[product['id']];
+      delete localStorage[product["id"]];
     }
   }
 
   return (
   <div className = 'ProductOverview'>
-    {style.length ? (
+    { style.length ? (
       <div>
         <MainOverview>
           {curStyle !== null ? (<Photos photos = {style[curStyle]['photos']} />) : (<a>Loading Styles</a>) }
 
           <ProductInfo id = 'overview'>
             <div>
-              <StarRating rating = {rating} id = 'OverviewRating' starRatedColor="#FFCC00" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
+              <StarRating rating = {rating} id = 'OverviewRating' starRatedColor="#FFCC00" starEmptyColor ='grey'
+                starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
               <a style = {{'margin-left': '10px'}}>{rating.toFixed(1)}</a>
               <a href="#reviewList" style = {{'margin-left': '10px'}} >Read all {numRating} reviews</a>
             </div>
-            <ProductCat> {product['category']}</ProductCat>
-            <ProductName>{product['name']}</ProductName>
+            <ProductCat> {product["category"]}</ProductCat>
+            <ProductName>{product["name"]}</ProductName>
 
             {curStyle !== null ?
             (<ProductPrice>{
-              style[curStyle]['sale_price'] === null ? (<>${style[curStyle]['original_price']}</>) : (<><ProductSale> ${style[curStyle]['sale_price']}</ProductSale><ProductOrg>${style[curStyle]['original_price']}</ProductOrg></>)
+              style[curStyle]["sale_price"] === null ? (<>${style[curStyle]["original_price"]}</>) : (<><ProductSale> ${style[curStyle]["sale_price"]}</ProductSale><ProductOrg>${style[curStyle]["original_price"]}</ProductOrg></>)
             }</ProductPrice>) : (<div>Loading prices</div>)}
 
             {curStyle !== null ? (<>
             <Style style = {style} curStyle = {curStyle} changeStyle = {changeStyle} />
-            <Skus changeStyle = {changeStyle} addYourOutfit = {addYourOutfit} skus= {style[curStyle]['skus']}/> </>) : (<a>Loading Skus</a>)}
+            <Skus changeStyle = {changeStyle} addYourOutfit = {addYourOutfit} skus= {style[curStyle]["skus"]}/> </>) : (<a>Loading Skus</a>)}
 
             {curStyle !== null ?
-            (<Share url = {style[curStyle]['photos'][0]['url']} quote = {`Check out ${product['name']} with style ${style[curStyle]['name']}`}/>) : (<><FacebookIcon size={40} round /><TwitterIcon size={40} round /><PinterestIcon size={40} round /></>)}
+            (<Share url = {style[curStyle]["photos"][0]["url"]} quote = {`Check out ${product["name"]} with style ${style[curStyle]["name"]}`}/>) : (<></>)}
           </ProductInfo>
         </MainOverview>
 
       <Slogan>{product['slogan']}</Slogan>
       <Description>{product['description']}</Description>
-    </div> ): (<ProductOverview>Welcome to Wolverine ... </ProductOverview>) }
+    </div> ):(<ProductOverview>Welcome to Wolverine ... </ProductOverview>) }
   </div>)
 }
 

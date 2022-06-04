@@ -3,7 +3,7 @@ import Select from 'react-select';
 import axios from 'axios';
 import styled from 'styled-components';
 
-function Skus ({skus, addYourOutfit}) {
+function Skus ({ skus, addYourOutfit }) {
   const [display, setDisplay] = useState(0);
   const [quantA, setQuantA] = useState();
   const [quantC, setQuantC] = useState(1);
@@ -20,17 +20,16 @@ function Skus ({skus, addYourOutfit}) {
 
   const sizeOptions = [];
   Object.keys(skus).map((key) => {
-    if (skus[key]['quantity']>0) {
+    if (skus[key]['quantity'] > 0) {
       sizeOptions.push({'value': key, 'label': skus[key]['size']})};
     });
 
   const sizeDisplay = [
     <Select placeholder = 'SELECT SIZE' onChange = {changeSize} options = {sizeOptions}/>,
-    <Select placeholder = 'SELECT SIZE' onChange = {changeSize} menuIsOpen options = {sizeOptions}/>];
+    <Select placeholder = 'SELECT SIZE' onChange = {changeSize} menuIsOpen options = {sizeOptions}/>
+  ];
 
   const warning = ['', 'Please select size'];
-
-
 
   const quantOptions = Array.from({length: Math.min(15, quantA)}, (_, i) => {return ({'value': i+1, 'label': i+1})});
 
@@ -47,7 +46,8 @@ function Skus ({skus, addYourOutfit}) {
       }
       setQuantA(quantA - quantC);
       for (var i= 0; i<quantC; i++) {
-        axios.post(`/cart/?sku_id=${curSku}`);
+        axios.post(`/cart/?sku_id=${curSku}`)
+        .catch((err) => console.log('not able to add to the cart'));
       }
     }
   }
@@ -62,22 +62,22 @@ function Skus ({skus, addYourOutfit}) {
   }
 
   return (
-    <SkuContainer id = 'Skus'>
+    <SkuContainer id="Skus">
       <SelectWarn>{warning[display]}</SelectWarn>
       <SelectContainer>
         <SelectSize>
           {sizeOptions.length > 0 ?
           <>{sizeDisplay[display]}</>
-          : <Select placeholder = 'OUT OF STOCK' isDisabled = {true} />}
+          : <Select placeholder="OUT OF STOCK" isDisabled = {true} />}
         </SelectSize>
         <SelectQuant>
-          {sizeC ? <Select placeholder = {'1'} onChange = {changeQuant} options = {quantOptions}/>
-          : <Select placeholder = '-'/>}
+          {sizeC ? <Select placeholder={ "1" } onChange={ changeQuant } options = {quantOptions}/>
+          : <Select placeholder=" -"/>}
         </SelectQuant>
       </SelectContainer>
       <CartContainer>
         {sizeOptions.length > 0 ?
-          <div><Cart data-testid="cartbutton" onClick = {addCart} >Add to Cart</Cart></div> :
+          <div><Cart data-testid="cartbutton" onClick={ addCart } >Add to Cart</Cart></div> :
           <div><Cart data-testid="cartbutton" disabled>Add to Cart</Cart></div>}
 
         <StarContainer>
