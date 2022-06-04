@@ -1,5 +1,5 @@
 # frontend-capstone-wolverines
-<font size = 1>**Description**<font>
+<font size = 2>**Description**</font>
 
 We built an e-commerce website with user-friendly interfaces, with Product Overview, Related Products, Questions and Answers, and Outfit, Ratings and Reviews sections.
 
