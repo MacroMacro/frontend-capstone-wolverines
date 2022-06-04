@@ -6,17 +6,8 @@ import StarRatings from 'react-star-ratings';
 import Popup from 'reactjs-popup';
 import moment from 'moment';
 import { Image } from 'cloudinary-react';
-// list will map and pass to list entry to have the individual data
-// ratings bar will be own seperate component
-// make reviews scrollable
 
 export default function ReviewList({ id }) {
-  /* this.state = {
-    reviews: [],
-    formView: false,
-    title: '',
-    body: ''
-  }*/
 
   const [reviews, setReviews] = useState([]);
   const [formView, setFormView] = useState(false);
@@ -44,19 +35,10 @@ export default function ReviewList({ id }) {
   const [radioFit, setRadioFit] = useState('');
   const [bodyChar, setBodyChar] = useState(0);
 
-  // create a state here to pass down to reviewListEntry
-  // write a function here for maintaining rating state
-  // pass the state down to ratings
-
-  // console.log(reviews)
-  // can i slice the data array here to load 2 and then 2 again?
   const getReviews = () => {
     axios.get(`/reviews/${id}?sort=relevant`)
       .then((response) => {
         let reviews = response.data.results;
-        // console.log(reviews);
-        // need to figure out how to sort by both values
-        // reviews.sort((a, b) => (a['helpfulness'] < b['helpfulness']) ? 1 : -1)
         setReviews(reviews)
         setReviewState(reviews)
       })
@@ -82,11 +64,6 @@ export default function ReviewList({ id }) {
     setFormView(!formView);
   }
 
-  const myFunction = () => {
-    document.getElementById("theDropdown").classList.toggle("display");
-  }
-
-  // Close the dropdown menu if the user clicks outside of it
   window.onclick = function (event) {
     if (!event.target.matches('.dropbutton')) {
       var drop = document.getElementsByClassName("contentDropdown");
@@ -108,7 +85,7 @@ export default function ReviewList({ id }) {
       recommend: recommend,
       name: name,
       email: "hi@gmail.com",
-      photos: imageSelected, // ['test']
+      photos: imageSelected,
       characteristics: { '135219': 5, '135220': 5 }
     }
     axios.post(`/reviews/${id}`, formObj)
@@ -130,8 +107,6 @@ export default function ReviewList({ id }) {
         } else if (title.length > 60) {
           alert('Title input is too long')
         }
-
-        //console.log(body.length)
         getReviews()
       })
       .catch((err) => {console.log(err) })
@@ -199,10 +174,8 @@ export default function ReviewList({ id }) {
       let rate = reviews.filter((item) =>
         item.rating === starReview[String(item.rating)]
       )
-      //console.log(rate)
       setReviewState(rate)
     } else {
-      // console.log('reached')
       setReviewState(reviews)
     }
   }, [starReview])
@@ -216,20 +189,19 @@ export default function ReviewList({ id }) {
   }
 
   const uploadImage = (event) => {
-    //console.log(files[0]);
     const formData = new FormData()
     formData.append("file", event.target.files[0])
     formData.append("upload_preset", "d3rcyhun")
 
     axios.post("https://api.cloudinary.com/v1_1/djmupj0f5/image/upload",
       formData)
-      .then((response) => {setImageSelected([...imageSelected, response.data.url]) })
+      .then((response) => setImageSelected([...imageSelected, response.data.url]))
   }
 
   return (
     formView ? (
 
-      <div className="reviewWrapper" id ='reviewList'>
+      <div className="reviewWrapper" id="reviewList">
 
         <div className="ratingsWrapper">
           <Ratings
@@ -294,7 +266,7 @@ export default function ReviewList({ id }) {
 
         <div className="box">
           <form onSubmit={submitFn}>
-            <div className ="productTitle" id = "productT">Write Your Review</div>
+            <div className="productTitle" id="productT">Write Your Review</div>
             <div className="productSubTitle">About the Product</div>
             <br></br>
             <label className="addReview">Review Summary: *</label>
@@ -302,7 +274,7 @@ export default function ReviewList({ id }) {
             <input type="text" value={title} placeholder="Example: Best purchase ever!" onChange={e => {setTitle(e.target.value)}}></input>
             <br></br>
 
-            <label className="addReview" id = "reviewBody">Review Body: *</label>
+            <label className="addReview" id="reviewBody">Review Body: *</label>
             <br></br>
             <textarea cols="40" rows="4" value={body} id="bodyBox" placeholder="Why did you like the product or not?" onChange={e => { setBody(e.target.value) }} onKeyUp={(e) => reviewCounter(e)} minLength="50" maxLength="1000"></textarea>
             <div id="counter"></div>
@@ -337,7 +309,7 @@ export default function ReviewList({ id }) {
 
             <div className="addReview">Upload your photos:</div>
             <br></br>
-            <div>
+            <div className="imgFlex">
               <input type="file" onChange={uploadImage} />
               <img src={imageSelected[0]} className="imgPreview"></img>
               <input type="file" onChange={uploadImage} />
@@ -494,7 +466,11 @@ export default function ReviewList({ id }) {
 
     ) : (
 
+<<<<<<< HEAD
       <div className="reviewWrapper" id ='reviewList'>
+=======
+      <div className="reviewWrapper" id="reviewList">
+>>>>>>> main
         <div className="ratingsWrapper">
           <Ratings
             averageRate={averageRate}

@@ -11,77 +11,55 @@ function RelatedProductList ({productID, relatedProducts, updateProduct}) {
 
   const onLoad = ()=> {
     axios.get(`/product/?id=${productID}`)
-    .then((data)=> {
-      return data.data
-    })
-    .then((info) => {
-      console.log(info, 'info'); setParent(info)})
-    .catch((error) => {
-      console.log('Error fetching product details in relatedProductsList', error);
-    });
-  }
+      .then((data)=> {
+        return data.data;
+      })
+      .then((info) => {
+        setParent(info)
+      })
+      .catch((error) => {
+        console.log('Error fetching product details in relatedProductsList', error);
+      });
+  };
 
   useEffect(onLoad, [productID]);
 
   function scrollLeft() {
-    // can scroll left if there are images to the right
-    setRightImage(true)
-    // find cards given ID productCarousel
+    setRightImage(true);
     const carousel = document.getElementById('productCarousel');
-
-    // when clicked, scrolls to left by -500
     carousel.scrollLeft -= 500;
-
-    // if scrolled all the way to the left, there are no more images to the left
     if (carousel.scrollLeft <= 500) {
-      setLeftImage(false)
-    }
-  }
+      setLeftImage(false);
+    };
+  };
 
   function scrollRight() {
-    // can scroll right if there are images to the left
-    setLeftImage(true)
-
-    // find carousel div
+    setLeftImage(true);
     const carousel = document.getElementById('productCarousel');
-    // see how much room there is left to scroll over
     const amountLeftToScroll = carousel.scrollWidth - carousel.clientWidth;
-
-    // when clicked, moves right by 500
     carousel.scrollLeft += 500;
-
-    // if scrolled all the way to the right, no images on the right will exist
     if (carousel.scrollLeft >= amountLeftToScroll - 500) {
-      setRightImage(false)
-    }
-  }
+      setRightImage(false);
+    };
+  };
 
   function overflow() {
-    // find carousel div
     const carousel = document.getElementById('productCarousel');
-
-    //if scrollWidth > clientWidth, then there is a scroll bar and images to the right, and vice versa
     const bool = carousel.scrollWidth > carousel.clientWidth;
-    setRightImage(bool)
-  }
+    setRightImage(bool);
+  };
 
   return (
     <div>
-
-      {/*if images exist on the right, right button exists */}
-
       {imagesToTheRight ? (
         <RightButton onClick={scrollRight}>
           ⇨
         </RightButton>
       ) : null}
 
-      {/* carousel is given an id to move the element, and set if there is right images to load the right button */}
       {parentProductIDInfo ? (
       <ListContainer id="productCarousel" onLoad={overflow}>
-        { /* map over the related product IDs and pass info to cards */ }
         {relatedProducts.map((product) => (
-
           <RelatedProductCard
             parentProductID={productID}
             productID={product}
@@ -91,7 +69,7 @@ function RelatedProductList ({productID, relatedProducts, updateProduct}) {
         ))}
       </ListContainer>
       ) : null}
-      {/*if images exist on the left, left button exists */}
+
       {imagesToTheLeft ? (
         <LeftButton onClick={scrollLeft}>
           ⇦
@@ -103,15 +81,15 @@ function RelatedProductList ({productID, relatedProducts, updateProduct}) {
 }
 
 const ListContainer = styled.div`
-display: flex;
-justify-content: flex-start;
-overflow: scroll;
-position: relative;
-height: 415px;
-margin: 0px;
-padding: 0px;
-transitions: .5s;
-scroll-behavior: smooth;
+  display: flex;
+  justify-content: flex-start;
+  overflow: scroll;
+  position: relative;
+  height: 415px;
+  margin: 0px;
+  padding: 0px;
+  transitions: .5s;
+  scroll-behavior: smooth;
 `;
 
 const LeftButton = styled.button`

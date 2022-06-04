@@ -51,7 +51,7 @@ const AddAnswer = ({ product_name, question_id, currentQBody, reloadFn, setAFals
       .catch(err => console.log('err', err))
 
 
-      console.log('answer submitted');
+      // console.log('answer submitted');
   }
 
   //formik code

@@ -20,9 +20,7 @@ class YourOutfits extends React.Component {
   }
 
   componentDidMount() {
-    // store original product info
     const { productID } = this.props;
-    console.log(productID, 'productID')
     axios.get(`/product/?id=${productID}`)
       .then(({ data }) => {
         this.setState({
@@ -32,100 +30,77 @@ class YourOutfits extends React.Component {
       .catch((error) => {
         console.log('Error fetching product details in relatedProductsList', error);
       });
-  }
+  };
 
   scrollLeft() {
-    // can scroll left if there are images to the right
     this.setState({
       imagesToTheRight: true,
     });
-    // find cards given ID productCarousel
     const carousel = document.getElementById('productCarousels');
-
-    // when clicked, scrolls to left by -500
     carousel.scrollLeft -= 500;
-
-    // if scrolled all the way to the left, there are no more images to the left
     if (carousel.scrollLeft <= 500) {
       this.setState({
         imagesToTheLeft: false,
       });
-    }
-  }
+    };
+  };
 
   scrollRight() {
-    // can scroll right if there are images to the left
     this.setState({
       imagesToTheLeft: true,
     });
-    // find carousel div
     const carousel = document.getElementById('productCarousels');
-    // see how much room there is left to scroll over
     const amountLeftToScroll = carousel.scrollWidth - carousel.clientWidth;
-
-    // when clicked, moves right by 500
     carousel.scrollLeft += 500;
-
-    // if scrolled all the way to the right, no images on the right will exist
     if (carousel.scrollLeft >= amountLeftToScroll - 500) {
       this.setState({
         imagesToTheRight: false,
       });
-    }
-  }
+    };
+  };
 
   overflow() {
-    // find carousel div
     const carousel = document.getElementById('productCarousels');
-
-    //if scrollWidth > clientWidth, then there is a scroll bar and images to the right, and vice versa
     const bool = carousel.scrollWidth > carousel.clientWidth;
     this.setState({
       imagesToTheRight: bool,
     });
-  }
+  };
 
   handleCompareClick() {
     const { productID } = this.props;
-    localStorage.setItem(productID, productID)
+    localStorage.setItem(productID, productID);
     window.location.reload(false);
-  }
+  };
 
   render() {
     const { parentProductIDInfo, imagesToTheRight, imagesToTheLeft  } = this.state;
     const { relatedProducts, productID } = this.props;
     return (
       <div>
-        {/*if images exist on the right, right button exists */}
         {imagesToTheRight ? (
           <RightButton onClick={this.scrollRight}>
             ⇨
           </RightButton>
         ) : null}
 
-        {/* carousel is given an id to move the element, and set if there is right images to load the right button */}
         <ListContainer id="productCarousels" onLoad={this.overflow}>
-        <CardContainer>
-            {/* <br></br> */}
-            {/* Compare Modal button*/}
+          <CardContainer>
+              <ImageHolder>
+                <Image src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg" onClick={this.handleCompareClick}/>
+              </ImageHolder>
+          </CardContainer>
 
-            <ImageHolder>
-              <Image src='https://upload.wikimedia.org/wikipedia/commons/9/9e/Plus_symbol.svg' onClick={this.handleCompareClick}/>
-            </ImageHolder>
-            </CardContainer>
-
-          { /* map over the related product IDs and pass info to cards */ }
           {Object.keys(localStorage).map((product) => (
             <OutfitCard
               parentProductID={productID}
-              // updateProduct={this.props.updateProduct}
               productID={product}
               parentProductIDInfo={parentProductIDInfo}
               key={product}
             />
           ))}
         </ListContainer>
-        {/*if images exist on the left, left button exists */}
+
         {imagesToTheLeft ? (
             <LeftButton onClick={this.scrollLeft}>
               ⇦
@@ -136,18 +111,16 @@ class YourOutfits extends React.Component {
   }
 }
 
-export default YourOutfits;
-
 const ListContainer = styled.div`
-display: flex;
-justify-content: flex-start;
-overflow: scroll;
-position: relative;
-height: 415px;
-margin: 0px;
-padding: 0px;
-transitions: .5s;
-scroll-behavior: smooth;
+  display: flex;
+  justify-content: flex-start;
+  overflow: scroll;
+  position: relative;
+  height: 415px;
+  margin: 0px;
+  padding: 0px;
+  transitions: .5s;
+  scroll-behavior: smooth;
 `;
 
 const LeftButton = styled.button`
@@ -168,12 +141,12 @@ const LeftButton = styled.button`
 `;
 
 const CardContainer = styled.div`
-height: 400px;
-width: 275px;
-position: relative;
-flex-shrink: 0;
-margin: 10px 10px;
-outline-style: inset;
+  height: 400px;
+  width: 275px;
+  position: relative;
+  flex-shrink: 0;
+  margin: 10px 10px;
+  outline-style: inset;
 `;
 
 const RightButton = styled.button`
@@ -194,17 +167,17 @@ const RightButton = styled.button`
 `;
 
 const Image = styled.img`
-height: 100%;
-width: 100%;
-object-fit: contain;
-object-position: 50% 0;
-z-index: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  object-position: 50% 0;
+  z-index: 0;
 `;
 
 const ImageHolder = styled.div`
-height: 100%;
-width: 100%;
-background-color: white;
+  height: 100%;
+  width: 100%;
+  background-color: white;
 `;
 
-
+export default YourOutfits;

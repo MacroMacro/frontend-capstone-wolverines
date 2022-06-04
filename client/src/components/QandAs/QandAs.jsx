@@ -39,13 +39,13 @@ function QandAs ({ product_id, product_name }) {
     const questionSubmit = () => {
       setShowQuestionForm(false);
       getQuestions();
-      console.log('question submitted');
+      // console.log('question submitted');
     }
 
     const answerSubmit = () => {
       setShowAnswerForm(false);
       getQuestions();
-      console.log('answer submitted');
+      // console.log('answer submitted');
     }
 
     //set states to false
@@ -64,7 +64,7 @@ function QandAs ({ product_id, product_name }) {
 
 
 
-  // setState
+  // setState :)
   const changeShowMoreAnswers = () =>
     setShowMoreAnswers(!showMoreAnswers);
 
@@ -78,6 +78,9 @@ function QandAs ({ product_id, product_name }) {
       let { answers } = question
       answers = Object.values(answers);
       // console.log(answers)
+      answers.sort(function(a, b) {
+        return b.helpfulness - a.helpfulness;
+      });
       let firstArr = [];
       let secondArr = [];
       for (let i = 0; i < answers.length; i++) {

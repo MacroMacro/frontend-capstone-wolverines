@@ -16,54 +16,47 @@ function RelatedProductCard ({parentProductID, productID, parentProductIDInfo, u
   const [salePrice, setSale] = useState(0);
 
   const onLoad = ()=> {
-    console.log(parentProductIDInfo)
     axios.get(`/product/?id=${productID}`)
-    .then(({ data }) => {
-      setProduct(data);
-      setCurrentProduct(data.features);
-      setParentProduct(parentProductIDInfo.features);
-      setLoaded(loaded => loaded+1)
-    })
-    .catch((error) => {
-      console.log('Error fetching product details in relatedProductCard', error);
-    });
+      .then(({ data }) => {
+        setProduct(data);
+        setCurrentProduct(data.features);
+        setParentProduct(parentProductIDInfo.features);
+        setLoaded(loaded => loaded+1)
+      })
+      .catch((error) => {
+        console.log('Error fetching product details in relatedProductCard', error);
+      });
 
-    // Fan's star rating
     axios.get(`/reviews/${productID}`)
-    .then((response)=> { return response.data['results'].reduce((prev, cur) => prev = prev + cur['rating'], 0)/response.data['results'].length})
-    .then((aveRating) => {
-      setRating(aveRating);
-    })
-    .catch((err) => console.log(`can't load for product with id ${productID}`));
+      .then((response)=> { return response.data['results'].reduce((prev, cur) => prev = prev + cur['rating'], 0)/response.data['results'].length})
+      .then((aveRating) => {
+        setRating(aveRating);
+      })
+      .catch((err) => console.log(`can't load for product with id ${productID}`));
 
-    // map over the IDs and find the default image
     axios.get(`/styles/?id=${productID}`)
-    .then(({ data }) => {
-      // console.log(data.results)
-      const defaultProduct = data.results.find((product) => product['default?'] === true);
-      let url;
-      // if no default, then set it equal to the first image
-      if (!defaultProduct) {
-        url = data.results[0].photos[0].thumbnail_url;
-        setSale(data.results[0].sale_price);
-      // if default, set the url to be the default image's thumbnail
-      } else {
-        url = defaultProduct.photos[0].thumbnail_url;
-        setSale(defaultProduct.sale_price);
-      }
-      // if not image url, then give it a no image available
-      if (url === null) {
-        setLoaded(loaded => loaded+1);
-        setURL('https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg');
-      } else {
-        setLoaded(loaded => loaded+1);
-        setURL(url);
-      }
-    })
-    .catch((error) => {
-      console.log('Error fetching product styles in relatedProductCard', error);
-    });
-  }
+      .then(({ data }) => {
+        const defaultProduct = data.results.find((product) => product['default?'] === true);
+        let url;
+        if (!defaultProduct) {
+          url = data.results[0].photos[0].thumbnail_url;
+          setSale(data.results[0].sale_price);
+        } else {
+          url = defaultProduct.photos[0].thumbnail_url;
+          setSale(defaultProduct.sale_price);
+        }
+        if (url === null) {
+          setLoaded(loaded => loaded+1);
+          setURL('https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg');
+        } else {
+          setLoaded(loaded => loaded+1);
+          setURL(url);
+        }
+      })
+      .catch((error) => {
+        console.log('Error fetching product styles in relatedProductCard', error);
+      });
+  };
 
 
   useEffect(onLoad, [productID]);
@@ -71,16 +64,14 @@ function RelatedProductCard ({parentProductID, productID, parentProductIDInfo, u
   function handleCompareClick() {
     setModal(!openCompareModal);
     combineFeatures(parentProductFeatures, currentProductFeatures);
-  }
+  };
 
   function changeProduct(event) {
     updateProduct(productID);
-  }
+  };
 
   function combineFeatures(parentProduct, currentProduct) {
     const combinedFeatures = {};
-    // console.log(parentProduct)
-
     parentProduct.forEach((product) => {
       if (!combinedFeatures[product.feature]) {
         if (product.value === null) {
@@ -92,7 +83,6 @@ function RelatedProductCard ({parentProductID, productID, parentProductIDInfo, u
     });
 
     currentProduct.forEach((product) => {
-      // console.log(product)
       if (!combinedFeatures[product.feature]) {
         if (product.value === null) {
           combinedFeatures[product.feature] = [];
@@ -117,7 +107,7 @@ function RelatedProductCard ({parentProductID, productID, parentProductIDInfo, u
     }
 
     setCombined(comparedFeatures);
-  }
+  };
 
   const sale = {
     textDecoration: salePrice ? 'line-through' : 'none',
@@ -133,14 +123,11 @@ function RelatedProductCard ({parentProductID, productID, parentProductIDInfo, u
 
   return (
     <div>
-      {/* If < 2 maintain loading */}
       {loaded < 2 &&
         <CardContainer style={loading} />
       }
       {loaded >= 2 &&
         <CardContainer>
-          {/* <br></br> */}
-          {/* Compare Modal button*/}
           <Button>
             <CompareButton onClick={handleCompareClick}>⭐</CompareButton>
           </Button>
@@ -153,7 +140,7 @@ function RelatedProductCard ({parentProductID, productID, parentProductIDInfo, u
             <small>{productIDInfo.category}</small>
           </BasicLayout>
 
-          <BasicLayout onClick={changeProduct} style={{ fontSize: '17px', fontWeight: 'bold' }}>
+          <BasicLayout onClick={changeProduct} style={{fontSize: "17px", fontWeight: "bold"}}>
             {productIDInfo.name}
           </BasicLayout>
 
@@ -163,7 +150,8 @@ function RelatedProductCard ({parentProductID, productID, parentProductIDInfo, u
 
 
           <BasicLayout>
-            <StarRating rating = {rating} starRatedColor="gold" starEmptyColor ='grey' starSelectingHoverColor = 'black' numberOfStars={5} name='rating' starDimension="15px" starSpacing="0px"/>
+            <StarRating rating={rating} starRatedColor="gold" starEmptyColor="grey" starSelectingHoverColor="black"
+            numberOfStars={5} name="rating" starDimension="15px" starSpacing="0px"/>
           </BasicLayout>
 
           </CardContainer>
@@ -183,24 +171,25 @@ function RelatedProductCard ({parentProductID, productID, parentProductIDInfo, u
 }
 
 const Image = styled.img`
-height: 100%;
-width: 100%;
-object-fit: contain;
-object-position: 50% 0;
-z-index: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  object-position: 50% 0;
+  z-index: 0;
 `;
 
 const BasicLayout = styled.div`
   margin: 5px 15px;
+  font-family: 'Roboto', sans-serif;
 `;
 
 const CardContainer = styled.div`
-height: 400px;
-width: 275px;
-position: relative;
-flex-shrink: 0;
-margin: 10px 10px;
-outline-style: inset;
+  height: 400px;
+  width: 275px;
+  position: relative;
+  flex-shrink: 0;
+  margin: 10px 10px;
+  outline-style: inset;
 `;
 
 const CompareButton = styled.button`
@@ -225,11 +214,9 @@ const Button = styled.div`
 `;
 
 const ImageHolder = styled.div`
-height: 200px;
-width: auto;
-margin-bottom: 30px;
+  height: 200px;
+  width: auto;
+  margin-bottom: 30px;
 `;
-
-
 
 export default RelatedProductCard;

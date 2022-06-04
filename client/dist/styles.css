@@ -4,6 +4,12 @@
 }
 /* Ratings & Reviews */
 
+.imgFlex {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .reviewItem {
   border-bottom: 2px solid black;
   border-width: thin;
@@ -245,10 +251,6 @@ background-color: rgba(0,0,0, .7);
   font-family: 'Roboto', sans-serif;
 }
 
-/* ::placeholder {
-  font-size: .6em;
-} */
-
 .picUpload {
   font-family: 'Roboto', sans-serif;
 }
@@ -330,8 +332,9 @@ input[type=radio] {
   font-family: 'Roboto', 'sans-serif';
   margin-left: 10%;
   margin-right: 10%;
+  margin-bottom: 5%;
   max-width: 85vw;
-  /* width: 100% */
+  margin-bottom: 5%;
 }
 
 .qna-header {

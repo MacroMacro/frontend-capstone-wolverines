@@ -38,7 +38,8 @@ const Question = ({ question, reloadFn, updateAnswerID, toggleAnswerForm }) => {
         .then(() => reloadFn())
         .catch(err => console.log('error putting', err));
     } else if (helpfulnessClick) {
-      console.log('button already been clicked!')
+      alert('button already clicked!');
+      // console.log('button already been clicked!')
     }
   }
 
@@ -50,6 +51,7 @@ const Question = ({ question, reloadFn, updateAnswerID, toggleAnswerForm }) => {
         .then(() => reloadFn())
         .catch(err => console.log('error incrementing helpful for answers', err));
     } else if (answerHelpfulnessClick) {
+      // alert('button already clicked!');
       console.log('answer helpfulness button already clicked!');
     }
    }
@@ -62,7 +64,8 @@ const Question = ({ question, reloadFn, updateAnswerID, toggleAnswerForm }) => {
         .then(() => reloadFn())
         .catch(err => console.log('error reporting this answer', err));
      } else if (aReportClick) {
-       console.log('report button already clicked');
+      alert('button already clicked!');
+      //  console.log('report button already clicked');
      }
    }
   // console.log(question.question_id);
@@ -82,7 +85,11 @@ const Question = ({ question, reloadFn, updateAnswerID, toggleAnswerForm }) => {
             {` (${question.question_helpfulness})`}
           </span>
           |
-          <span type="button" className="right-side add-answer" onClick={() => {toggleAnswerForm(question.question_id, question.question_body)}}>
+          <span
+            type="button"
+            className="right-side add-answer"
+            onClick={() => {toggleAnswerForm(question.question_id, question.question_body)}}
+            >
             Add Answer
           </span>
         </div>
