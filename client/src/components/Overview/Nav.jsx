@@ -28,11 +28,11 @@ function Nav ({searchProduct, navBar, updateProduct}) {
     <NavContainer id = 'Nav'>
       <Navi>
         <NavHeader>MacroMacro</NavHeader>
-        <Menu>{Object.keys(navBar).map((cat)=>
-          <Cat id = 'menubar' >
+        <Menu>{Object.keys(navBar).map((cat, index)=>
+          <Cat key = {index} id = 'menubar' >
             <DropButton>{cat}</DropButton>
             <Dropdown id = 'menulist'>
-              {navBar[cat].map((product)=><List onClick = {() => updateProduct(product['id'])}>{product['name']}</List>)}
+              {navBar[cat].map((product)=><List key={ product["id"] } onClick = {() => updateProduct(product['id'])}>{product['name']}</List>)}
             </Dropdown>
           </Cat>)}
        </Menu>
@@ -40,7 +40,7 @@ function Nav ({searchProduct, navBar, updateProduct}) {
       <Navi>
        <DarkCheck>
         <input type = 'checkbox' id = 'darkmode' name = 'darkmode' value = 'yes' onClick = {Darkmode}/>
-        <label for = 'darkmode'> Darkmode</label>
+        <label htmlFor = 'darkmode'> Darkmode</label>
        </DarkCheck>
         <NavCart>
           <span className ="material-symbols-outlined">shopping_cart_checkout</span>

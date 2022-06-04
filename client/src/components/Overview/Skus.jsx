@@ -3,7 +3,7 @@ import Select from 'react-select';
 import axios from 'axios';
 import styled from 'styled-components';
 
-function Skus ({skus, addYourOutfit}) {
+function Skus ({ skus, addYourOutfit }) {
   const [display, setDisplay] = useState(0);
   const [quantA, setQuantA] = useState();
   const [quantC, setQuantC] = useState(1);
@@ -20,13 +20,14 @@ function Skus ({skus, addYourOutfit}) {
 
   const sizeOptions = [];
   Object.keys(skus).map((key) => {
-    if (skus[key]['quantity']>0) {
+    if (skus[key]['quantity'] > 0) {
       sizeOptions.push({'value': key, 'label': skus[key]['size']})};
     });
 
   const sizeDisplay = [
     <Select placeholder = 'SELECT SIZE' onChange = {changeSize} options = {sizeOptions}/>,
-    <Select placeholder = 'SELECT SIZE' onChange = {changeSize} menuIsOpen options = {sizeOptions}/>];
+    <Select placeholder = 'SELECT SIZE' onChange = {changeSize} menuIsOpen options = {sizeOptions}/>
+  ];
 
   const warning = ['', 'Please select size'];
 
@@ -45,7 +46,8 @@ function Skus ({skus, addYourOutfit}) {
       }
       setQuantA(quantA - quantC);
       for (var i= 0; i<quantC; i++) {
-        axios.post(`/cart/?sku_id=${curSku}`);
+        axios.post(`/cart/?sku_id=${curSku}`)
+        .catch((err) => console.log('not able to add to the cart'));
       }
     }
   }

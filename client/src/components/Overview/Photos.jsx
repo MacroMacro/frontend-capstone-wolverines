@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-function Photos ({photos}) {
+function Photos ({ photos }) {
   const [curImage, setCurImg] = useState(0);
   const [fullscreen, setFullscreen] = useState(false);
 
@@ -9,14 +9,14 @@ function Photos ({photos}) {
     if (key === 'prev' && i > 0) {
       setCurImg(i-1);
     }
-    if (key === 'next' && i < n){
+    if (key === 'next' && i < nphotos){
       setCurImg(i+1);
     }
   }
 
-  const n = photos.length -1;
+  const nphotos = photos.length -1;
 
-  var imageFullscreen = {
+  const imageFullscreen = {
     width: fullscreen? 1200: 600,
     height: 800,
     objectFit: 'cover',
@@ -33,12 +33,13 @@ function Photos ({photos}) {
       <ImageGalleryContainer id = 'ImageGallery'>
         <i className = "material-symbols-outlined" onClick={()=>changeCurImage(curImage, 'prev')}>arrow_upward</i>
         <ImagesTN>
-          {photos.map((photo, index, array) => {
+          { photos.map((photo, index, array) => {
               if(index === curImage) {
-                return (<div><ImageCurTN key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} ></ImageCurTN></div>);
+                return (<div key={ index }><ImageCurTN src = {photo['thumbnail_url']} ></ImageCurTN></div>);
               } else {
                 if (index >= curImage) {
-                  return (<div><ImageOthTN key = {photo['thumbnail_url']} src = {photo['thumbnail_url']} onClick = {() => setCurImg(index)}></ImageOthTN></div>)
+                  return (<div key={ index }><ImageOthTN key = {index} src = {photo['thumbnail_url']}
+                    onClick = {() => setCurImg(index)}></ImageOthTN></div>)
                 }
               }
             })}
@@ -47,12 +48,15 @@ function Photos ({photos}) {
       </ImageGalleryContainer>
 
       <ImageMainContainer id = 'ImageMain'>
-        {curImage === 0 ? <Prev onClick={()=>changeCurImage(curImage, 'prev')} ></Prev>: <Prev onClick={()=>changeCurImage(curImage, 'prev')} ><div style = {{'margin-top': 400}} >&#10094;</div></Prev> }
-
-        <div onClick = {() => setFullscreen(!fullscreen)}> <ImageMain className = 'centerImg' id = 'centerImg' src = {photos[curImage]['url']} style = {imageFullscreen} ></ImageMain> </div>
-
-        {curImage === n ?  <Next onClick={()=>changeCurImage(curImage, 'next')}> </Next>:  <Next onClick={()=>changeCurImage(curImage, 'next')}><div style = {{'margin-top': 400}} >&#10095;</div></Next>}
+        { curImage === 0 ? <Prev onClick={()=>changeCurImage(curImage, 'prev')} ></Prev> :
+          <Prev onClick={()=>changeCurImage(curImage, 'prev')} ><div style = {{'margin-top': 400}} >&#10094;</div></Prev> }
+        <div onClick = {() => setFullscreen(!fullscreen)}>
+          <ImageMain className = 'centerImg' id = 'centerImg' src = {photos[curImage]['url']} style = { imageFullscreen } ></ImageMain>
+        </div>
+        { curImage === nphotos ?  <Next onClick={()=>changeCurImage(curImage, 'next')}></Next> :
+          <Next onClick={()=>changeCurImage(curImage, 'next')}><div style = {{'margin-top': 400}} >&#10095;</div></Next>}
       </ImageMainContainer>
+
     </Images>
   );
 }

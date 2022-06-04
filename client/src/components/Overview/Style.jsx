@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function Style ({style, curStyle, changeStyle}) {
+function Style ({ style, curStyle, changeStyle }) {
 
   const thumbnails = style.reduce((imagesArray, stylei) => {
     imagesArray.push(stylei['photos'][0]['thumbnail_url']);
@@ -14,9 +14,9 @@ function Style ({style, curStyle, changeStyle}) {
       <StyleDisContainer>
       {thumbnails.map((link, index) => {
         if (index === curStyle) {
-          return  <StyleDisplay><StyleImg src = {link}></StyleImg><StyleCheck> &#10004;</StyleCheck></StyleDisplay>;
+          return  <StyleDisplay key={ index }><StyleImg src = {link}/><StyleCheck> &#10004;</StyleCheck></StyleDisplay>;
         } else {
-          return  <StyleDisplay onClick = {() => changeStyle(index)} ><StyleImg src = {link}></StyleImg></StyleDisplay>;
+          return  <StyleDisplay key={ index } onClick = {() => changeStyle(index)} ><StyleImg src = {link}/></StyleDisplay>;
         }
       })}
       </StyleDisContainer>

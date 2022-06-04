@@ -11,9 +11,7 @@ const { cloudinary } = require('./utils/cloudinary')
 app.use(express.static('client/dist'));
 app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.json());
-app.listen(PORT, () => {
-  console.log(`Server listening on port: ${PORT}`);
-})
+app.listen(PORT, () => { console.log(`Server listening on port: ${PORT}`); })
 
 //get products
 app.get('/products', (req, res) => {
