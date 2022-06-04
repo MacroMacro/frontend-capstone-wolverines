@@ -5,10 +5,16 @@ We built an e-commerce website with user-friendly interfaces with...
 
 **Components**
 
-1.Product Overview
-- Navigation bar with menu list, search function, and dark theme mode
-- Image gallery and production information section with style selector, adding to cart option
-![Product Overview](https://user-images.githubusercontent.com/26387488/172020601-c541f147-b469-4095-8438-896c977d0823.png)
+1. Product Overview
+  - Navigation bar with menu list, search function, and dark theme mode
+  - Image gallery and production information section with style selector, adding to cart option
+  ![Product Overview](https://user-images.githubusercontent.com/26387488/172020601-c541f147-b469-4095-8438-896c977d0823.png)
+
+2. Related Products and Outfit
+  - Displays a set of products that are determined internally and another set of products hand picked by the user to create an "outfit".
+  - Allows for comparison of a related item and the item showing in Overview.
+  - Clicking on a related product will re-render the entire page based off that product's information
+  ![Related Products and Outfit](https://user-images.githubusercontent.com/99494242/172021736-c3541119-a31b-4fda-b4c9-a57a48f919e0.png)
 
 3. Questions And Answers
   - component that houses user uploaded questions and answers to those questions
@@ -18,7 +24,7 @@ We built an e-commerce website with user-friendly interfaces with...
   - Add Question and Add Answer modals allow users to also upload questions and answers of their own
   ![image](https://user-images.githubusercontent.com/94881840/172021395-9b0f389c-a837-417d-b79f-ed7fe7d5a7df.png)
   
-  4. Ratings & Reviews
+4. Ratings & Reviews
   - Review list with functionality to add a review, as well as populate more reviews to the list
   - Ability to sort the list by newest, relevant, and most helpful reviews
   - Users can filter the list based on the number of stars a review was given
