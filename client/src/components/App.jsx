@@ -4,7 +4,10 @@ import ReviewList from './Reviews/ReviewList.jsx';
 import QandAs from './QandAs/QandAs.jsx';
 import RelatedItems from './RelatedItems/RelatedItems.jsx';
 import Footer from './Overview/Footer.jsx';
+import Nav from './Overview/Nav.jsx';
 import axios from 'axios';
+import styled from 'styled-components';
+
 
 function App () {
   // Remember to change individual github tokens when you pull down the repo to your local!
@@ -32,8 +35,6 @@ function App () {
     }
   })
 
-  console.log('nav',navBar);
-
   function searchProduct (str) {
     products.map((product, index) => {
       if(product['name'].toLowerCase().indexOf(str) !== -1) {
@@ -50,34 +51,29 @@ function App () {
       }
     })
   }
-  //Load products again for Q&A Fns
-  const loadProducts = () => {
-    axios.get('/products')
-      .then((response) => {setProduct(response.data);})
-      .catch(err => console.log(err));
-  }
-
-
 
   return (
     <>
-    {/* {console.log(products, curProduct, productID, 'seee')} */}
+    <Nav searchProduct = {searchProduct} navBar = {navBar} updateProduct = {updateProduct}/>
     {productID ? (
       <div>
-
-      {/* {someState.reviews[0]['count']} */}
-
-        <Overview product = {products[curProduct]} navBar = {navBar} searchProduct = {searchProduct} updateProduct = {updateProduct}/>
+        <Overview product = {products[curProduct]}/>
         <RelatedItems product={products[curProduct]} productID={productID} updateProduct={updateProduct}/>
         <QandAs product_id={products[curProduct].id} product_name={products[curProduct].name}/>
         <ReviewList id={products[curProduct].id}/>
-        {/* <Footer/> */}
+        <Footer/>
       </div>
     ) : (
-      <div id = 'test'><h1>Loading...</h1></div>
+      <ProductOverview id = 'test'>Welcome to Wolverine ... </ProductOverview>
     )}
     </>
   )
 }
 
 export default App;
+
+const ProductOverview = styled.div`
+  height: 1000px;
+  width: 100%;
+  text-align: center;
+`;

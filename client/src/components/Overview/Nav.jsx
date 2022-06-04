@@ -20,12 +20,19 @@ function Nav ({searchProduct, navBar, updateProduct}) {
 
   document.getElementById('app').style.backgroundColor = darkmode === 1? 'black' : 'white';
   document.getElementById('app').style.color = darkmode === 1? 'white': 'black';
-  document.getElementById('formbackground') ? (document.getElementById('formbackground').style.backgroundColor = darkmode === 1? 'rgb(43,45,47)' : 'white') : (console.log('havent find formbackground'));
+  if (document.getElementById('formbackground')) {
+    if (darkmode === 1) {
+      document.getElementById('formbackground').style.backgroundColor = 'rgb(43,45,47)';
+    } else {
+      document.getElementById('formbackground').style.backgroundColor = 'white';
+    }
+  }
+  //document.getElementById('formbackground') ? (document.getElementById('formbackground').style.backgroundColor = darkmode === 1? 'rgb(43,45,47)' : 'white') : (console.log('havent find formbackground'));
 
   return (
     <NavContainer id = 'Nav'>
       <Navi>
-        <NavHeader>Wolverine</NavHeader>
+        <NavHeader>MacroMacro</NavHeader>
         <Menu>{Object.keys(navBar).map((cat)=>
           <Cat id = 'menubar' >
             <DropButton>{cat}</DropButton>
@@ -34,6 +41,8 @@ function Nav ({searchProduct, navBar, updateProduct}) {
             </Dropdown>
           </Cat>)}
        </Menu>
+      </Navi>
+      <Navi>
        <DarkCheck>
         <input type = 'checkbox' id = 'darkmode' name = 'darkmode' value = 'yes' onClick = {Darkmode}/>
         <label for = 'darkmode'> Darkmode</label>
@@ -62,11 +71,11 @@ const NavContainer = styled.div`
 `;
 
 const Navi = styled.div`
-  width: 100%;
+  width: 50%;
   display: inline-block;
-  font-family: 'Courier New', Courier, monospace;
   border-radius: 1%;
   height: 70px;
+  font-family: 'Courier New', Courier, monospace;
 `;
 
 const NavHeader = styled.h2`
@@ -76,12 +85,11 @@ const NavHeader = styled.h2`
 
 const Menu = styled.div`
   margin: 10px 0px 20px 10px;
-  width: 600px;
   float: left;
 `;
 
 const Cat = styled.div`
-  float: left;
+  float: right;
   margin-left: 20px;
   font-size: 18px;
   overflow: hidden;
@@ -93,7 +101,6 @@ const DropButton = styled.div`
   border: none;
   outline: none;
   padding: 15px 16px;
-  font-family: 'Courier New', Courier, monospace;
   margin: 0;
 `;
 

@@ -11,13 +11,13 @@ import styled from 'styled-components';
 
 //Get all the styles data for a product given product id
 //Pass down style specific data
-function Overview ({product, navBar, searchProduct, updateProduct}) {
+function Overview ({product}) {
   const [style, setStyle] = useState([]);
   const [curStyle, setCurStyle] = useState(null);
   const [rating, setRating] = useState(0);
   const [price, setPrice] = useState(product['default_price']);
   const [largeImg, setlargeImg] = useState(0);
-  const [numRating, setNumRating] = useState(' ');
+  const [numRating, setNumRating] = useState('');
   // const [icon, setIcon] = useState(<span className="material-symbols-outlined">fit_screen</span>);
 
 
@@ -58,7 +58,6 @@ function Overview ({product, navBar, searchProduct, updateProduct}) {
 
   return (
   <div className = 'ProductOverview'>
-    <Nav searchProduct = {searchProduct} navBar = {navBar} updateProduct = {updateProduct}/>
     {style.length ? (
       <div>
         <MainOverview>
@@ -99,6 +98,7 @@ const ProductOverview = styled.div`
   height: 1000px;
   width: 100%;
   text-align: center;
+  font-family: 'Roboto', sans-serif;
 `;
 
 const MainOverview = styled.div`
@@ -110,6 +110,7 @@ const ProductInfo = styled.div`
   width: 40%;
   margin-left: 200px;
   margin-top: 20px;
+  font-family: 'Roboto', sans-serif;
 `;
 
 const ProductCat = styled.div`
@@ -123,6 +124,7 @@ const ProductName = styled.div`
   font-size: 35px;
   margin-top: 20px;
   font-weight: bold;
+  font-family: 'Roboto', sans-serif;
 `;
 
 const ProductPrice = styled.div`
@@ -148,10 +150,12 @@ const Slogan = styled.div`
   margin-left: 100px;
   font-size: 20px;
   color: grey;
+  font-family: 'Roboto', sans-serif;
 `;
 
 const Description = styled.div`
   font-size: 18px;
   margin-top: 20px;
   margin-left: 100px;
+  font-family: 'Roboto', sans-serif;
 `;
