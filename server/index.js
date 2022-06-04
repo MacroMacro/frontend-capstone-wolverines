@@ -111,8 +111,8 @@ app.put('/qa/questions/:question_id/helpful', (req, res) => {
   const { question_id} = req.params;
   // var id = req.params['id'];
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${question_id}/helpful`,{}, { headers: {'Authorization': process.env.token}})
-  .then((data)=> { res.status(200).send(data.data)})
-  .catch((err) => {res.status(500).send(err);});
+    .then((data)=> { res.status(200).send(data.data)})
+    .catch((err) => {res.status(500).send(err);});
 });
 
 //Question Report from client end: axios.put('/report/qa/?id=1135681')
