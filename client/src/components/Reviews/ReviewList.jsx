@@ -466,11 +466,7 @@ export default function ReviewList({ id }) {
 
     ) : (
 
-<<<<<<< HEAD
-      <div className="reviewWrapper" id ='reviewList'>
-=======
       <div className="reviewWrapper" id="reviewList">
->>>>>>> main
         <div className="ratingsWrapper">
           <Ratings
             averageRate={averageRate}
