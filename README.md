@@ -2,7 +2,9 @@
 
 ## **Description**
 
-We designed an e-commerce website with user-friendly interfaces to reflect the nested data retrieved from the API. The webpage mainly consists four sections: Product Overview, Related Products and Outfit, Questions and Answers, and Ratings and Reviews.
+We designed an e-commerce website with user-friendly interfaces to reflect the nested product data retrieved from the API, with a local server to post and get requests.  
+
+The webpage mainly consists four sections: Product Overview, Related Products and Outfit, Questions and Answers, and Ratings and Reviews.
 
 ## **Intallation**
 _npm install_: install necessary dependencies for this project.<br>
