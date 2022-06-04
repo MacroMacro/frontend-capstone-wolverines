@@ -1,5 +1,7 @@
 # frontend-capstone-wolverines
-
+**Description**
+We built an e-commerce website with user-friendly interfaces with...
+**Components**
 1.Product Overview
 - Navigation bar with menu list, search function, and dark theme mode
 - Image gallery and production information section with style selector, adding to cart option
