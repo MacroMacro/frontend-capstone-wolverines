@@ -19,11 +19,14 @@ describe('Add Answer form', () => {
     render (<AddAnswer/>);
     expect(screen.findByAltText('chosen').toExist);
   });
+  test('', () => {
+
+  })
 })
 
-describe('Question', () => {
-  test('check that alt appears in user uploaded images', () => {
-    render(<Question/>);
-    // const imageAlt = await expect(screen.findByAltText("answerer's image").toExist);
-  });
-});
+// describe('Question', () => {
+//   test('check that alt appears in user uploaded images', () => {
+//     render(<Question/>);
+//     // const imageAlt = await expect(screen.findByAltText("answerer's image").toExist);
+//   });
+// });

@@ -19,7 +19,7 @@ function SearchQuestions({ searchQuestions, product_id }) {
 
   const searchSubmit = (e) => {
     e.preventDefault();
-    console.log('submitted question')
+    // console.log('submitted question')
   }
 
   return(

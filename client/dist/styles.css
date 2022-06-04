@@ -336,6 +336,7 @@ input[type=radio] {
   font-family: 'Roboto', 'sans-serif';
   margin-left: 10%;
   margin-right: 10%;
+  margin-bottom: 5%;
   max-width: 85vw;
   /* width: 100% */
 }

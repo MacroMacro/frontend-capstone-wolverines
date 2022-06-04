@@ -32,7 +32,7 @@ function AddQuestion({ product_id, questionSubmit, product_name, setQFalse }) {
   // }
 
   const submitQuestion = (values) => {
-    console.log('question submitted');
+    // console.log('question submitted');
 
     axios.post(`/qa/questions`, { ...values, ['product_id']: product_id })
       .then(() => questionSubmit())
