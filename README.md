@@ -4,6 +4,7 @@
 We built an e-commerce website with user-friendly interfaces, with Product Overview, Related Products, Questions and Answers, and Outfit, Ratings and Reviews sections.
 
 **Intallation**
+
 -npm install: install necessary dependencies for this project.
 -npm run react-dev: begin webpack for the client.
 -npm start: run the client server.
@@ -40,7 +41,7 @@ We built an e-commerce website with user-friendly interfaces, with Product Overv
   ![Ratings   Reviews](https://user-images.githubusercontent.com/93555749/172021608-6c408683-3efc-4f7b-bdee-37e34917273c.jpg)
 
 **Credits**
-- Fan Zhang, Product Overview
+- [Fan Zhang](https://github.com/AliciaFZhang), Product Overview
 - Barry Cheung, Related Products and Outfit
 - Jerry Tapia, Questions and Answers
 - Leia Harlow, Ratings and Reviews
