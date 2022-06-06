@@ -6,7 +6,7 @@ We designed an e-commerce website with user-friendly interfaces to reflect the n
 
 The webpage mainly consists four sections: Product Overview, Related Products and Outfit, Questions and Answers, and Ratings and Reviews.
 
-## **Intallation**
+## **Installation**
 **_npm install_**: install necessary dependencies for this project.<br>
 **_npm run react-dev_**: begin webpack for the client.<br>
 **_npm start_**: run the client server.<br>
