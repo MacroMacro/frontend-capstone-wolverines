@@ -13,6 +13,14 @@ app.use(express.json({limit: '50mb'}));
 app.use(bodyParser.json());
 app.listen(PORT, () => { console.log(`Server listening on port: ${PORT}`); })
 
+
+
+
+
+
+
+
+
 //get products
 app.get('/products', (req, res) => {
   axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products', { headers: {'Authorization': process.env.token}})
@@ -248,3 +256,21 @@ app.get('/product', (req, res) => {
   .catch((err) => {res.status(500).send(err);});
 });
 
+
+//overview backend;
+
+const model=require('./overview/model');
+
+//test on overview
+
+
+app.get('/overview', (req, res)=>{
+  model.getProduct( (err, data) => {
+    if (err) {
+      res.send(err);
+    }else{
+      console.log('testttt');
+      res.status(201).send(data.rows);
+    }
+  })
+});
