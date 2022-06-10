@@ -3,6 +3,9 @@
 --psql mydb
 --create database sdc;
 --alter table features alter column value type character varying(50);
+-- alter table styles alter column origin_price type numeric(13,2);
+-- alter table styles alter default_style type bool using default_style::boolean;
+--alter table styles alter sale_price type numeric(12,2) using sale_price::numeric; //it can return null or '1000' string tyle of numbers
 
 DROP DATABASE IF EXISTS sdc;
 CREATE DATABASE sdc;

@@ -258,19 +258,8 @@ app.get('/product', (req, res) => {
 
 
 //overview backend;
-
-const model=require('./overview/model');
-
-//test on overview
+const routerOverview=require('./routerOverview.js');
+app.use('/overview',routerOverview);
 
 
-app.get('/overview', (req, res)=>{
-  model.getProduct( (err, data) => {
-    if (err) {
-      res.send(err);
-    }else{
-      console.log('testttt');
-      res.status(201).send(data.rows);
-    }
-  })
-});
+
