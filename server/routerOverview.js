@@ -10,7 +10,7 @@ router.get('/products', (req, res)=>{
   var page=count*(skip-1);
   model.getProducts(page, count, (err, data) => {
     if (err) {
-      res.send(err);
+      res.status(400).send(err);
     }else{
       res.status(201).send(data.rows);
     }

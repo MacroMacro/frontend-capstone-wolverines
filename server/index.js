@@ -1,6 +1,9 @@
 require('dotenv').config();
 const express = require('express');
+const compression = require('compression');
+
 const app = express();
+app.use(compression());
 const PORT = 3000 || process.env.PORT;
 const axios = require('axios');
 const bodyParser = require('body-parser');

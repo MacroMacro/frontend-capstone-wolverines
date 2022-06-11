@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { sleep } from 'k6';
 export let options = {
-vus: 1000, //stimulate how many virtual users
+vus: 20, //stimulate how many virtual users
 duration: "30s", //how long you want it to run
 };
 //Below randomize the endpoints
