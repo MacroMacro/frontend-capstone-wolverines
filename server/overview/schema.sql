@@ -39,9 +39,9 @@ CREATE TABLE styles (
   id INT PRIMARY KEY,
   productid INT,
   name VARCHAR(50),
-  sale_price VARCHAR(10),
-  origin_price INT,
-  default_style INT
+  sale_price Numeric(13,2),
+  origin_price Numeric(13,2),
+  default_style Boolean
 
 );
 

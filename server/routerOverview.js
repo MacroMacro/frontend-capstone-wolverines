@@ -3,16 +3,6 @@ var router=require('express').Router();
 var modelOverview=require('./model');
 var model=modelOverview.model;
 
-router.get('/test', (req,res) =>{
-  model.getTest( (err, data) => {
-    if(err) {
-      res.send(err);
-    }else {
-      res.send(data);
-    }
-  })
-})
-
 router.get('/products', (req, res)=>{
 
   var count=req.query['count']||5;
@@ -26,6 +16,7 @@ router.get('/products', (req, res)=>{
     }
   })
 });
+
 router.get('/related', (req, res)=>{
   var productid = req.query['id'];
   model.getRelated( productid, (err, data) => {
@@ -44,27 +35,11 @@ router.get('/related', (req, res)=>{
 
 router.get('/id', (req, res)=>{
   var productid = req.query['id'];
-  model.getOneProduct( productid, (err, data)=>{
+  model.getFeatures( productid, (err, data)=>{
     if(err) {
       res.send(err);
     }else {
-
-      var result = data.rows;
-      var infor = result[0];
-      infor.id=Number(productid);
-      var features=[];
-      for (let i = 0; i<result.length; i++) {
-        var temp={};
-        temp['feature']=result[i]['feature'];
-        temp['value']=result[i]['value'];
-        features.push(temp);
-      }
-      infor.features=features;
-      delete infor['productid'];
-      delete infor['feature'];
-      delete infor['value'];
-      res.send(infor);
-
+      res.send(data.rows[0]);
     }
   })
 });
