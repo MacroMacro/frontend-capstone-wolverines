@@ -16,8 +16,8 @@ id INT PRIMARY KEY,
 name VARCHAR(50),
 slogan VARCHAR(200),
 description VARCHAR(500),
-category VARCHAR(50)
-default_price INT,
+category VARCHAR(50),
+default_price numeric(10,2)
 );
 
 CREATE TABLE features (
@@ -39,7 +39,7 @@ CREATE TABLE styles (
   id INT PRIMARY KEY,
   productid INT,
   name VARCHAR(50),
-  sale_price Numeric(13,2),
+  sale_price VARCHAR(10),
   origin_price Numeric(13,2),
   default_style Boolean
 
@@ -49,34 +49,34 @@ CREATE TABLE styles (
 CREATE TABLE photos(
   id INT PRIMARY KEY,
   styleid INT,
-  url VARCHAR(300),
-  thumbnail_url VARCHAR(300)
+  url VARCHAR(1500),
+  thumbnail_url text
 );
 
 CREATE TABLE sku(
   id INT PRIMARY KEY,
   styleid INT,
-  size VARCHAR(5),
+  size VARCHAR(10),
   quantity INT
 );
 
-CREATE TABLE ratings(
-id INT PRIMARY KEY,
-productId INT,
-Ratings INT
+-- CREATE TABLE ratings(
+-- id INT PRIMARY KEY,
+-- productId INT,
+-- Ratings INT
 
-); --may not need it
+-- ); --may not need it
 
 
-CREATE TABLE Favorite(
-id INT PRIMARY KEY,
-productId INT,
-default_img VARCHAR(100),
-default_price INT,
-discount_price INT,
-description VARCHAR(50),
-average_review INT
-)
+-- CREATE TABLE Favorite(
+-- id INT PRIMARY KEY,
+-- productId INT,
+-- default_img VARCHAR(100),
+-- default_price INT,
+-- discount_price INT,
+-- description VARCHAR(50),
+-- average_review INT
+-- )
 
 
 --COPY products from '/Users/huhu/Documents/cs/Hack-Reactor/SDC/data/product.csv' DELIMITER ',' CSV HEADER;

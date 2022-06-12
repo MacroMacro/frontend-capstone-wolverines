@@ -1,9 +1,12 @@
-const {Client} = require('pg');
-const client=new Client({
- user:'huhu',
- host:'localhost',
- database:'sdc',
- port:5432,
+require('dotenv').config();
+
+const {Pool} = require('pg');
+const pool=new Pool({
+ user:process.env.PGUSER,
+ host:process.env.PGHOST,
+ database:process.env.PGDATABASE,
+ password:process.env.PGPASSWORD,
+ port:process.env.PGPORT
 })
 
 client.connect(function (err) {
@@ -13,4 +16,4 @@ client.connect(function (err) {
   console.log('connected!')
 });
 
-module.exports=client;
+module.exports=pool;
