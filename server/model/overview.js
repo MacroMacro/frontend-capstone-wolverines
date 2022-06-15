@@ -3,8 +3,8 @@ const overview = db.overview;
 
 module.exports={
   // /products
-  getProducts:function (page, count,callback) {
-    var query = `select * from products limit ${count} offset ${page}`;
+  getProducts:function (ID, count,callback) {
+    var query = `select * from products where id>${ID} order by id limit ${count} `;
 
     overview.query(query, (err, data)=> {
         if(err) {

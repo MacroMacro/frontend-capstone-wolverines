@@ -7,8 +7,8 @@ router.get('/products', (req, res)=>{
 
   var count=req.query['count']||5;
   var skip=req.query['page']||1;
-  var page=count*(skip-1);
-  model.getProducts(page, count, (err, data) => {
+  var ID=count*(skip-1);
+  model.getProducts(ID, count, (err, data) => {
     if (err) {
       res.status(400).send(err);
     }else{
