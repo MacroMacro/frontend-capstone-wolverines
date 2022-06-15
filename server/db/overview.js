@@ -9,7 +9,7 @@ const pool=new Pool({
  port:process.env.PGPORT
 })
 
-client.connect(function (err) {
+pool.connect(function (err) {
   if(err) {
     throw err;
   }
