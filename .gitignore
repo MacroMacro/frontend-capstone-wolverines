@@ -5,3 +5,4 @@ client/dist/bundle.js
 client/dist/bundle.js.map
 package-lock.json
 coverage/
+newrelic.js
